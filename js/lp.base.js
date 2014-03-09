@@ -7,21 +7,34 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     function gotoStep( step ){
         var $wrap = $('#photo-wrap');
-
+        step = parseInt( step );
         switch( step ){
             case 1:
-            $wrap.find('video,canvas,.opts')
+            $wrap.find('video,canvas,.imgwrap-opts')
                 .hide()
                 .end()
                 .find('img')
                 .attr('src' , './img/test.jpg');
+                $('.mask-bottom').height( '' );
+                $('.step1-btns').show().next().hide();
+                $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <span>给自己的护肤小 Tips</span>");   
                 break;
             case 2:
-            $wrap.find('video,canvas')
+            var $optWrap = $wrap.find('video,canvas')
                 .hide()
                 .end()
-                .find('.opts')
+                .find('.imgwrap-opts')
                 .fadeIn();
+            
+            // change btns
+            $('.step1-btns').hide()
+                .next()
+                .show();
+            // change bottom mask height
+            $('.mask-bottom').height( 60 );
+
+            $('.block-skin-tips-top').html("<span>缩 放 + 裁 剪</span>");
+
         }
 
     }
@@ -91,12 +104,17 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var stream = $wrap.find('video')
             .hide()
             .data( '__stream__' );
-        console.log( stream );
         stream && stream.stop();
+        $wrap.find('img')
+            .attr('src' , $canvas[0].toDataURL());
+        gotoStep( 2 );
     })
     // upload file
     .action('upload-photo' , function(){
         
+    })
+    .action('gostep' , function( data ){
+        gotoStep( data.step );
     })
     // rule
     .action('rule' , function(){
@@ -104,6 +122,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     });
 
     var $img = $('#photo-wrap img');
+    var $wrap = $('#photo-wrap');
     var $optWrap = $('.block-skin-tips-opt');
     var dragHelper = (function(){
         var isDragging = false;
@@ -115,36 +134,67 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var imgWidth  , imgHeight , wrapWidth , wrapHeight;
         var wrapOff = $optWrap.offset();
         $img.load( function(){
+            // reset 
+            transforms = [];
+            dragHelper.setTransform( $('.imgwrap-opts') , "inherit" );
             console.clear();
             var img = this;
 
-            imgWidth = $(this.parentNode).width();
-            imgHeight = $(this.parentNode).height();
+            console.log( wrapOff );
+            imgWidth = img.width || $(img).width();
+            imgHeight =  img.height || $(img).height();
+
             wrapWidth = $optWrap.width();
             wrapHeight = $optWrap.height();
-            if( !raphael ){
-                
 
+            // set right image size
+            var optWrapWidth = $wrap.width();
+            var optWrapHeight = $wrap.height();
+            if( imgWidth / imgHeight > optWrapWidth / optWrapHeight && imgWidth > optWrapWidth ){
+                imgHeight = imgHeight / imgWidth * optWrapWidth;
+                imgWidth = optWrapWidth;
+            } else if( imgWidth / imgHeight < optWrapWidth / optWrapHeight && imgHeight > optWrapHeight ){
+                imgWidth = imgWidth / imgHeight * optWrapHeight;
+                imgHeight = optWrapHeight;
+            }
+
+            if( !raphael ){
                 raphael = Raphael( img.parentNode , wrapWidth, wrapHeight);
                 imgRaphael = raphael.image( img.src , 0 , 0 , imgWidth, imgHeight);
                 $('svg').css({
                     left: ( imgWidth - wrapWidth) / 2,
-                    top: ( imgHeight - wrapHeight ) / 2
+                    top: ( imgHeight - wrapHeight ) / 2,
+                    overflow: 'visible'
                 });
             }
             //raphael.setSize( tarWidth , tarHeight );
-
+            console.log( imgWidth , imgHeight , wrapHeight , wrapWidth);
+            console.log( ( - imgWidth + wrapWidth) / 2 , ( - imgHeight + wrapHeight ) / 2 );
             // reset transform
+            var svgWidth = $('svg').width();
+            var svgHeight = $('svg').height();
+
             imgRaphael.attr({
-                x:      ( - imgWidth + wrapWidth) / 2,
-                y:      ( - imgHeight + wrapHeight ) / 2,
+                x:      ( - imgWidth + svgWidth) / 2,
+                y:      ( - imgHeight + svgHeight ) / 2,
                 src     : img.src,
                 width   : imgWidth,
                 height  : imgHeight
             })
             .transform('');
+
+
+            // set the position of the imgwrap-opts
+            $('.imgwrap-opts').css( {
+                width: imgWidth,
+                height : imgHeight,
+                top: ( optWrapHeight - imgHeight ) / 2,
+                left: ( optWrapWidth - imgWidth ) / 2
+            } )
+            .data('top' , ( optWrapHeight - imgHeight ) / 2)
+            .data('left' , ( optWrapWidth - imgWidth ) / 2);
             //transformMgr.reset();
-            $(this).hide();
+            $(img).hide();
 
         } )
         .attr( 'src' , $img.attr('src') + '?__' );
@@ -168,7 +218,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 if( contains ){
                     status.pageX = ev.pageX;
                     status.pageY = ev.pageY;
-
 
                     // get img status
                     status.imgOff = imgRaphael.getBBox();
@@ -210,7 +259,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             var tx = 0;
             var ty = 0;
 
-            console.log( trs);
             $.each( trs , function( i , ts){
                 switch( ts[0] ){
                     case 'R':
@@ -226,16 +274,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 }
             });
 
-            $('.imgwrap-opts').css({
+            var $opts = $('.imgwrap-opts');
+            $opts.css({
                 width: imgWidth * s,
                 height: imgHeight * s,
-                top: - imgHeight * ( s - 1 ) / 2,
-                left: - imgWidth * ( s - 1 ) / 2
-            })
-            [0].style['-webkit-transform'] = 
-                "translate(" + tx + "px," + ty + "px) rotate(" + r + "deg)";
+                top: ($opts.data('top') || 0) - imgHeight * ( s - 1 ) / 2,
+                left: ($opts.data('left') || 0) - imgWidth * ( s - 1 ) / 2
+            });
 
-            console.log( off );
+            dragHelper.setTransform( $opts , "translate(" + tx + "px," + ty + "px) rotate(" + r + "deg)" );
+
         }
         return {
             bind: function( $dom , dragMoveFn ){
@@ -245,7 +293,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
             translate: function ( x , y ){
                 if( transforms.length && ( match = transforms[transforms.length-1].match( trsReg ) ) ){
-                    console.log(1);
                     transforms[transforms.length-1] = "T" + ( x + parseFloat( match[1] ) ) + ',' + ( y + parseFloat( match[2] ) );
                 } else {
                     transforms.push( "T" + x + ',' + y );
@@ -281,6 +328,14 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 imgRaphael.transform( transforms.join('') );
                 renderOpts();
             }
+            ,
+            setTransform: function( $dom , value ){
+                $dom[0].style['-webkit-transform'] = value;
+                $dom[0].style['-ms-transform'] = value;
+                $dom[0].style['-o-transform'] = value;
+                $dom[0].style['transform'] = value;
+                $dom[0].style['-moz-transform'] = value;
+            }
         }
     })();
 
@@ -305,9 +360,22 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             var ody = status.pageY - status.center.pageY;
             var tdx = ev.pageX - status.center.pageX;
             var tdy = ev.pageY - status.center.pageY;
+
             var or = Math.atan( ody / odx ) * 180 / Math.PI;
-            //Math.atan( status.imgHeight / status.imgWidth ) * 180 / Math.PI;
             var cr = Math.atan( tdy / tdx ) * 180 / Math.PI;
+            if( odx < 0 && ody < 0 ){
+                or = or - 180;
+            } else if( odx < 0 && ody > 0 ){
+                or = or + 180;
+            }
+
+            if( tdx < 0 && tdy < 0 ){
+                cr = cr - 180;
+            } else if( tdx < 0 && tdy > 0 ){
+                cr = cr + 180;
+            }
+
+            console.log( or , cr , odx , tdx );
 
             dragHelper.rotate( cr - or - status.last_r );
             status.last_r = cr - or;
@@ -329,25 +397,22 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             status.last_s = s;
         } );
 
-    // window load init
-    LP.use('fileupload' , function(){
-        $('.btn-upload').fileupload({
-            url: './api/index.php/uploads/upload',
-            datatype:"json",
-            autoUpload:false
-        })
-        .bind('fileuploadadd', function (e, data) {
-        })
-        .bind('fileuploadstart', function (e, data) {
-        })
-        .bind('fileuploadprogress', function (e, data) {
-        })
-        .bind('fileuploadfail', function() {
-        })
-        .bind('fileuploaddone', function (e, data) {
-        });
-    });
 
+    // bind for file upload
+    $('.btn-upload').find('input[type="file"]')
+        .change(function(){
+            if (this.files && this.files[0] && FileReader ) {
+                //..create loading
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // change checkpage img
+                    $('#photo-wrap').find('img')
+                        .attr('src' , e.target.result );
+                    gotoStep( 2 );
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
 });
 
 

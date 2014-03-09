@@ -10,30 +10,45 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         step = parseInt( step );
         switch( step ){
             case 1:
-            $wrap.find('video,canvas,.imgwrap-opts')
-                .hide()
-                .end()
-                .find('img')
-                .attr('src' , './img/test.jpg');
-                $('.mask-bottom').height( '' );
-                $('.step1-btns').show().next().hide();
-                $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <span>给自己的护肤小 Tips</span>");   
-                break;
+                $wrap.find('video,canvas,.imgwrap-opts')
+                    .hide()
+                    .end()
+                    .find('img')
+                    .attr('src' , './img/test.jpg');
+                    $('.mask-bottom').height( '' );
+                    $('.step1-btns').show().next().hide();
+                    $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <span>给自己的护肤小 Tips</span>");   
+                    break;
             case 2:
-            var $optWrap = $wrap.find('video,canvas')
-                .hide()
-                .end()
-                .find('.imgwrap-opts')
-                .fadeIn();
-            
-            // change btns
-            $('.step1-btns').hide()
-                .next()
-                .show();
-            // change bottom mask height
-            $('.mask-bottom').height( 60 );
+                var $optWrap = $wrap.find('video,canvas')
+                    .hide()
+                    .end()
+                    .find('.imgwrap-opts')
+                    .fadeIn();
+                
+                // change btns
+                $('.step1-btns').hide()
+                    .next()
+                    .show();
+                // change bottom mask height
+                $('.mask-bottom').height( 60 );
 
-            $('.block-skin-tips-top').html("<span>缩 放 + 裁 剪</span>");
+                $('.block-skin-tips-top').html("<span>缩 放 + 裁 剪</span>");
+                break;
+            case 3:
+                // move view wrap to left, and show mouth
+                // hide mask
+                $('.block-skin-masks').hide();
+                // hide opts
+                $wrap.find('.imgwrap-opts').hide();
+                // set overflow hidden
+                $wrap.css('overflow' , 'hidden')
+                    .animate({
+                        left: -200
+                    } , 300 , '' , function(){
+                        // show mouth
+                        $('.mouths').show();
+                    });
 
         }
 
@@ -130,7 +145,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var status = {};
         var triggerEvent = null;
         var raphael = null;
-        var imgRaphael = null;
+        var imgRaphael = null , mouthRaphael;
         var imgWidth  , imgHeight , wrapWidth , wrapHeight;
         var wrapOff = $optWrap.offset();
         $img.load( function(){
@@ -161,6 +176,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             if( !raphael ){
                 raphael = Raphael( img.parentNode , wrapWidth, wrapHeight);
                 imgRaphael = raphael.image( img.src , 0 , 0 , imgWidth, imgHeight);
+                mouthRaphael = raphael.image( img.src , 0 , 0 , 0, 0);
                 $('svg').css({
                     left: ( imgWidth - wrapWidth) / 2,
                     top: ( imgHeight - wrapHeight ) / 2,
@@ -174,6 +190,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             var svgWidth = $('svg').width();
             var svgHeight = $('svg').height();
 
+
+            mouthRaphael.attr({
+                width: 0,
+                height: 0
+            });
             imgRaphael.attr({
                 x:      ( - imgWidth + svgWidth) / 2,
                 y:      ( - imgHeight + svgHeight ) / 2,
@@ -199,6 +220,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         } )
         .attr( 'src' , $img.attr('src') + '?__' );
         
+
         $(document).bind('mouseup' , function(){
             isDragging = false;
             triggerEvent = null;
@@ -209,7 +231,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $.each( events , function( i , evt){
                 var contains = false;
                 evt.$handler.each(function(){
-                    if( this.contains( target ) || this === target ){
+                    if( this === target ){
                         contains = true;
                         return false;
                     }
@@ -220,7 +242,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     status.pageY = ev.pageY;
 
                     // get img status
-                    status.imgOff = imgRaphael.getBBox();
+                    var raphaelObj = $(target).data('raphaelObj') || imgRaphael;
+                    console.log($(target).data('raphaelObj'));
+                    status.imgOff = raphaelObj.getBBox();
                     status.imgCenter = {x: status.imgOff.x + status.imgOff.width / 2 , y: status.imgOff.y + status.imgOff.height / 2};
                     status.center = {pageX: status.imgOff.x + status.imgOff.width / 2 + wrapOff.left , pageY: status.imgOff.y + status.imgOff.height / 2 + wrapOff.top};
 
@@ -251,9 +275,38 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var scaReg = /S(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
         var rotReg = /R(-?[0-9.]+),(-?[0-9.]+),(-?[0-9.]+)/;
         var match = null;
-        var renderOpts = function(){
-            var off  = imgRaphael.getBBox( false );
-            var trs = imgRaphael.transform();
+        var renderOpts = function( raphaelObj , $opts , imgWidth , imgHeight ){
+            // var off  = imgRaphael.getBBox( false );
+            // var trs = imgRaphael.transform();
+            // var s = 1;
+            // var r = 0;
+            // var tx = 0;
+            // var ty = 0;
+
+            // $.each( trs , function( i , ts){
+            //     switch( ts[0] ){
+            //         case 'R':
+            //             r += ts[1];
+            //             break;
+            //         case 'S':
+            //             s *= ts[1];
+            //             break;
+            //         case 'T':
+            //             tx += ts[1];
+            //             ty += ts[2];
+            //             break;
+            //     }
+            // });
+
+            // var $opts = $('.imgwrap-opts');
+            // $opts.css({
+            //     width: imgWidth * s,
+            //     height: imgHeight * s,
+            //     top: ($opts.data('top') || 0) - imgHeight * ( s - 1 ) / 2,
+            //     left: ($opts.data('left') || 0) - imgWidth * ( s - 1 ) / 2
+            // });
+            var off  = raphaelObj.getBBox( false );
+            var trs = raphaelObj.transform();
             var s = 1;
             var r = 0;
             var tx = 0;
@@ -274,7 +327,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 }
             });
 
-            var $opts = $('.imgwrap-opts');
+            //var $opts = $('.imgwrap-opts');
             $opts.css({
                 width: imgWidth * s,
                 height: imgHeight * s,
@@ -285,48 +338,163 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             dragHelper.setTransform( $opts , "translate(" + tx + "px," + ty + "px) rotate(" + r + "deg)" );
 
         }
+
+
+        var mouthWidth , mouthHeight, mouthTransforms;
         return {
             bind: function( $dom , dragMoveFn ){
                 events.push( { $handler: $dom , fn: dragMoveFn } );
                 return this;
             },
+            renderMouth: function( $img ){
+                var imgWidth = $img.width();
+                var imgHeight = $img.height();
+                mouthWidth = imgWidth;
+                mouthHeight = imgHeight;
+                mouthRaphael.attr({
+                    x:      ( - imgWidth + $('svg').width()) / 2,
+                    y:      ( - imgHeight + $('svg').height() ) / 2,
+                    src     : $img.attr('src'),
+                    width   : imgWidth,
+                    height  : imgHeight
+                })
+                .transform('');
+                // show mouth opts
+                var wWidth = $wrap.width();
+                var wHeight = $wrap.height();
+                var $opts = $('.mouth-opts').show()
+                    .css({
+                        width: imgWidth,
+                        height: imgHeight,
+                        top: (wHeight - imgHeight)/2,
+                        left: (wWidth - imgWidth)/2
+                    })
+                    .data('left' , (wWidth - imgWidth)/2)
+                    .data('top' , (wHeight - imgHeight)/2 );
 
-            translate: function ( x , y ){
+                dragHelper.setTransform( $opts , 'inherit' );
+                // set it's position and width and height
+                mouthTransforms = [];
+                // bind event
+                if( !$opts.data('init') ){
+                    $opts.data('init' , 1)
+                        .find('.mouth-opts-close')
+                        .click(function(){
+                            $opts.hide();
+                            // hide mouth
+                            mouthRaphael.attr({
+                                width: 0,
+                                height: 0
+                            });
+                        });
+                    // drag
+                    dragHelper.bind($opts.find('.mouth-opts-drag').data('raphaelObj' , mouthRaphael) , function( ev , status ){
+                        status.last_r = status.last_r || 0;
+                        status.last_s = status.last_s || 1;
+                        // get the center of the pic
+                        var odx = status.pageX - status.center.pageX;
+                        var ody = status.pageY - status.center.pageY;
+                        var tdx = ev.pageX - status.center.pageX;
+                        var tdy = ev.pageY - status.center.pageY;
+
+                        var or = Math.atan( ody / odx ) * 180 / Math.PI;
+                        var cr = Math.atan( tdy / tdx ) * 180 / Math.PI;
+                        if( odx < 0 && ody < 0 ){
+                            or = or - 180;
+                        } else if( odx < 0 && ody > 0 ){
+                            or = or + 180;
+                        }
+
+                        if( tdx < 0 && tdy < 0 ){
+                            cr = cr - 180;
+                        } else if( tdx < 0 && tdy > 0 ){
+                            cr = cr + 180;
+                        }
+
+                        console.log( or , cr , odx , tdx );
+
+                        dragHelper.rotate( cr - or - status.last_r , true );
+                        status.last_r = cr - or;
+
+                        var s = Math.sqrt( ( tdx * tdx + tdy * tdy ) /( odx * odx + ody * ody ) );
+                        dragHelper.scale( s / status.last_s  , true);
+                        status.last_s = s;
+                    })
+                    .bind( $opts , function( ev , status ){
+                        status.last_x = status.last_x || 0;
+                        status.last_y = status.last_y || 0;
+                        var mx = ev.pageX - status.pageX ;
+                        var my = ev.pageY - status.pageY ;
+
+                        dragHelper.translate( mx - status.last_x , my - status.last_y , true );
+
+                        status.last_x = mx;
+                        status.last_y = my;
+                    } )
+                }
+
+            }
+            ,
+            getConfig: function( isMouth ){
+                return !isMouth ? {
+                    transforms: transforms,
+                    $opts : $('.imgwrap-opts'),
+                    raphaelObj : imgRaphael,
+                    oWidth: imgWidth,
+                    oHeight: imgHeight
+                } : {
+                    transforms: mouthTransforms,
+                    $opts : $('.mouth-opts'),
+                    raphaelObj : mouthRaphael,
+                    oWidth: mouthWidth,
+                    oHeight: mouthHeight
+                }
+            },
+            translate: function ( x , y , isMouth ){
+                var config = dragHelper.getConfig( isMouth );
+                var transforms = config.transforms;
+
                 if( transforms.length && ( match = transforms[transforms.length-1].match( trsReg ) ) ){
                     transforms[transforms.length-1] = "T" + ( x + parseFloat( match[1] ) ) + ',' + ( y + parseFloat( match[2] ) );
                 } else {
                     transforms.push( "T" + x + ',' + y );
                 }
 
-                imgRaphael.transform( transforms.join('') );
-                renderOpts();
+                config.raphaelObj.transform( transforms.join('') );
+                renderOpts( config.raphaelObj , config.$opts , config.oWidth , config.oHeight );
             }
             ,
-            scale: function( s ){
+            scale: function( s  , isMouth){
+                var config = dragHelper.getConfig( isMouth );
+                var transforms = config.transforms;
+
                 if( transforms.length && ( match = transforms[transforms.length-1].match( scaReg ) ) ){
                     transforms[transforms.length-1] = "S" + ( s * parseFloat( match[1] ) ) + ','
                          + ( s * parseFloat( match[2] ) )
                          + "," + match[3]
                          + "," + match[4];
                 } else {
-                    var box = imgRaphael.getBBox();
+                    var box = config.raphaelObj.getBBox();
                     transforms.push( "S" + s + ',' + s + ',' + (box.x + box.width/2) + "," + (box.y + box.height/2) );
                 }
-                imgRaphael.transform( transforms.join('') );
-                renderOpts();
+                config.raphaelObj.transform( transforms.join('') );
+                renderOpts( config.raphaelObj , config.$opts , config.oWidth , config.oHeight );
             }
             ,
-            rotate: function( r ){
+            rotate: function( r , isMouth ){
+                var config = dragHelper.getConfig( isMouth );
+                var transforms = config.transforms;
+
                 if( transforms.length && ( match = transforms[transforms.length-1].match( rotReg ) ) ){
                     transforms[transforms.length-1] = "R" + ( r + parseFloat( match[1] ) ) 
                         + "," + match[2]
                         + "," + match[3];
                 } else {
-                    var box = imgRaphael.getBBox();
+                    var box = config.raphaelObj.getBBox();
                     transforms.push( "R" + r + ',' + (box.x + box.width/2) + "," + (box.y + box.height/2) );
                 }
-                imgRaphael.transform( transforms.join('') );
-                renderOpts();
+                config.raphaelObj.transform( transforms.join('') );
+                renderOpts( config.raphaelObj , config.$opts , config.oWidth , config.oHeight );
             }
             ,
             setTransform: function( $dom , value ){
@@ -413,6 +581,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 reader.readAsDataURL(this.files[0]);
             }
         });
+
+    // mouth click event
+    $('.mouths img').click(function(){
+        // 1. add pic to left wrap
+        dragHelper.renderMouth( $(this) );
+    });
+
 });
 
 

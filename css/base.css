@@ -96,4 +96,48 @@ background: url(../img/opts-left-right-bg.png) repeat-y 27px top;}
 .block-skin-tips-step .step2-btns{margin-bottom: -86px;position: relative;z-index: 11; display: none;}
 .block-skin-tips-step .step2-btns button{background: url(../img/step2-btns.jpg); width: 213px;height: 46px;margin: 0 25px;}
 .block-skin-tips-step .step2-btns button.btn-next{background-position: -264px 0 ;}
+
+
+.block-skin-tips-step .mouths{
+    position: absolute;
+width: 300px;
+height: 300px;
+top: 65px;
+left: 50%;
+margin-left: 30px;
+display: none;
+}
+.block-skin-tips-step .mouths img{
+	margin: 16px;
+}
+
+.mouth-opts{
+	position: absolute;
+	border: 1px solid #777;
+	width: 65px;
+	height: 65px;
+
+	display: none;
+}
+.mouth-opts .mouth-opts-close,
+.mouth-opts .mouth-opts-drag{
+	width: 25px;
+	height: 25px;
+	background: url(../img/mouth-opt.png) no-repeat;
+	position: absolute;
+	top: -12px;
+	left: -12px;
+}
+.mouth-opts .mouth-opts-drag{
+	background-position: right top;
+	top: auto;
+	left: auto;
+	bottom: -12px;
+	right: -12px;
+}
+
+
+
+
+
 	

@@ -34,6 +34,21 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $('.mask-bottom').height( 60 );
 
                 $('.block-skin-tips-top').html("<span>缩 放 + 裁 剪</span>");
+
+                // hide other from step 3
+                // =====================================
+                $('.mouths').hide();
+                $('.mouth-opts .mouth-opts-close').trigger('click');
+                $('.step3-btns').hide()
+                    .prev().show();
+                $wrap.animate({
+                    left: 0
+                } , 300 , '' , function(){
+                    $('.block-skin-masks').show();
+                    $(this).css('overflow' , 'visible');
+                    $wrap.find('.imgwrap-opts').show();
+                });
+                
                 break;
             case 3:
                 // move view wrap to left, and show mouth
@@ -50,6 +65,23 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         $('.mouths').show();
                     });
 
+                $('.step3-btns').show()
+                    .prev()
+                    .hide();
+                $('.block-skin-tips-top').html("<span>选 择 你 的 嘴 形</span>");
+                break；
+            case 4:
+                $('.mouths').hide();
+                $('.mouth-opts .mouth-opts-close').trigger('click');
+                $('.step3-btns').hide()
+                    .prev().show();
+                $wrap.animate({
+                    left: 0
+                } , 300 , '' , function(){
+                    $('.block-skin-masks').show();
+                    $(this).css('overflow' , 'visible');
+                    $wrap.find('.imgwrap-opts').show();
+                });
         }
 
     }
@@ -149,13 +181,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         var imgWidth  , imgHeight , wrapWidth , wrapHeight;
         var wrapOff = $optWrap.offset();
         $img.load( function(){
+            var img = this;
             // reset 
             transforms = [];
             dragHelper.setTransform( $('.imgwrap-opts') , "inherit" );
             console.clear();
-            var img = this;
-
-            console.log( wrapOff );
+            
             imgWidth = img.width || $(img).width();
             imgHeight =  img.height || $(img).height();
 
@@ -184,8 +215,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 });
             }
             //raphael.setSize( tarWidth , tarHeight );
-            console.log( imgWidth , imgHeight , wrapHeight , wrapWidth);
-            console.log( ( - imgWidth + wrapWidth) / 2 , ( - imgHeight + wrapHeight ) / 2 );
+            // console.log( imgWidth , imgHeight , wrapHeight , wrapWidth);
+            // console.log( ( - imgWidth + wrapWidth) / 2 , ( - imgHeight + wrapHeight ) / 2 );
             // reset transform
             var svgWidth = $('svg').width();
             var svgHeight = $('svg').height();
@@ -243,10 +274,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
                     // get img status
                     var raphaelObj = $(target).data('raphaelObj') || imgRaphael;
-                    console.log($(target).data('raphaelObj'));
-                    status.imgOff = raphaelObj.getBBox();
-                    status.imgCenter = {x: status.imgOff.x + status.imgOff.width / 2 , y: status.imgOff.y + status.imgOff.height / 2};
-                    status.center = {pageX: status.imgOff.x + status.imgOff.width / 2 + wrapOff.left , pageY: status.imgOff.y + status.imgOff.height / 2 + wrapOff.top};
+                    var off = raphaelObj.getBBox();
+                    var svgOff = $('svg').offset();
+                    status.imgOff = off;
+                    status.imgCenter = {x: off.x + off.width / 2 , y: off.y + off.height / 2};
+                    status.center = {pageX: off.x + off.width / 2 + svgOff.left , pageY: off.y + off.height / 2 + svgOff.top};
 
                     status.imgWidth = imgWidth;
                     status.imgHeight = imgHeight;
@@ -362,15 +394,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // show mouth opts
                 var wWidth = $wrap.width();
                 var wHeight = $wrap.height();
+                var largeWidth = 50;
                 var $opts = $('.mouth-opts').show()
                     .css({
-                        width: imgWidth,
-                        height: imgHeight,
-                        top: (wHeight - imgHeight)/2,
-                        left: (wWidth - imgWidth)/2
+                        width: imgWidth + largeWidth,
+                        height: imgHeight + largeWidth,
+                        top: (wHeight - imgHeight - largeWidth)/2,
+                        left: (wWidth - imgWidth - largeWidth)/2
                     })
-                    .data('left' , (wWidth - imgWidth)/2)
-                    .data('top' , (wHeight - imgHeight)/2 );
+                    .data('left' , (wWidth - imgWidth - largeWidth)/2)
+                    .data('top' , (wHeight - imgHeight - largeWidth)/2 );
 
                 dragHelper.setTransform( $opts , 'inherit' );
                 // set it's position and width and height
@@ -391,6 +424,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     dragHelper.bind($opts.find('.mouth-opts-drag').data('raphaelObj' , mouthRaphael) , function( ev , status ){
                         status.last_r = status.last_r || 0;
                         status.last_s = status.last_s || 1;
+                        console.log( ev , status );
                         // get the center of the pic
                         var odx = status.pageX - status.center.pageX;
                         var ody = status.pageY - status.center.pageY;
@@ -416,9 +450,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                         dragHelper.rotate( cr - or - status.last_r , true );
                         status.last_r = cr - or;
 
-                        var s = Math.sqrt( ( tdx * tdx + tdy * tdy ) /( odx * odx + ody * ody ) );
-                        dragHelper.scale( s / status.last_s  , true);
-                        status.last_s = s;
+                        // var s = Math.sqrt( ( tdx * tdx + tdy * tdy ) /( odx * odx + ody * ody ) );
+                        // dragHelper.scale( s / status.last_s  , true);
+                        // status.last_s = s;
                     })
                     .bind( $opts , function( ev , status ){
                         status.last_x = status.last_x || 0;
@@ -446,8 +480,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     transforms: mouthTransforms,
                     $opts : $('.mouth-opts'),
                     raphaelObj : mouthRaphael,
-                    oWidth: mouthWidth,
-                    oHeight: mouthHeight
+                    oWidth: mouthWidth + 50,
+                    oHeight: mouthHeight + 50
                 }
             },
             translate: function ( x , y , isMouth ){
@@ -543,7 +577,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 cr = cr + 180;
             }
 
-            console.log( or , cr , odx , tdx );
+            //console.log( or , cr , odx , tdx );
 
             dragHelper.rotate( cr - or - status.last_r );
             status.last_r = cr - or;

@@ -93,9 +93,10 @@ width: 40px;
 top: 25px;
 bottom: 27px;
 background: url(../img/opts-left-right-bg.png) repeat-y 27px top;}
-.block-skin-tips-step .step2-btns{margin-bottom: -86px;position: relative;z-index: 11; display: none;}
-.block-skin-tips-step .step2-btns button{background: url(../img/step2-btns.jpg); width: 213px;height: 46px;margin: 0 25px;}
-.block-skin-tips-step .step2-btns button.btn-next{background-position: -264px 0 ;}
+.block-skin-tips-step button{font-size: 21px;color:white;text-indent: 2em;}
+.block-skin-tips-step .step2-btns , .block-skin-tips-step .step3-btns{margin-bottom: -86px;position: relative;z-index: 11; display: none;}
+.block-skin-tips-step .step2-btns button,.block-skin-tips-step .step3-btns button{background: url(../img/step2-btns.jpg); width: 213px;height: 46px;margin: 0 25px;}
+.block-skin-tips-step button.btn-next{background-position: -264px 0 ;}
 
 
 .block-skin-tips-step .mouths{
@@ -107,17 +108,22 @@ left: 50%;
 margin-left: 30px;
 display: none;
 }
-.block-skin-tips-step .mouths img{
-	margin: 16px;
+.block-skin-tips-step .mouths li{
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 0;
+	float: left;
 }
 
 .mouth-opts{
 	position: absolute;
-	border: 1px solid #777;
+	border: 1px solid #FFF;
 	width: 65px;
 	height: 65px;
-
 	display: none;
+	box-shadow: 0px 1px 2px #919191;
 }
 .mouth-opts .mouth-opts-close,
 .mouth-opts .mouth-opts-drag{

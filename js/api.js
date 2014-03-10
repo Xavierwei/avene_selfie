@@ -50,7 +50,8 @@ define(function( require , exports , model ){
         neighbor: {path: './api/index.php/node/getneighbor', method:'get'},
         countryList: {path: './json/country.json', method:'get', cache: true},
         i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true},
-        i18n_fr: {path: './lang/fr.json', method:'get', async: false, cache:true}
+        i18n_fr: {path: './lang/fr.json', method:'get', async: false, cache:true},
+        preview: {path: './node/create', method:'post'}
     };
 
     // 内部API

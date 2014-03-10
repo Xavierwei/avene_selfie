@@ -69,7 +69,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     .prev()
                     .hide();
                 $('.block-skin-tips-top').html("<span>选 择 你 的 嘴 形</span>");
-                break；
+                break;
             case 4:
                 $('.mouths').hide();
                 $('.mouth-opts .mouth-opts-close').trigger('click');
@@ -535,6 +535,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 }
                 config.raphaelObj.transform( transforms.join('') );
                 renderOpts( config.raphaelObj , config.$opts , config.oWidth , config.oHeight );
+            }
+            ,
+            getBase64: function(){
+
             }
             ,
             setTransform: function( $dom , value ){

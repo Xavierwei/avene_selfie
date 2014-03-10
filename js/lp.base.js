@@ -133,7 +133,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     })
     // rule
     .action('rule' , function(){
-
+        $('.skin-overlay').fadeIn();
+        $('#skin-pop-rule').css({top:'-50%'}).fadeIn().animate({top:'50%'}, 500, 'easeOutQuart');
+    })
+    //close popup
+    .action('close-pop', function(){
+        $('.skin-overlay').fadeOut();
+        $('.skin-pop').fadeOut();
     });
 
     var $img = $('#photo-wrap img');
@@ -587,6 +593,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         // 1. add pic to left wrap
         dragHelper.renderMouth( $(this) );
     });
+
+
+    LP.action('uploadImg', function(data){
+        console.log(data);
+
+        api.ajax('preview' , data , function( result ){
+            console.log(result);
+        });
+
+
+    });
+
+
+
 
 });
 

@@ -68,8 +68,11 @@ class Drtool {
         if(is_null(exec("which ffmpeg")))
             return "1016";              //ffmpeg不存在
 
-            exec("ffmpeg -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '/var/www/avene-yii/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '/var/www/avene-yii/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" . $save_path . $save_name .".mp4'",$output, $status);                
+		echo "ffmpeg -threads 4 -y -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '/Applications/MAMP/htdocs/avene_selfie/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '/Applications/MAMP/htdocs/avene_selfie/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" . $save_path . $save_name .".mp4'";
+exit();
+            exec("ffmpeg -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '/Applications/MAMP/htdocs/avene_selfie/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '/Applications/MAMP/htdocs/avene_selfie/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" . $save_path . $save_name .".mp4'",$output, $status);
         
+
 
         return "converted";
     }

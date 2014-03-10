@@ -137,7 +137,7 @@ render('index');
 		Drtool::mkpath(); 							//创建日期文件夹
 		$save_name=Drtool::randomNew();				//创建文件名 用于视频文件名与缩略图文件名
 		$save_photopath="./uploads".'/'.date("Y/n/j") .'/';	//保存图片地址
-		$save_path="/var/www/avene-yii/uploads".'/'.date("Y/n/j") .'/';	//保存地址
+		$save_path="/Applications/MAMP/htdocs/avene_selfie/uploads".'/'.date("Y/n/j") .'/';	//保存地址
 
 		$allowPhotoMime = array( 					//设定允许图片类型
 								"image/gif"		=>"gif", 
@@ -158,6 +158,7 @@ render('index');
 
 		$is_convert=Drtool::photoToMp4($save_path,$save_name,$photoType,$_POST['pngnum'],$_POST['pngx'],$_POST['pngy'],$_POST['pngr'],$_POST['pngw'],$_POST['pngh']);
 		//var_dump(exec("ffmpeg -threads 4 -y  -loop 1 -i '/home/drogjh/桌面/selfie_mouth/2.jpg' -i  '/var/www/avene-yii/png/mouth1/0/mouth1_0_%4d.png'  -i  '/var/www/avene-yii/wav/m1.wav' -filter_complex '[1:v]scale=200:200[a];[0:v][a]overlay=240:300[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t 6.20   '/home/drogjh/桌面/selfie_mouth/out1.mp4'"));
+		//exit();
 		if($is_convert!="converted")
 		 	$this->_sendResponse(500, $this->error('end', $is_convert) ); //ffmpeg转换错误代码
 

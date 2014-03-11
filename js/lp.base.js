@@ -82,6 +82,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $(this).css('overflow' , 'visible');
                     $wrap.find('.imgwrap-opts').show();
                 });
+                break;
         }
 
     }
@@ -537,8 +538,85 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 renderOpts( config.raphaelObj , config.$opts , config.oWidth , config.oHeight );
             }
             ,
-            getBase64: function(){
+            getRaphaelTransform: function( raphaelObj ){
+                var trs = raphaelObj.transform();
+                var s = 1;
+                var r = 0;
+                var tx = 0;
+                var ty = 0;
 
+                $.each( trs , function( i , ts){
+                    switch( ts[0] ){
+                        case 'R':
+                            r += ts[1];
+                            break;
+                        case 'S':
+                            s *= ts[1];
+                            break;
+                        case 'T':
+                            tx += ts[1];
+                            ty += ts[2];
+                            break;
+                    }
+                });
+                return {
+                    tx: tx,
+                    ty: ty,
+                    s: s,
+                    r: r
+                }
+            }
+            ,
+            getResult: function(){
+                // 'data:image/jpg;base64,' + Photo,
+                // pngnum: Mouth_id,
+                // pngx: Mouth_x,
+                // pngy: Mouth_y,
+                // pngr: Mouth_rotation
+                var $svg = $('svg');
+                var $tmpCanvas = $('<canvas>').attr({
+                    width: $svg.width(),
+                    height: $svg.height()
+                })
+                .insertAfter('svg');
+
+                var ctx = $tmpCanvas[0].getContext('2d');
+                var transform = dragHelper.getRaphaelTransform( imgRaphael );
+                var imgBox = imgRaphael.getBBox();
+                // draw image
+                ctx.save();
+                ctx.translate( imgBox.x + imgBox.width / 2 , imgBox.y + imgBox.height / 2 );
+                ctx.scale( transform.s , transform.s );
+                ctx.rotate( transform.r * Math.PI / 180 );
+                ctx.drawImage( $('#photo-wrap img')[0] , - imgWidth / 2 , - imgHeight / 2 , imgWidth , imgHeight );
+                ctx.restore();
+
+                var wWidth = $wrap.width();
+                var wHeight = $wrap.height();
+                var $rCanvas = $('<canvas>')
+                    .attr({
+                        width: wWidth,
+                        height: wHeight
+                    })
+                    .insertAfter( $tmpCanvas );
+                var rctx = $rCanvas[0].getContext('2d');
+                var svgLeft = parseInt( $svg.css('left') );
+                var svgTop = parseInt( $svg.css('top') );
+                rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) , Math.abs( svgTop ) , wWidth , wHeight , 0 , 0 , wWidth , wHeight );
+
+
+                // clear
+                var data = {
+                    base64: $rCanvas[0].toDataURL(),
+                    pngnum: $('.mouths li.selected').index() + 1,
+                    pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
+                    pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
+                    pngr : dragHelper.getRaphaelTransform( imgRaphael ).r
+                }
+
+                $tmpCanvas.remove();
+                $rCanvas.remove();
+                return data;
             }
             ,
             setTransform: function( $dom , value ){
@@ -551,6 +629,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         }
     })();
 
+    window.dragHelper = dragHelper;
 
     dragHelper
         .bind( $('.middle-center') , function( ev , status ){
@@ -629,6 +708,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     // mouth click event
     $('.mouths img').click(function(){
         // 1. add pic to left wrap
+        $(this).parent().addClass('selected')
+            .siblings('.selected')
+            .removeClass('selected');
+
         dragHelper.renderMouth( $(this) );
     });
 

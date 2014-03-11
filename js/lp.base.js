@@ -609,7 +609,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
                 // clear
                 var data = {
-                    base64: $rCanvas[0].toDataURL(),
+					photo: $rCanvas[0].toDataURL(),
                     pngnum: $('.mouths li.selected').index() + 1,
                     pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
                     pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),

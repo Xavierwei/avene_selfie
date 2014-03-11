@@ -2,49 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15901a2b-db49-4d18-a4f1-748019e69756" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/xml/config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/flash.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/index_flash.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/01ec11b87fb7e49c3a1459e8aef3361894779993.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/01ec11b87fb7e49c3a1459e8aef3361894779993.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/01ec11b87fb7e49c3a1459e8aef3361894779993thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/2cfa515e66577096452455888e0d7d31be73e687.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/2cfa515e66577096452455888e0d7d31be73e687.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/2cfa515e66577096452455888e0d7d31be73e687thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/3d2152b15a25d414c66b8d66e9bc48ab32e36e4e.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/3d2152b15a25d414c66b8d66e9bc48ab32e36e4e.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/3d2152b15a25d414c66b8d66e9bc48ab32e36e4ethumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/6fa2484b7b1f6724b612503b989532ca2a2e82c1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/6fa2484b7b1f6724b612503b989532ca2a2e82c1.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/6fa2484b7b1f6724b612503b989532ca2a2e82c1thumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/a183087576e202e9789402e13e1bef2f48c9cd5a.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/a183087576e202e9789402e13e1bef2f48c9cd5a.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/a183087576e202e9789402e13e1bef2f48c9cd5athumbnail.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/e29c5f4058bb47751eecf9cd14803b25066d521b.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/e29c5f4058bb47751eecf9cd14803b25066d521b.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/uploads/2014/3/9/e29c5f4058bb47751eecf9cd14803b25066d521bthumbnail.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/components/Drtool.php" afterPath="$PROJECT_DIR$/protected/components/Drtool.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/NodeController.php" afterPath="$PROJECT_DIR$/protected/controllers/NodeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/api.js" afterPath="$PROJECT_DIR$/js/api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/base.css" afterPath="$PROJECT_DIR$/css/base.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/flash.js" afterPath="$PROJECT_DIR$/js/flash.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index_flash.html" afterPath="$PROJECT_DIR$/index_flash.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/lp.base.js" afterPath="$PROJECT_DIR$/js/lp.base.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/config/main.php" afterPath="$PROJECT_DIR$/protected/config/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="avene_selfie.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394429785392" ignored="false" />
-    <file path="/index_flash.html" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394442466862" ignored="false" />
+    <file path="/Dummy.txt" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394554389557" ignored="false" />
+    <file path="/index_flash.html" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394555508869" ignored="false" />
     <file path="/api.js" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394436140896" ignored="false" />
-    <file path="/lp.base.js" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394442625334" ignored="false" />
+    <file path="/lp.base.js" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394556875131" ignored="false" />
     <file path="/flash.js" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394437124674" ignored="false" />
     <file path="/NodeController.php" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394438802380" ignored="false" />
-    <file path="/Drtool.php" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394446296659" ignored="false" />
+    <file path="/Drtool.php" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394539476159" ignored="false" />
     <file path="/base.css" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394442988723" ignored="false" />
     <file path="$PROJECT_DIR$/../bank_wall/api/simplesamlphp/config/authsources.php" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394449479277" ignored="false" />
     <file path="$PROJECT_DIR$/../bank_wall/api/simplesamlphp/metadata/saml20-idp-remote.php" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394449377952" ignored="false" />
+    <file path="$PROJECT_DIR$/../gerlain0228/css/style.css" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394543206851" ignored="false" />
+    <file path="/style.css" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394543091088" ignored="false" />
+    <file path="$PROJECT_DIR$/../gerlain0228/js/lp.base.js" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394553076098" ignored="false" />
+    <file path="/index.html" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394554985847" ignored="false" />
+    <file path="$PROJECT_DIR$/../bank_wall/api/protected/models/UserAR.live.php" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394556288464" ignored="false" />
+    <file path="$PROJECT_DIR$/../bank_wall/api/protected/controllers/UserController.live2.php" changelist="15901a2b-db49-4d18-a4f1-748019e69756" time="1394556293855" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,36 +51,27 @@
       <file leaf-file-name="index_flash.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index_flash.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1661" column="28" selection-start="75025" selection-end="75025" vertical-scroll-proportion="2.4642856">
+            <state line="1663" column="58" selection-start="75160" selection-end="75160" vertical-scroll-proportion="-19.678572">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/base.css">
+      <file leaf-file-name="wall_saml_response.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Desktop/wall_saml_response.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="1" selection-start="5546" selection-end="5546" vertical-scroll-proportion="0.0">
+            <state line="70" column="15" selection-start="4427" selection-end="4427" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="flash.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/flash.js">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="13" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lp.base.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/lp.base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="6" selection-start="3673" selection-end="3673" vertical-scroll-proportion="0.0">
+            <state line="1800" column="0" selection-start="82480" selection-end="82480" vertical-scroll-proportion="-11.814815">
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#div#1;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -105,16 +80,16 @@
       <file leaf-file-name="main.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/config/main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="74" selection-start="2060" selection-end="2060" vertical-scroll-proportion="-22.428572">
+            <state line="68" column="20" selection-start="2126" selection-end="2126" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".htaccess" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.htaccess">
+      <file leaf-file-name="Drtool.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/components/Drtool.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="154" selection-end="154" vertical-scroll-proportion="0.0">
+            <state line="96" column="13" selection-start="3607" selection-end="3607" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -123,28 +98,44 @@
       <file leaf-file-name="NodeController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/NodeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="160" column="10" selection-start="148282" selection-end="148282" vertical-scroll-proportion="-23.321428">
+            <state line="189" column="22" selection-start="6845" selection-end="6845" vertical-scroll-proportion="-16.285715">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Drtool.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/protected/components/Drtool.php">
+      <file leaf-file-name="lp.base.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/lp.base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="18" selection-start="3454" selection-end="3454" vertical-scroll-proportion="0.9448209">
+            <state line="9" column="5" selection-start="251" selection-end="251" vertical-scroll-proportion="0.12383613">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="api.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/api.js">
+      <file leaf-file-name="base.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/base.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="39" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="108" column="1" selection-start="5672" selection-end="5672" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="392" selection-end="392" vertical-scroll-proportion="-6.785714">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flash.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/flash.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="28" selection-start="85" selection-end="227" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -167,17 +158,17 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/config/config.xml" />
         <option value="$PROJECT_DIR$/js/api.js" />
-        <option value="$PROJECT_DIR$/protected/config/main.php" />
         <option value="$PROJECT_DIR$/.htaccess" />
+        <option value="$PROJECT_DIR$/css/base.css" />
+        <option value="$PROJECT_DIR$/protected/config/main.php" />
+        <option value="$PROJECT_DIR$/protected/components/Drtool.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/NodeController.php" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/flash.js" />
         <option value="$PROJECT_DIR$/index_flash.html" />
         <option value="$PROJECT_DIR$/js/lp.base.js" />
-        <option value="$PROJECT_DIR$/css/base.css" />
-        <option value="$PROJECT_DIR$/protected/controllers/NodeController.php" />
-        <option value="$PROJECT_DIR$/protected/components/Drtool.php" />
       </list>
     </option>
   </component>
@@ -362,7 +353,7 @@
   <component name="RunManager">
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
       <JSDebuggerConfigurationSettings>
-        <option name="engineId" />
+        <option name="engineId" value="embedded" />
         <option name="fileUrl" />
       </JSDebuggerConfigurationSettings>
       <method />
@@ -380,25 +371,25 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="49" width="2540" height="1222" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24979952" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.255413" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -462,69 +453,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xml/config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="46" selection-start="663" selection-end="685" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1688" column="34" selection-start="76567" selection-end="76567" vertical-scroll-proportion="-559.8214">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index_flash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1661" column="28" selection-start="75025" selection-end="75025" vertical-scroll-proportion="2.4642856">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="1" selection-start="5546" selection-end="5546" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/config/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="74" selection-start="2060" selection-end="2060" vertical-scroll-proportion="-22.428572">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="39" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/lp.base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="6" selection-start="3673" selection-end="3673" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/flash.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="13" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -536,23 +467,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/NodeController.php">
+    <entry file="file://$PROJECT_DIR$/index-test.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="10" selection-start="148282" selection-end="148282" vertical-scroll-proportion="-23.321428">
+        <state line="15" column="0" selection-start="452" selection-end="452" vertical-scroll-proportion="0.21797323" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="19" selection-start="955" selection-end="955" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Node.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="138" column="45" selection-start="3453" selection-end="3453" vertical-scroll-proportion="0.6089866">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index-test.php">
+    <entry file="file://$PROJECT_DIR$/protected/config/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="452" selection-end="452" vertical-scroll-proportion="0.21797323">
+        <state line="68" column="20" selection-start="2126" selection-end="2126" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/components/Drtool.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="18" selection-start="3454" selection-end="3454" vertical-scroll-proportion="0.9448209">
+        <state line="96" column="13" selection-start="3607" selection-end="3607" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="39" selection-start="864" selection-end="864" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/NodeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="189" column="22" selection-start="6845" selection-end="6845" vertical-scroll-proportion="-16.285715">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="392" selection-end="392" vertical-scroll-proportion="-6.785714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="1" selection-start="5672" selection-end="5672" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/flash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="28" selection-start="85" selection-end="227" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index_flash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1663" column="58" selection-start="75160" selection-end="75160" vertical-scroll-proportion="-19.678572">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/wall_saml_response.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="15" selection-start="4427" selection-end="4427" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1800" column="0" selection-start="82480" selection-end="82480" vertical-scroll-proportion="-11.814815">
+          <folding>
+            <element signature="tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#div#1;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/lp.base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="5" selection-start="251" selection-end="251" vertical-scroll-proportion="0.12383613">
           <folding />
         </state>
       </provider>

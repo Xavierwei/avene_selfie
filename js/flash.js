@@ -7,7 +7,7 @@ function upload(Photo,Mouth_id,Mouth_x,Mouth_y,Mouth_rotation){
         pngy: Mouth_y,
         pngr: Mouth_rotation
     }
-    LP.triggerAction('uploadImg', data);
+    LP.triggerAction('flashPreview', data);
 //    alert(
 //        "Photo="+Photo.substr(0,10)+"...，Photo.length="+Photo.length+"\n"+
 //            "Mouth_id="+Mouth_id+"\n"+

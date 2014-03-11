@@ -629,7 +629,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         }
     })();
 
-    window.dragHelper = dragHelper;
 
     dragHelper
         .bind( $('.middle-center') , function( ev , status ){

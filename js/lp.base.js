@@ -195,7 +195,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             // reset 
             transforms = [];
             dragHelper.setTransform( $('.imgwrap-opts') , "inherit" );
-            console.clear();
             
             imgWidth = img.width || $(img).width();
             imgHeight =  img.height || $(img).height();
@@ -610,7 +609,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
                 // clear
                 var data = {
-                    base64: $rCanvas[0].toDataURL(),
+					photo: $rCanvas[0].toDataURL(),
                     pngnum: $('.mouths li.selected').index() + 1,
                     pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
                     pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
@@ -741,11 +740,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     });
 
 
-    LP.action('uploadImg', function(data){
-        console.log(data);
+    LP.action('preview', function(){
+		var data = dragHelper.getResult();
+		console.log(data);
 
         api.ajax('preview' , data , function( result ){
-            console.log(result);
+            //console.log(result);
             gotoStep(5);
             //uploadComplete();
         });

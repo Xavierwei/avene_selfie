@@ -1,7 +1,7 @@
 function upload(Photo,Mouth_id,Mouth_x,Mouth_y,Mouth_rotation){
 
     data = {
-        photo: 'data:image/png;base64,' + Photo,
+        photo: 'data:image/jpg;base64,' + Photo,
         pngnum: Mouth_id,
         pngx: Mouth_x,
         pngy: Mouth_y,
@@ -49,4 +49,8 @@ function onGetImg(){
 }
 function onReset(){
     alert("onReset");
+}
+
+function onPaizhao(){
+    $('.btn-rule').fadeOut();
 }

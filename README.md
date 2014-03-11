@@ -1,3 +1,10 @@
+视频地址为真实地址
+图片地址不为真实地址 
+地址为uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg
+实际地址为:
+uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail_250_250.jpg
+uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail_800_800.jpg
+
 调用方式：
 对于所有 item 列表调用： GET /node/list
 	默认 显示前八条

@@ -86,9 +86,9 @@ class Drtool {
           if(!(exec("which ffmpeg 2>/dev/null 2>&1",$output)))
             return "1021";              //ffmpeg不存在
 
-        exec($output[0]." -i ". $save_path.$save_name. ".mp4" . " -y -f image2 -t 0.003 -s " . $width . "x". $height . " ". $save_path.$save_name."thumbnail.jpg");
+        exec($output[0]." -i ". $save_path.$save_name. ".mp4" . " -y -f image2 -t 0.003 -s " . $width . "x". $height . " ". $save_path.$save_name."thumbnail_".$width."_".$height.".jpg");
 
-        if(!self::isValidConvert($save_path.$save_name."thumbnail.jpg")) //判断视频截图是否截取成功
+        if(!self::isValidConvert($save_path.$save_name."thumbnail_".$width."_".$height.".jpg")) //判断视频截图是否截取成功
           return "1024";  //截取不成功
 
         return "screenshot";

@@ -10,7 +10,7 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 
 	// 应用的名字   使用 Yii::app()->name 来访问
-	'name'=>'avene_selife',
+	'name'=>'avene_selfie',
 
 	//默认控制器
 	"defaultController" => "node/list",

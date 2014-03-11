@@ -65,10 +65,11 @@ class Drtool {
     {
         $pngTime=array("0","6.20","5.48","6.13","3.80","6.21","4.51","5.24","5.56","5.40");
 
-        if(is_null(exec("which ffmpeg")))
-          return "1021";              //ffmpeg不存在
+        if(is_null(exec("which ffmpeg",$output)))
+          if(is_null(exec("which ffmpeg 2>/dev/null 2>&1",$output)))
+            return "1021";              //ffmpeg不存在
 
-        exec("ffmpeg -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '".dirname(Yii::app()->BasePath)."/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '". dirname(Yii::app()->BasePath) . "/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" .$save_path . $save_name .".mp4'",$output, $status);                
+        exec($output." -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '".dirname(Yii::app()->BasePath)."/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '". dirname(Yii::app()->BasePath) . "/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" .$save_path . $save_name .".mp4'",$output, $status);                
         
         if(!self::isValidConvert($save_path . $save_name .".mp4'")) //判断视频截图是否截取成功
           return "1023";  //视频转换失效
@@ -81,10 +82,11 @@ class Drtool {
      */
     public static function screenshot($save_path,$save_name,$width=250,$height=250)
     {
-        if(is_null(exec("which ffmpeg")))
-          return "1021";              //ffmpeg不存在
+        if(is_null(exec("which ffmpeg",$output)))
+          if(is_null(exec("which ffmpeg 2>/dev/null 2>&1",$output)))
+            return "1021";              //ffmpeg不存在
 
-        exec("ffmpeg -i ". $save_path.$save_name. ".mp4" . " -y -f image2 -t 0.003 -s " . $width . "x". $height . " ". $save_path.$save_name."thumbnail.jpg");
+        exec($output." -i ". $save_path.$save_name. ".mp4" . " -y -f image2 -t 0.003 -s " . $width . "x". $height . " ". $save_path.$save_name."thumbnail.jpg");
 
         if(!self::isValidConvert($save_path.$save_name."thumbnail.jpg")) //判断视频截图是否截取成功
           return "1024";  //截取不成功
@@ -96,7 +98,11 @@ class Drtool {
      */
     public static function isValidConvert($path) 
     {
-        $cmd = "ffprobe " . $path . "  2>/dev/null 2>&1";
+      if(is_null(exec("which ffprobe",$output)))
+          if(is_null(exec("which ffprobe 2>/dev/null 2>&1",$output)))
+            return "1021";              //ffprobe不存在
+
+        $cmd = $output. " " . $path . "  2>/dev/null 2>&1";
         $result = shell_exec($cmd);
         if (strpos($result, "Invalid") !== FALSE)
         {

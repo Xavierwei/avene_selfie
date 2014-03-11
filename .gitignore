@@ -1,3 +1,4 @@
 /protected/runtime
 /assets
 /png
+protected/config/main.php

@@ -6,8 +6,15 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
+	// protected 目录的基础路径   使用 Yii::app()->basePath 来访问
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+
+	// 应用的名字   使用 Yii::app()->name 来访问
+	'name'=>'avene_selife',
+
+	//默认控制器
+	"defaultController" => "node/list",
+
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -49,7 +56,7 @@ return array(
 			    array('node/list', 'pattern'=>'node/item', 'verb'=>'GET'),	//对于所有 item 列表调用： GET /node/item
 			    array('node/view', 'pattern'=>'node/item/', 'verb'=>'GET'),	//对于某个 item 信息调用： GET /rest/item/(\d+)
 			    array('node/create', 'pattern'=>'node/item', 'verb'=>'POST'),	//创建一个 item： POST /node/item
-			    array('node/update', 'pattern'=>'node/item/', 'verb'=>'PUT'),	//更新一个 item： POST /node/item/(\d+)
+			    array('node/update', 'pattern'=>'node/item/', 'verb'=>'POST'),	//更新一个 item： POST /node/item/(\d+)
 			   // array('node/delete', 'pattern'=>'node/item/', 'verb'=>'DELETE'),	//删除一个 item： DELETE /node/item/(\d+)
 			),
 		),
@@ -60,7 +67,7 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=aveneselfie',
+			'connectionString' => 'mysql:host=192.168.56.2;dbname=avene-yii',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'root',

@@ -725,6 +725,16 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             console.log(result);
 
             gotoStep(5);
+
+			result.timestamp = new Date().getTime();
+			LP.compile( 'preview-template' , result , function( html ){
+				$('.block-skin-tips-preview').append(html);
+				LP.use('video-js' , function(){
+					videojs( "inner-video-" + result.timestamp , {}, function(){
+					});
+				});
+			});
+
         });
 
 

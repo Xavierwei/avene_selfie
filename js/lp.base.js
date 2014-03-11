@@ -83,6 +83,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $wrap.find('.imgwrap-opts').show();
                 });
                 break;
+            case 5:
+                $('.block-skin-tips-opt').fadeOut();
+                $('.block-skin-tips-preview').fadeIn();
         }
 
     }
@@ -715,16 +718,30 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     });
 
 
-    LP.action('uploadImg', function(data){
+    LP.action('flashPreview', function(data){
         console.log(data);
 
         api.ajax('preview' , data , function( result ){
             console.log(result);
+
+            gotoStep(5);
         });
 
 
     });
 
+
+    LP.action('uploadImg', function(data){
+        console.log(data);
+
+        api.ajax('preview' , data , function( result ){
+            console.log(result);
+            gotoStep(5);
+            //uploadComplete();
+        });
+
+
+    });
 
 
 

@@ -51,7 +51,9 @@ define(function( require , exports , model ){
         countryList: {path: './json/country.json', method:'get', cache: true},
         i18n_en: {path: './lang/en.json', method:'get', async: false, cache:true},
         i18n_fr: {path: './lang/fr.json', method:'get', async: false, cache:true},
-        preview: {path: './node/create', method:'post'}
+        preview: {path: './node/create', method:'post'},
+        publish: {path: './node/update', method:'post'},
+        list: {path: './node/list', method:'list'}
     };
 
     // 内部API

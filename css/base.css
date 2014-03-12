@@ -2,12 +2,16 @@
 .clear:before,
 .clear:after{clear:both;content:".";font-size:0;display:block;height:0;overflow:hidden;visibility:hidden;}
 
+#main {width:950px;padding:0 0 50px 0;background: url(../img/main-bg1.png);}
+
 /** toploadn **/
-.block-skin-tips{padding-bottom: 82px;background: url(../img/main-bg1.png); }
+.block-skin-tips{ }
+.block-skin-tips-inner-wrap {background: url(../img/tip_bottom_bg.gif) no-repeat bottom;height:724px;}
+
 	.block-skin-tips-top{position: relative;z-index: 4; color:white; font-size: 28px; height: 128px; background: url(../img/top-lain.png); text-align: center;line-height: 128px;}
 	.block-skin-tips-top img{vertical-align: middle;}
 
-	.block-skin-tips-opt{ position:relative; padding: 55px 0 65px; margin-top: -20px;}
+	.block-skin-tips-opt{ position:relative; padding: 55px 0 0px; margin-top: -20px;}
 	.block-skin-masks .mask-top{z-index: 3; position: absolute;top:0;left:50%; margin-left:-162px; width:324px;height: 55px;background: url(../img/main-bg.png) repeat-x left top ;}
 	.block-skin-masks .mask-left{z-index: 3;
 position: absolute;
@@ -33,17 +37,19 @@ margin-left: -162px;}
 
 	.block-skin-tips-imgwrap video,.block-skin-tips-imgwrap canvas{display: none;position: absolute;top: 0;left: 0;}
 	.block-skin-tips-btns{text-align: center; position: relative;z-index: 11;}
+
 	.block-skin-tips-btns button , .block-skin-tips-btns a{ vertical-align: middle; display: inline-block; zoom: 1; border:0;background: url(../img/btns.png); width: 140px;height: 60px;margin: 0 7px; cursor: pointer;}
 	.block-skin-tips-btns .btn-upload{background-position: -153px 0; position: relative; overflow: hidden;}
 	.block-skin-tips-btns .btn-upload input[type="file"]{position: absolute;top:0; height: 100%;left:0; width: 100%;opacity: 0;}
-	.block-skin-tips-btns button.btn-rule{background-position: -307px 0;}
+	.block-skin-tips-btns button.btn-rule{display:none;background-position: -307px 0;cursor: pointer;}
 
 	.block-skin-tips-bottom{background: white;height: 689px;}
 	.block-skin-tips-bottom-header{ position:relative; z-index: 4; top: -11px; background: url(../img/agup.png) repeat-x; height: 121px;line-height: 150px; text-align: center;}
 	.block-skin-tips-bottom-header img{vertical-align: middle;}
 	.block-skin-tips-bottom-content{ height: 540px; position: relative;bottom: -11px; padding: 0 51px 30px;background: url(../img/agdown.png) repeat-x left bottom;}
-	.block-skin-tips-list li{float: left;margin: 0 5px 17px;width: 207px;}
-	.block-skin-tips-list li img{width: 100%;display: block;height: 207px;}
+	.block-skin-tips-list li{cursor:pointer;float: left;margin: 0 5px 17px;width: 207px;}
+    .block-skin-tips-list li:hover {opacity: 0.8!important;}
+    .block-skin-tips-list li img{width: 100%;display: block;height: 207px;}
 	.block-skin-tips-list li p{height: 45px;line-height: 45px;font-size: 16px;color: #f1957e; text-align: center;}
 
 
@@ -98,6 +104,7 @@ background: url(../img/opts-left-right-bg.png) repeat-y 27px top;}
 .block-skin-tips-step .step2-btns button,.block-skin-tips-step .step3-btns button{background: url(../img/step2-btns.jpg); width: 213px;height: 46px;margin: 0 25px;}
 .block-skin-tips-step button.btn-next{background-position: -264px 0 ;}
 
+.preview-btns button, .share-btns button{background: url(../img/step2-btns.jpg); width: 213px;height: 46px;margin: 0 25px;}
 
 .block-skin-tips-step .mouths{
     position: absolute;
@@ -142,12 +149,41 @@ display: none;
 	right: -12px;
 }
 
-.block-skin-tips-flash {width:970px;position: relative;}
-.block-skin-tips-flash .btn-rule {position:absolute;top:517px;right:258px;background: url(../img/btns.png) no-repeat -307px 0;width:140px;height:60px;border:none;}
+.block-skin-tips-flash {width:950px;padding-top:7px;position: relative;}
+.block-skin-tips-flash .btn-rule {cursor:pointer;display:none;position:absolute;top:524px;right:239px;background: url(../img/btns.png) no-repeat -307px 0;width:140px;height:60px;border:none;}
 
 
-.skin-overlay {background:rgba(0,0,0,0.1);position: fixed;width:100%;height:100%;left:0;top:0;}
-.skin-pop {position: fixed;width:700px;height:250px;top:50%;left:50%;margin-left:-350px;margin-top:-125px;}
+.skin-overlay {display:none;background:rgba(0,0,0,0.1);position: fixed;width:100%;height:100%;left:0;top:0;z-index:900;}
+.skin-pop {display:none;position: fixed;width:700px;height:250px;top:50%;left:50%;margin-left:-350px;margin-top:-125px;z-index:901;}
 .skin-pop-close {float:right;background:url(../img/pop-close.gif) no-repeat;width:32px;height:32px;}
 .skin-pop-conent {clear:both;background:#fff;word-wrap: break-word; word-break: break-all;color:#f69382;padding:20px;line-height:150%;font-size:14px;}
 .skin-pop-conent h4 {margin:0;text-align: center;color:#f69382;font-size:20px;}
+
+#skin-pop-video {z-index:999;width:520px;height:520px;margin:-260px 0 0 -260px;}
+#skin-pop-video .skin-pop-conent {padding:10px;width:500px;}
+
+.preview-player {text-align: center;}
+.preview-btns {margin-top:40px;}
+.preview-img {text-align: center;}
+.share-sina {width:390px;margin:10px auto 0 auto;height:55px;}
+.share-sina label {background:url(../img/share_sina_label.png) no-repeat;float:left;width:83px;height:16px;margin-top:10px;text-indent:-9999em;}
+.share-sina .sharelink {background:url(../img/share_sina_icon.png) no-repeat;float:left;width:41px;height:41px;}
+
+.tip-image {background:#fff;display:none;text-align: center;padding:80px 0 20px 0;}
+
+.block-skin-tips-step {background: url(../img/top_bg.png) no-repeat top;height:724px;}
+.block-skin-tips {position: relative;}
+.block-skin-tips-share,.block-skin-tips-preview {display:none;position: absolute;width:100%;top:0;}
+
+.tip-top-title {height:123px;line-height: 123px;text-align:center;color:#fff;font-weight:bold;font-size:26px;margin-bottom:50px;}
+.tip-top-title img {vertical-align:middle;}
+
+.tips-onstep1 .block-skin-tips-inner-wrap {height:624px;}
+.tips-onstep1 .block-skin-tips-step {height:624px;}
+
+
+/* Animation Used
+================================================================================================= */
+.block-skin-tips-list li
+{-webkit-transition:   all 0.3s ease;-moz-transition:  all 0.3s ease;-o-transition:  all 0.3s ease;-ms-transition:  all 0.3s ease;transition:  all 0.3s ease;}
+

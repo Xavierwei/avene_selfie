@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	
+	<fengmian src="image/fengmian.jpg"/>
+	
+	<mouths>
+		<mouth src="image/mouth1.png" id="1"/>
+		<mouth src="image/mouth2.png" id="2"/>
+		<mouth src="image/mouth3.png" id="3"/>
+		<mouth src="image/mouth4.png" id="4"/>
+		<mouth src="image/mouth5.png" id="5"/>
+		<mouth src="image/mouth6.png" id="6"/>
+		<mouth src="image/mouth7.png" id="7"/>
+		<mouth src="image/mouth8.png" id="8"/>
+		<mouth src="image/mouth9.png" id="9"/>
+	</mouths>
+	
+	<flash2js action='upload("${Photo}",${Mouth_id},${Mouth_x},${Mouth_y},${Mouth_rotation});'/>
+	<js2flash callback="js2flashUploadComplete"/>
+	<js2flash callback="reset"/>
+	
+	<onPaizhao action='onPaizhao();'/>
+	<onGetImg action='onGetImg();'/>
+	<onReset action='onReset();'/>
+	
+</config>

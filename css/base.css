@@ -33,9 +33,9 @@ margin-left: -162px;}
 
 	.block-skin-tips-imgwrap video,.block-skin-tips-imgwrap canvas{display: none;position: absolute;top: 0;left: 0;}
 	.block-skin-tips-btns{text-align: center; position: relative;z-index: 11;}
-	.block-skin-tips-btns button{border:0;background: url(../img/btns.png); width: 140px;height: 60px;margin: 0 7px; cursor: pointer;}
-	.block-skin-tips-btns button.btn-upload{background-position: -153px 0; position: relative; overflow: hidden;}
-	.block-skin-tips-btns button.btn-upload input[type="file"]{position: absolute;top:0; height: 100%;left:0; width: 100%;opacity: 0;}
+	.block-skin-tips-btns button , .block-skin-tips-btns a{ vertical-align: middle; display: inline-block; zoom: 1; border:0;background: url(../img/btns.png); width: 140px;height: 60px;margin: 0 7px; cursor: pointer;}
+	.block-skin-tips-btns .btn-upload{background-position: -153px 0; position: relative; overflow: hidden;}
+	.block-skin-tips-btns .btn-upload input[type="file"]{position: absolute;top:0; height: 100%;left:0; width: 100%;opacity: 0;}
 	.block-skin-tips-btns button.btn-rule{background-position: -307px 0;}
 
 	.block-skin-tips-bottom{background: white;height: 689px;}

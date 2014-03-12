@@ -284,7 +284,9 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     // get img status
                     var raphaelObj = $(target).data('raphaelObj') || imgRaphael;
                     var off = raphaelObj.getBBox();
-                    var svgOff = $('svg').offset();
+                    // fuck ff
+                    var svgOff =  $optWrap.offset(); //$('svg').offset();
+                    svgOff.left += parseInt( $('#photo-wrap').css('left') );
                     status.imgOff = off;
                     status.imgCenter = {x: off.x + off.width / 2 , y: off.y + off.height / 2};
                     status.center = {pageX: off.x + off.width / 2 + svgOff.left , pageY: off.y + off.height / 2 + svgOff.top};

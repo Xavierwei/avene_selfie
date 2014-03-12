@@ -335,7 +335,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             } );
         })
         .bind('touchmove' , function( ev ){
-            if( !triggerEvent ) return false;
+            if( !triggerEvent || ev.originalEvent.touches.length > 1 ) return ;
 
             // fix touch event
             if( !ev.pageX ){
@@ -597,9 +597,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // pngy: Mouth_y,
                 // pngr: Mouth_rotation
                 var $svg = $('svg');
+                var scale = 800 / 324;
                 var $tmpCanvas = $('<canvas>').attr({
-                    width: $svg.width(),
-                    height: $svg.height()
+                    width: $svg.width() * scale,
+                    height: $svg.height() * scale
                 })
                 .insertAfter('svg');
 
@@ -608,29 +609,31 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 var imgBox = imgRaphael.getBBox();
                 // draw image
                 ctx.save();
-                ctx.translate( imgBox.x + imgBox.width / 2 , imgBox.y + imgBox.height / 2 );
-                ctx.scale( transform.s , transform.s );
+                ctx.translate( ( imgBox.x + imgBox.width / 2 ) * scale , ( imgBox.y + imgBox.height / 2 ) * scale );
+                ctx.scale( transform.s * scale , transform.s * scale );
                 ctx.rotate( transform.r * Math.PI / 180 );
+
                 ctx.drawImage( $('#photo-wrap img')[0] , - imgWidth / 2 , - imgHeight / 2 , imgWidth , imgHeight );
+
                 ctx.restore();
 
                 var wWidth = $wrap.width();
                 var wHeight = $wrap.height();
                 var $rCanvas = $('<canvas>')
                     .attr({
-                        width: wWidth,
-                        height: wHeight
+                        width: wWidth * scale,
+                        height: wHeight * scale
                     })
                     .insertAfter( $tmpCanvas );
                 var rctx = $rCanvas[0].getContext('2d');
                 var svgLeft = parseInt( $svg.css('left') );
                 var svgTop = parseInt( $svg.css('top') );
-                rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) , Math.abs( svgTop ) , wWidth , wHeight , 0 , 0 , wWidth , wHeight );
+                rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) * scale , Math.abs( svgTop ) * scale , wWidth * scale , wHeight * scale , 0 , 0 , wWidth * scale , wHeight * scale );
 
 
                 // clear
                 var data = {
-                    base64: $rCanvas[0].toDataURL(),
+                    photo: $rCanvas[0].toDataURL(),
                     pngnum: $('.mouths li.selected').index() + 1,
                     pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
                     pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
@@ -641,6 +644,57 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $rCanvas.remove();
                 return data;
             }
+            // getResult: function(){
+            //     // 'data:image/jpg;base64,' + Photo,
+            //     // pngnum: Mouth_id,
+            //     // pngx: Mouth_x,
+            //     // pngy: Mouth_y,
+            //     // pngr: Mouth_rotation
+            //     var $svg = $('svg');
+            //     var $tmpCanvas = $('<canvas>').attr({
+            //         width: $svg.width(),
+            //         height: $svg.height()
+            //     })
+            //     .insertAfter('svg');
+
+            //     var ctx = $tmpCanvas[0].getContext('2d');
+            //     var transform = dragHelper.getRaphaelTransform( imgRaphael );
+            //     var imgBox = imgRaphael.getBBox();
+            //     // draw image
+            //     ctx.save();
+            //     ctx.translate( imgBox.x + imgBox.width / 2 , imgBox.y + imgBox.height / 2 );
+            //     ctx.scale( transform.s , transform.s );
+            //     ctx.rotate( transform.r * Math.PI / 180 );
+            //     ctx.drawImage( $('#photo-wrap img')[0] , - imgWidth / 2 , - imgHeight / 2 , imgWidth , imgHeight );
+            //     ctx.restore();
+
+            //     var wWidth = $wrap.width();
+            //     var wHeight = $wrap.height();
+            //     var $rCanvas = $('<canvas>')
+            //         .attr({
+            //             width: wWidth,
+            //             height: wHeight
+            //         })
+            //         .insertAfter( $tmpCanvas );
+            //     var rctx = $rCanvas[0].getContext('2d');
+            //     var svgLeft = parseInt( $svg.css('left') );
+            //     var svgTop = parseInt( $svg.css('top') );
+            //     rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) , Math.abs( svgTop ) , wWidth , wHeight , 0 , 0 , wWidth , wHeight );
+
+
+            //     // clear
+            //     var data = {
+            //         base64: $rCanvas[0].toDataURL(),
+            //         pngnum: $('.mouths li.selected').index() + 1,
+            //         pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
+            //         pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
+            //         pngr : dragHelper.getRaphaelTransform( imgRaphael ).r
+            //     }
+
+            //     $tmpCanvas.remove();
+            //     $rCanvas.remove();
+            //     return data;
+            // }
             ,
             setTransform: function( $dom , value ){
                 $dom[0].style['-webkit-transform'] = value;
@@ -732,6 +786,44 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         // 1. add pic to left wrap
         dragHelper.renderMouth( $(this) );
     });
+
+    LP.use('hammer' , function(){
+        // swipe event for slider
+        $('.mouths-wrap').hammer()
+            .bind('swipeleft' , function(){
+                LP.triggerAction('scroll-left');
+            })
+            .bind('swiperight' , function(){
+                LP.triggerAction('scroll-right');
+            });
+
+        // opts transform
+
+        var _lastRotation = 0 , _lastScale = 1 , $mouthOpt = $('.mouth-opts') , $imgOpt = $('.imgwrap-opts');
+        $('#photo-wrap').hammer({
+            transform_always_block: true,
+            drag_block_vertical: true,
+            drag_block_horizontal: true
+        })
+        .on("transform" , function( event ){
+            var gesture = event.gesture;
+
+            if( $imgOpt.is(':visible') || $mouthOpt.is(':visible') ){
+                dragHelper.rotate( ( gesture.rotation || 0 ) - _lastRotation , $mouthOpt.is(':visible') );
+            }
+            _lastRotation = gesture.rotation;
+
+            if( $imgOpt.is(':visible') ){
+                dragHelper.scale( gesture.scale / _lastScale );
+            }
+            _lastScale = gesture.scale;
+        })
+        .on('transformend' , function(){
+            _lastRotation = 0 ; 
+            _lastScale = 1;
+        });
+    });
+    
 
 
     LP.action('uploadImg', function(data){

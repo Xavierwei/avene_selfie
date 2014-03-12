@@ -177,7 +177,7 @@ class NodeController extends Controller
 	public function actionUpdate()
 	{
 		if(!isset($_POST['id']))
-		   $this->_sendResponse(500, $this->error('end', 1002) ); //未传入id参数
+		   $this->_sendResponse(200, $this->error('end', 1002) ); //未传入id参数
 
 		$item = Node::model()->findByPk($_POST['id']); //获取该条数据
 		  
@@ -185,17 +185,17 @@ class NodeController extends Controller
 		  $this->_sendResponse(200,$this->error('end', 1003)); //该id不存在
 
 		if (!Node::model()->is_published($item)) 
-			$this->_sendResponse(404, $this->error('end', 1005)); //该id status状态为1：published，已经完成。
+			$this->_sendResponse(200, $this->error('end', 1005)); //该id status状态为1：published，已经完成。
 
 		if (!Node::model()->is_cookiecreate($item))
-			$this->_sendResponse(404, $this->error('end', 1006)); //越权操作。cookie值不匹配
+			$this->_sendResponse(200, $this->error('end', 1006)); //越权操作。cookie值不匹配
 
 		$item->status=1; //改变状态为已完成
 
 		if($item->save())
 		  $this->_sendResponse(200, $this->success('success',2003,$item->nid)); //修改数据库成功
 		else
-		  $this->_sendResponse(500, $this->error('end', 1007)); //修改数据库错误，
+		  $this->_sendResponse(200, $this->error('end', 1007)); //修改数据库错误，
 	}
 
 	/**

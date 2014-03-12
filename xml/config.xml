@@ -17,7 +17,8 @@
 
     <flash2js action='upload("${Photo}",${Mouth_id},${Mouth_x},${Mouth_y},${Mouth_rotation});'/>
     <js2flash callback="js2flashUploadComplete"/>
-
+    <js2flash callback="js2reset"/>
+    <onStartPaizhao action='onStartPaizhao();'/>
     <onGetImg action='onPaizhao();'/>
     <onGetImg action='onGetImg();'/>
     <onReset action='onReset();'/>

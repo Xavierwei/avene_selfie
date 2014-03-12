@@ -4,6 +4,11 @@
 LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'raphael'] , function( $ , api ){
     'use strict'
 
+    var isFlash = !$('html').hasClass('video') || navigator.userAgent.toLowerCase().indexOf('firefox') > 0;
+
+    $('body').delegate('video','click',function(){
+        $(this)[0].pause();
+    });
 
     function gotoStep( step ){
         var $wrap = $('#photo-wrap');
@@ -71,6 +76,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $('.block-skin-tips-top').html("<span>选 择 你 的 嘴 形</span>");
                 break;
             case 4:
+                $('.block-skin-tips-preview').fadeOut(500, function(){
+                    $(this).html('');
+                });
+                $('.block-skin-tips-share').fadeOut(500);
+                $('.block-skin-tips-opt').delay(500).animate({opacity:1},500);
                 $('.mouths').hide();
                 $('.mouth-opts .mouth-opts-close').trigger('click');
                 $('.step3-btns').hide()
@@ -84,8 +94,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 });
                 break;
             case 5:
-                $('.block-skin-tips-opt').fadeOut();
-                $('.block-skin-tips-preview').fadeIn();
+                $('.block-skin-tips-opt').animate({opacity:0},500);
+                $('.block-skin-tips-preview').delay(800).fadeIn(500);
+                break;
+            case 6:
+                $('.block-skin-tips-preview').fadeOut(500);
+                $('.block-skin-tips-share').delay(800).fadeIn(800);
+                break;
         }
 
     }
@@ -174,8 +189,11 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     })
     //close popup
     .action('close-pop', function(){
-        $('.skin-overlay').fadeOut();
+        $('.skin-overlay').fadeOut(function(){
+            $('#skin-pop-video').remove();
+        });
         $('.skin-pop').fadeOut();
+
     });
 
     var $img = $('#photo-wrap img');
@@ -721,29 +739,26 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         console.log(data);
 
         api.ajax('preview' , data , function( result ){
-            console.log(result);
-
             gotoStep(5);
-
-			result.timestamp = new Date().getTime();
-			LP.compile( 'preview-template' , result , function( html ){
-				$('.block-skin-tips-preview').append(html);
+            uploadComplete();
+            result.data.flash = isFlash;
+			result.data.timestamp = new Date().getTime();
+            result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
+            $('.block-skin-tips-step').data('result',result.data);
+			LP.compile( 'preview-template' , result.data , function( html ){
+				$('.block-skin-tips-preview').html(html);
 				LP.use('video-js' , function(){
-					videojs( "inner-video-" + result.timestamp , {}, function(){
+					videojs( "inner-video-" + result.data.timestamp , {}, function(){
 					});
 				});
 			});
 
         });
-
-
     });
 
 
     LP.action('preview', function(){
 		var data = dragHelper.getResult();
-		console.log(data);
-
         api.ajax('preview' , data , function( result ){
             //console.log(result);
             gotoStep(5);
@@ -752,6 +767,148 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
 
     });
+
+    LP.action('publish', function(data){
+        api.ajax('publish' , {id:data.id} , function( result ){
+            var data = $('.block-skin-tips-step').data('result');
+            LP.compile( 'share-template' , data , function( html ){
+                $('.block-skin-tips-share').html(html);
+                gotoStep(6);
+            });
+        });
+    });
+
+    LP.action('showPopVideo', function(data){
+        data.timestamp = new Date().getTime();
+        data.flash = isFlash;
+        LP.compile( 'video-popup-template' , data , function( html ){
+            $('body').append(html);
+            $('.skin-overlay').fadeIn();
+            $('#skin-pop-video').css({top:'-50%'}).fadeIn().animate({top:'50%'}, 500, 'easeOutQuart');
+            LP.use('video-js' , function(){
+                if($("inner-pop-video-" + data.timestamp).length) {
+                    videojs( "inner-pop-video-" + data.timestamp , {}, function(){
+                    });
+                }
+            });
+        });
+    });
+
+    LP.action('restart', function(data){
+        gotoStep(4);
+        flashReset();
+    });
+
+
+    var nodeActions = {
+        prependNode: function( $dom , nodes ){
+            var aHtml = [];
+            var lastDate = null;
+            nodes = nodes || [];
+
+            // save nodes to cache
+            var cache = $dom.data('nodes') || [];
+            var lastPid = cache[0].pid;
+            var lastNode = getObjectIndex(nodes, 'pid', lastPid);
+            var newNodes = nodes.splice(0,lastNode);
+            var count = cache.length - newNodes.length;
+            cache = cache.splice(0, count);
+            for(var i = 0; i < newNodes.length; i++ ) {
+                var $items = $dom.find('.photo_item');
+                $items.eq($items.length-1).remove();
+            }
+            $dom.data('nodes' , newNodes.concat( cache ) );
+            $.each( newNodes , function( index , node ){
+                node.thumb = node.image.replace('.jpg','_thumb.jpg');
+                node.sharecontent = encodeURI(node.content).replace(new RegExp('#',"gm"),'%23')
+                if(node.content.length > 100) {
+                    node.shortcontent = node.content.substring(0,100)+'...';
+                }
+                LP.compile( 'node-item-template' ,
+                    node ,
+                    function( html ){
+                        aHtml.push( html );
+                        if( index == newNodes.length - 1 ){
+                            // render html
+                            $dom.prepend(aHtml.join(''));
+                            $dom.find('.photo_item:not(.reversal)').css({'opacity':0});
+                            //nodeActions.setItemWidth( $dom );
+                            nodeActions.setItemReversal( $dom );
+                        }
+                    });
+            } );
+        },
+
+        inserNode: function( $dom , nodes ){
+            var aHtml = [];
+            var lastDate = null;
+            nodes = nodes || [];
+
+            // save nodes to cache
+            var cache = $dom.data('nodes') || [];
+            $dom.data('nodes' , cache.concat( nodes ) );
+
+            $.each( nodes , function( index , node ){
+                node.poster = node.thumbnail.replace('thumbnail', 'thumbnail_800_800');
+                node.thumbnail = node.thumbnail.replace('thumbnail', 'thumbnail_250_250');
+                LP.compile( 'node-item-template' ,
+                    node ,
+                    function( html ){
+                        aHtml.push( html );
+                        if( index == nodes.length - 1 ){
+                            // render html
+                            $dom.append(aHtml.join(''));
+                            $dom.find('.photo_item:not(.reversal)').css({'opacity':0});
+                            //nodeActions.setItemWidth( $dom );
+                            nodeActions.setItemReversal( $dom );
+                        }
+                    } );
+
+            } );
+        },
+        // start pic reversal animation
+        setItemReversal: function( $dom ){
+            // fix all the items , set position: relative
+            $dom.children()
+                .css('position' , 'relative');
+            // get first time item , which is not opend
+            // wait for it's items prepared ( load images )
+            // run the animate
+
+            // if has time items, it means it needs to reversal from last node-item element
+            // which is not be resersaled
+            var $nodes = $dom.find('.photo_item:not(.reversal)');
+
+            var startAnimate = function( $node ){
+                $node.css({opacity:0}).addClass('reversal').animate({opacity:1}, 1000);
+                setTimeout(function(){
+                    nodeActions.setItemReversal( $dom );
+                } , 100);
+            }
+            // if esist node , which is not reversaled , do the animation
+            if( $nodes.length ){
+                startAnimate( $nodes.eq(0) );
+            }
+        }
+    }
+
+
+
+
+
+    var init = function(){
+        $('.block-skin-tips-flash .btn-rule').fadeIn(500);
+        api.ajax('list' , function( result ){
+            nodeActions.inserNode( $('.block-skin-tips-list') , result.data );
+        });
+    }
+
+    init();
+
+
+
+
+
 
 
 

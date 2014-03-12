@@ -1,9 +1,8 @@
 视频地址为真实地址
-图片地址不为真实地址 
-地址为uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg
-实际地址为:
+数据库图片地址uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg
+实际地址为:默认为800*800分辨率，添加_250_250后缀为250*250分辨率图片
 uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail_250_250.jpg
-uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail_800_800.jpg
+uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg
 
 调用方式：
 对于所有 item 列表调用： GET /node/list
@@ -45,7 +44,8 @@ end:1022 创建该条数据失败
 end:1023 视频生成错误，请重新提交
 end:1024 缩略图截取不成功，请重新提交
 end:1025 base64上传图片数据出错。请重新上传
-
+end:1026 ffprobe不存在
+end:1027 用户上传照片转换为jpg格式不成功
 
 success:2001 获取列表成功
 success:2002 获取该条数据成功

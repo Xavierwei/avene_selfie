@@ -1903,16 +1903,9 @@
         <div class="block-skin-tips tips-onstep1">
             <div class="block-skin-tips-inner-wrap">
                 <div class="block-skin-tips-step">
-                    <div class="block-skin-tips-opt block-skin-tips-flash">
-                        <button class="btn-rule" data-a="rule"></button>
-                        <object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="970" height="703">
-                            <param name="allowScriptAccess" value="always"/>
-                            <param name="movie" value="flash/main.swf"/>
-                            <param name="quality" value="high"/>
-                            <param name="wmode" value="transparent"/>
-                            <param name="flashVars" value="xml=xml/config.xml"/>
-                            <embed name="flash" src="flash/main.swf" quality="high" wmode="transparent" flashVars="xml=xml/config.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="970" height="703" allowScriptAccess="always"></embed>
-                        </object>
+	                <div class="tip-top-title"><img src="./img/chun.png" /> <span>给自己的护肤小 Tips</span></div>
+                    <div class="tips-view-page">
+
                     </div>
                     <div class="block-skin-tips-preview"></div>
                     <div class="block-skin-tips-share"></div>
@@ -1989,26 +1982,24 @@
         </script>
 
         <script type="text/tpl" id="video-popup-template">
-            <div class="skin-pop" id="skin-pop-video">
-                <div class="skin-pop-close" data-a="close-pop"></div>
-                <div class="skin-pop-conent">
-                    {{#if flash}}
-                    <object id="player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="500" height="500">
-                        <param name="allowScriptAccess" value="always"/>
-                        <param name="movie" value="./flash/player.swf"/>
-                        <param name="flashVars" value="source=../{{video}}&skinMode=show&autoplay=false&fengmian=./{{poster}}"/>
-                        <param name="quality" value="high"/>
-                        <param name="allowFullScreen" value="true"/>
-                        <embed name="player" src="./flash/player.swf" flashVars="source=../{{video}}&fengmian=./{{poster}}" quality="high" allowFullScreen="true" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="500" height="500" allowScriptAccess="always"></embed>
-                    </object>
-                    {{else}}
-                    <video id="inner-pop-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{poster}}" preload="none" width="500" height="500" data-setup="{}">
-                        <source src="./{{video}}" type='video/mp4' />
-                    </video>
-                    {{/if}}
-                </div>
-            </div>
+	        {{#if flash}}
+	        <object id="player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="360" height="360">
+		        <param name="allowScriptAccess" value="always"/>
+		        <param name="movie" value="./flash/player.swf"/>
+		        <param name="flashVars" value="source=../{{video}}&skinMode=show&autoplay=false&fengmian=./{{poster}}"/>
+		        <param name="quality" value="high"/>
+		        <param name="allowFullScreen" value="true"/>
+		        <embed name="player" src="./flash/player.swf" flashVars="source=../{{video}}&fengmian=./{{poster}}" quality="high" allowFullScreen="true" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="360" height="360" allowScriptAccess="always"></embed>
+	        </object>
+	        {{else}}
+	        <video id="inner-pop-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{poster}}" preload="none" width="360" height="360" data-setup="{}">
+		        <source src="./{{video}}" type='video/mp4' />
+	        </video>
+	        {{/if}}
 
+	        <div class="block-skin-tips-btns share-btns" style="display: block;">
+		        <a class="btn-back" href="index_flash.html">返回首页</a>
+	        </div>
 
         </script>
 
@@ -2353,6 +2344,6 @@ ga('send', 'pageview');
 <script type="text/javascript" src="./js/sea/sea-debug.js" data-config="../config.js?_2014#"></script>
 <script type="text/javascript" src="./js/sea/plugin-shim.js"></script>
 <script type="text/javascript" src="./js/lp.core.js"></script>
-<script type="text/javascript" src="./js/lp.view.js"></script>
+<script type="text/javascript" src="./js/lp.base.js"></script>
 </body>
 </html>

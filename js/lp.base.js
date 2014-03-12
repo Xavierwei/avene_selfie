@@ -770,8 +770,6 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             gotoStep(5);
             //uploadComplete();
         });
-
-
     });
 
     LP.action('publish', function(data){
@@ -910,6 +908,38 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     }
 
     init();
+
+
+	var viewpage = function(){
+		var id = getQueryString('id');
+		if(!id) return;
+		api.ajax('view', {id:id} , function( result ){
+			result.data.timestamp = new Date().getTime();
+			result.data.flash = isFlash;
+			LP.compile( 'video-popup-template' , result.data , function( html ){
+				$('.tips-view-page').append(html);
+				LP.use('video-js' , function(){
+					if($("inner-pop-video-" + result.data.timestamp).length) {
+						videojs( "inner-pop-video-" + result.data.timestamp , {}, function(){
+						});
+					}
+				});
+			});
+		});
+
+
+	}
+
+	viewpage();
+
+
+
+
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
+	}
 
 
 

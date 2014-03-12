@@ -608,6 +608,35 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 config.raphaelObj.transform( transforms.join('') );
                 renderOpts( config.raphaelObj , config.$opts , config.oWidth , config.oHeight );
             }
+			,
+			getRaphaelTransform: function( raphaelObj ){
+				var trs = raphaelObj.transform();
+				var s = 1;
+				var r = 0;
+				var tx = 0;
+				var ty = 0;
+
+				$.each( trs , function( i , ts){
+					switch( ts[0] ){
+						case 'R':
+							r += ts[1];
+							break;
+						case 'S':
+							s *= ts[1];
+							break;
+						case 'T':
+							tx += ts[1];
+							ty += ts[2];
+							break;
+					}
+				});
+				return {
+					tx: tx,
+					ty: ty,
+					s: s,
+					r: r
+				}
+			}
             ,
             getResult: function(){
                 // 'data:image/jpg;base64,' + Photo,
@@ -858,6 +887,15 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
     });
 
+
+	LP.action('preview', function(){
+		var data = dragHelper.getResult();
+		api.ajax('preview' , data , function( result ){
+			//console.log(result);
+			gotoStep(5);
+			//uploadComplete();
+		});
+	});
 
 
 

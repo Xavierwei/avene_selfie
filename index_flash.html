@@ -1929,8 +1929,8 @@
                 <img src="./img/tips1.png">
             </div>
             <div class="block-skin-tips-bottom-content">
-                <ul class="block-skin-tips-list clear">
-                </ul>
+                <div class="block-skin-tips-list clear">
+                </div>
             </div>
         </div>
 
@@ -1985,7 +1985,7 @@
         </script>
 
         <script type="text/tpl" id="node-item-template">
-            <li class="photo_item" data-a="showPopVideo" data-d="video={{video}}&poster={{poster}}"><img src="./{{thumbnail}}"></li>
+            <a class="photo_item" href="view.html?id={{nid}}" data-d="video={{video}}&poster={{poster}}"><img src="./{{thumbnail}}"></a>
         </script>
 
         <script type="text/tpl" id="video-popup-template">

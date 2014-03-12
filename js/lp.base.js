@@ -577,9 +577,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 // pngy: Mouth_y,
                 // pngr: Mouth_rotation
                 var $svg = $('svg');
+                var scale = 800 / 324;
                 var $tmpCanvas = $('<canvas>').attr({
-                    width: $svg.width(),
-                    height: $svg.height()
+                    width: $svg.width() * scale,
+                    height: $svg.height() * scale
                 })
                 .insertAfter('svg');
 
@@ -588,24 +589,26 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 var imgBox = imgRaphael.getBBox();
                 // draw image
                 ctx.save();
-                ctx.translate( imgBox.x + imgBox.width / 2 , imgBox.y + imgBox.height / 2 );
-                ctx.scale( transform.s , transform.s );
+                ctx.translate( ( imgBox.x + imgBox.width / 2 ) * scale , ( imgBox.y + imgBox.height / 2 ) * scale );
+                ctx.scale( transform.s * scale , transform.s * scale );
                 ctx.rotate( transform.r * Math.PI / 180 );
+
                 ctx.drawImage( $('#photo-wrap img')[0] , - imgWidth / 2 , - imgHeight / 2 , imgWidth , imgHeight );
+
                 ctx.restore();
 
                 var wWidth = $wrap.width();
                 var wHeight = $wrap.height();
                 var $rCanvas = $('<canvas>')
                     .attr({
-                        width: wWidth,
-                        height: wHeight
+                        width: wWidth * scale,
+                        height: wHeight * scale
                     })
                     .insertAfter( $tmpCanvas );
                 var rctx = $rCanvas[0].getContext('2d');
                 var svgLeft = parseInt( $svg.css('left') );
                 var svgTop = parseInt( $svg.css('top') );
-                rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) , Math.abs( svgTop ) , wWidth , wHeight , 0 , 0 , wWidth , wHeight );
+                rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) * scale , Math.abs( svgTop ) * scale , wWidth * scale , wHeight * scale , 0 , 0 , wWidth * scale , wHeight * scale );
 
 
                 // clear
@@ -632,7 +635,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         }
     })();
 
-
+    //window.dragHelper = dragHelper;
+    
     dragHelper
         .bind( $('.middle-center') , function( ev , status ){
             status.last_x = status.last_x || 0;

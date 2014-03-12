@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 'swfupload-speed', 'raphael'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
     'use strict'
 
 
@@ -14,10 +14,29 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     .hide()
                     .end()
                     .find('img')
-                    .attr('src' , './img/test.jpg');
+                    .show()
+                    .attr('src' , '../img/test.jpg');
+
                     $('.mask-bottom').height( '' );
                     $('.step1-btns').show().next().hide();
-                    $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <span>给自己的护肤小 Tips</span>");   
+                    $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <span>给自己的护肤小 Tips</span>"); 
+                    var $oInput = $('.btn-upload input');
+                    var $newInput = $oInput.clone()
+                        .insertAfter('.btn-upload input')
+                        .change(function(){
+                            if (this.files && this.files[0] && FileReader ) {
+                                //..create loading
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    // change checkpage img
+                                    $('#photo-wrap').find('img')
+                                        .attr('src' , e.target.result );
+                                    gotoStep( 2 );
+                                };
+                                reader.readAsDataURL(this.files[0]);
+                            }
+                        });
+                    $oInput.remove();
                     break;
             case 2:
                 var $optWrap = $wrap.find('video,canvas')
@@ -245,12 +264,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             }
 
             if( !raphael ){
-                raphael = Raphael( img.parentNode , wrapWidth, wrapHeight);
+                raphael = Raphael( img.parentNode , optWrapWidth, optWrapHeight);
                 imgRaphael = raphael.image( img.src , 0 , 0 , imgWidth, imgHeight);
                 mouthRaphael = raphael.image( img.src , 0 , 0 , 0, 0);
                 $('svg').css({
-                    left: ( imgWidth - wrapWidth) / 2,
-                    top: ( imgHeight - wrapHeight ) / 2,
+                    left: 0,//( imgWidth - wrapWidth) / 2,
+                    top: 0,//( imgHeight - wrapHeight ) / 2,
                     overflow: 'visible'
                 });
             }
@@ -789,12 +808,15 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
     LP.use('hammer' , function(){
         // swipe event for slider
-        $('.mouths-wrap').hammer()
-            .bind('swipeleft' , function(){
-                LP.triggerAction('scroll-left');
+        $('.mouths-wrap').hammer({
+                swipe_velocity: 0.3,
+                prevent_event: true
             })
-            .bind('swiperight' , function(){
+            .on('swipeleft' , function(){
                 LP.triggerAction('scroll-right');
+            })
+            .on('swiperight' , function(){
+                LP.triggerAction('scroll-left');
             });
 
         // opts transform

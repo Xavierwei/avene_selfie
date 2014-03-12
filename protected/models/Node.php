@@ -98,13 +98,14 @@ class Node extends CActiveRecord
 	 * 默认获取前8条状态为1: published的内容
 	 * 自定义 recently 命名范围中指定的帖子数量
 	 */
-	public function recently($limit=8,$status=1)
+	public function recently($limit=8,$offset=1,$status=1)
 	{
 	    $this->getDbCriteria()->mergeWith(array(
-	    	'select'=>'nid,thumbnail,video',
-	        'order'=>'createtime DESC',
-	        'limit'=>$limit,
-	        'condition'=>'status=' . $status,
+	    	// 'select'	=>'nid,thumbnail,video',
+	        'order'		=>'createtime DESC',
+	        'limit'		=>$limit,
+	        'offset' => $limit * ($offset-1),  
+	        'condition'	=>'status=' . $status,
 	    ));
 	    return $this;
 	}

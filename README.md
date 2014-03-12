@@ -13,6 +13,13 @@ uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg
 	 photo:base64(图片)；pngnum:（png序列1-9） ；pngx:(png坐标x)；pngy:(png坐标y)；pngr(png旋转角度)；pngw(png宽)；pngh(png高)；
 更新一个 item： POST /node/update/123
 	id：id 数值
+
+admin（管理员）:
+登陆接口 POST /manager/login
+注销接口      /manager/logout
+更新一个 item： POST /node/update/123  //管理员默认不用认证cookie
+对于所有 item 列表调用： GET /node/list //管理员可以传入 
+		pages:（第几页），pageSize:(每页显示条数)，status(0,1)：（显示状态。可传入0和1）
 	
 字典：
 data：内容 或者 null
@@ -47,9 +54,16 @@ end:1025 base64上传图片数据出错。请重新上传
 end:1026 ffprobe不存在
 end:1027 用户上传照片转换为jpg格式不成功
 
+end:3001 未传入用户名数据
+end:3002 未传入密码数据
+end:3003 用户名或密码不正确，请重新输入
+
 success:2001 获取列表成功
 success:2002 获取该条数据成功
 success:2003 修改数据成功
 success:2004 创建视频成功
+
+success:2005 登陆成功
+success:2006 注销成功
 
 

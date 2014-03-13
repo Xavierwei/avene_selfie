@@ -30,7 +30,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                                 reader.onload = function (e) {
                                     // change checkpage img
                                     $('#photo-wrap').find('img')
-                                        .attr('src' , e.target.result );
+                                        .attr('src' , fixChangeIphoneAndIpad( e.target.result ) );
                                     gotoStep( 2 );
                                 };
                                 reader.readAsDataURL(this.files[0]);
@@ -109,6 +109,20 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 break;
         }
 
+    }
+
+    var fuckIphoneAndIpad = false;
+    function fixChangeIphoneAndIpad( dataUrl ){
+        fuckIphoneAndIpad = false;
+        var s = dataUrl.split(',');
+        var bin = atob(s[1]);
+        if( bin && bin.charCodeAt( 49 ) != 1 ){
+            bin = bin.replace(/(.{49})./ , '$1' + String.fromCharCode(1));
+
+            fuckIphoneAndIpad = true;
+            return s[0] + "," + btoa( bin );
+        }
+        return dataUrl;
     }
     // page actions here
     // =========================================================================================================
@@ -256,16 +270,16 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
             var optWrapWidth = $wrap.width();
             var optWrapHeight = $wrap.height();
             if( imgWidth / imgHeight > optWrapWidth / optWrapHeight && imgWidth > optWrapWidth ){
-                imgHeight = imgHeight / imgWidth * optWrapWidth;
+                imgHeight = ~~(imgHeight / imgWidth * optWrapWidth);
                 imgWidth = optWrapWidth;
             } else if( imgWidth / imgHeight < optWrapWidth / optWrapHeight && imgHeight > optWrapHeight ){
-                imgWidth = imgWidth / imgHeight * optWrapHeight;
+                imgWidth = ~~(imgWidth / imgHeight * optWrapHeight);
                 imgHeight = optWrapHeight;
             }
             
             if( !raphael ){
                 raphael = Raphael( img.parentNode , optWrapWidth, optWrapHeight);
-                imgRaphael = raphael.image( img.src , 0 , 0 , imgWidth, imgHeight);
+                imgRaphael = raphael.image( img.src , 0 , 0 );
                 mouthRaphael = raphael.image( img.src , 0 , 0 , 0, 0);
                 $('svg').css({
                     left: 0,//( imgWidth - wrapWidth) / 2,
@@ -280,19 +294,20 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
             var svgWidth = $('svg').width();
             var svgHeight = $('svg').height();
 
-
             mouthRaphael.attr({
                 width: 0,
                 height: 0
             });
-            imgRaphael.attr({
-                x:      ( - imgWidth + svgWidth) / 2,
-                y:      ( - imgHeight + svgHeight ) / 2,
-                src     : img.src,
-                width   : imgWidth,
-                height  : imgHeight
-            })
-            .transform('');
+
+            imgRaphael
+                .attr({
+                    x:      ( - imgWidth + svgWidth) / 2,
+                    y:      ( - imgHeight + svgHeight ) / 2,
+                    src     : img.src,
+                    width   : imgWidth,
+                    height  : imgHeight
+                })
+                .transform("");
             // set the position of the imgwrap-opts
             $('.imgwrap-opts').css( {
                 width: imgWidth,
@@ -305,6 +320,9 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
             //transformMgr.reset();
             $(img).hide();
 
+            if( fuckIphoneAndIpad ){
+                dragHelper.rotate( 90 );
+            }
         } )
         .attr( 'src' , $img.attr('src') + '?__' );
         
@@ -688,6 +706,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
                 $tmpCanvas.remove();
                 // $rCanvas.remove();
+                $('#photo-wrap img').appendTo(document.body)
+                    .show();
                 $rCanvas.show().css('background' , 'red')
                     .appendTo(document.body);
                 return data;
@@ -823,7 +843,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 reader.onload = function (e) {
                     // change checkpage img
                     $('#photo-wrap').find('img')
-                        .attr('src' , e.target.result );
+                        .attr('src' , fixChangeIphoneAndIpad( e.target.result ) );
                     gotoStep( 2 );
                 };
                 reader.readAsDataURL(this.files[0]);

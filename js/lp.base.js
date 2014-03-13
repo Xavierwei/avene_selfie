@@ -92,6 +92,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     $(this).css('overflow' , 'visible');
                     $wrap.find('.imgwrap-opts').show();
                 });
+                $('.tip-image').fadeOut();
                 break;
             case 5:
                 $('.block-skin-tips-opt').animate({opacity:0},500);
@@ -742,14 +743,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 
 
     LP.action('flashPreview', function(data){
-        console.log(data);
-
         api.ajax('preview' , data , function( result ){
             gotoStep(5);
             uploadComplete();
             result.data.flash = isFlash;
 			result.data.timestamp = new Date().getTime();
-            result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
+            result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_250_250');
             $('.block-skin-tips-step').data('result',result.data);
 			LP.compile( 'preview-template' , result.data , function( html ){
 				$('.block-skin-tips-preview').html(html);
@@ -757,6 +756,20 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 					videojs( "inner-video-" + result.data.timestamp , {}, function(){
 					});
 				});
+
+                $('#imgLoad').attr('src', result.data.thumbnail);
+                $('.preview-player').css({opacity:0});
+                $('#imgLoad').ensureLoad(function(){
+                    $('.preview-player').animate({opacity:1});
+                });
+
+                LP.use('video-js' , function(){
+                    if($("inner-pop-video-" + result.data.timestamp).length) {
+                        videojs( "inner-pop-video-" + result.data.timestamp , {}, function(){
+                            $('.vjs-big-play-button').fadeIn();
+                        });
+                    }
+                });
 			});
 
         });
@@ -778,6 +791,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.compile( 'share-template' , data , function( html ){
                 $('.block-skin-tips-share').html(html);
                 gotoStep(6);
+                $('.tip-image').fadeIn();
             });
         });
     });
@@ -792,6 +806,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.use('video-js' , function(){
                 if($("inner-pop-video-" + data.timestamp).length) {
                     videojs( "inner-pop-video-" + data.timestamp , {}, function(){
+
                     });
                 }
             });
@@ -801,6 +816,8 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('restart', function(data){
         gotoStep(4);
         flashReset();
+        $('.block-skin-tips').addClass('tips-onstep1');
+        $('.block-skin-tips-bottom').fadeIn();
     });
 
 
@@ -853,7 +870,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             $dom.data('nodes' , cache.concat( nodes ) );
 
             $.each( nodes , function( index , node ){
-                node.poster = node.thumbnail.replace('thumbnail', 'thumbnail_800_800');
+                node.poster = node.thumbnail.replace('thumbnail', 'thumbnail');
                 node.thumbnail = node.thumbnail.replace('thumbnail', 'thumbnail_250_250');
                 LP.compile( 'node-item-template' ,
                     node ,
@@ -896,15 +913,34 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         }
     }
 
-
+    var $loading = $('.load_more_loading');
+    LP.action('load_more', function(){
+        $loading.fadeIn();
+        var pageParam = $('.block-skin-tips-list').data('param');
+        pageParam.pages ++;
+        $('.block-skin-tips-list').data('param',pageParam);
+        api.ajax('list', pageParam, function( result ){
+            $loading.fadeOut();
+            nodeActions.inserNode( $('.block-skin-tips-list') , result.data );
+        });
+    });
 
 
 
     var init = function(){
         $('.block-skin-tips-flash .btn-rule').fadeIn(500);
+        var pageParam = {pages:1};
+        $('.block-skin-tips-list').data('param',pageParam);
         api.ajax('list' , function( result ){
             nodeActions.inserNode( $('.block-skin-tips-list') , result.data );
         });
+
+        setTimeout(function(){
+           if($('.block-skin-tips-flash').css('opacity') == 0){
+               $('.block-skin-tips-flash').animate({opacity:1});
+           }
+
+        }, 10000);
     }
 
     init();
@@ -916,11 +952,18 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 		api.ajax('view', {id:id} , function( result ){
 			result.data.timestamp = new Date().getTime();
 			result.data.flash = isFlash;
+            result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_250_250');
+            $('#imgLoad').attr('src', './'+result.data.thumbnail);
 			LP.compile( 'video-popup-template' , result.data , function( html ){
 				$('.tips-view-page').append(html);
+                $('.tips-view-page').css({opacity:0});
+                $('#imgLoad').ensureLoad(function(){
+                    $('.tips-view-page').animate({opacity:1});
+                });
 				LP.use('video-js' , function(){
 					if($("inner-pop-video-" + result.data.timestamp).length) {
 						videojs( "inner-pop-video-" + result.data.timestamp , {}, function(){
+                            $('.vjs-big-play-button').fadeIn();
 						});
 					}
 				});
@@ -942,6 +985,17 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
 	}
 
 
+    jQuery.fn.extend({
+        ensureLoad: function(handler) {
+            return this.each(function() {
+                if(this.complete) {
+                    handler.call(this);
+                } else {
+                    $(this).load(handler);
+                }
+            });
+        }
+    });
 
 
 

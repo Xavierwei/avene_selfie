@@ -2,11 +2,10 @@
 .clear:before,
 .clear:after{clear:both;content:".";font-size:0;display:block;height:0;overflow:hidden;visibility:hidden;}
 
-#main {width:950px;padding:0 0 50px 0;background: url(../img/main-bg1.png);}
-
+#main {width:970px;padding:0 0 50px 0;background: url(../img/main-bg1.png);}
+#block-tb-megamenu-main-menu {left:0;width:970px;}
 /** toploadn **/
 .block-skin-tips{ }
-.block-skin-tips-inner-wrap {background: url(../img/tip_bottom_bg.gif) no-repeat bottom;height:724px;}
 
 	.block-skin-tips-top{position: relative;z-index: 4; color:white; font-size: 28px; height: 128px; background: url(../img/top-lain.png); text-align: center;line-height: 128px;}
 	.block-skin-tips-top img{vertical-align: middle;}
@@ -43,15 +42,16 @@ margin-left: -162px;}
 	.block-skin-tips-btns .btn-upload input[type="file"]{position: absolute;top:0; height: 100%;left:0; width: 100%;opacity: 0;}
 	.block-skin-tips-btns button.btn-rule{display:none;background-position: -307px 0;cursor: pointer;}
 
-	.block-skin-tips-bottom{background: white;height: 689px;}
+	.block-skin-tips-bottom-inner {background: white;}
 	.block-skin-tips-bottom-header{ position:relative; z-index: 4; top: -11px; background: url(../img/agup.png) repeat-x; height: 121px;line-height: 150px; text-align: center;}
 	.block-skin-tips-bottom-header img{vertical-align: middle;}
-	.block-skin-tips-bottom-content{ height: 540px; position: relative;bottom: -11px; padding: 0 51px 30px;background: url(../img/agdown.png) repeat-x left bottom;}
+	.block-skin-tips-bottom-content{ position: relative;bottom: -11px; padding: 0 51px 30px;background:#fff;}
+    .block-skin-tips-bottom-footer {background:url(../img/agdown.png) repeat-x left bottom;height:32px;}
 	.block-skin-tips-list a{cursor:pointer;float: left;margin: 0 5px 17px;width: 207px;}
     .block-skin-tips-list a:hover {opacity: 0.8!important;}
     .block-skin-tips-list a img{width: 100%;display: block;height: 207px;}
 	.block-skin-tips-list a p{height: 45px;line-height: 45px;font-size: 16px;color: #f1957e; text-align: center;}
-
+    .load_more {cursor:pointer;background: url(../img/more.gif) no-repeat;width:140px;height:60px;margin:10px auto;text-indent: -999em;}
 
 	.imgwrap-opts {z-index: 10; position: absolute;width: 324px;height: 324px;top: 0;display: none;}
 	.imgwrap-opts .top-left{position:absolute; top:-13px; left: -13px; width: 40px;height: 40px;background: url(../img/opts.png) left top;}
@@ -149,8 +149,9 @@ display: none;
 	right: -12px;
 }
 
-.block-skin-tips-flash {width:950px;padding-top:7px;position: relative;}
-.block-skin-tips-flash .btn-rule {cursor:pointer;display:none;position:absolute;top:524px;right:239px;background: url(../img/btns.png) no-repeat -307px 0;width:140px;height:60px;border:none;}
+.block-skin-tips-inner-loading {background: url(../img/loading.gif) no-repeat center;}
+.block-skin-tips-flash {opacity:0;width:970px;padding-top:7px;position: relative;}
+.block-skin-tips-flash .btn-rule {cursor:pointer;display:none;position:absolute;top:524px;right:257px;background: url(../img/btns.png) no-repeat -307px 0;width:140px;height:60px;border:none;}
 
 
 .skin-overlay {display:none;background:rgba(0,0,0,0.1);position: fixed;width:100%;height:100%;left:0;top:0;z-index:900;}
@@ -180,14 +181,17 @@ display: none;
 
 .tips-onstep1 .block-skin-tips-inner-wrap {height:624px;}
 .tips-onstep1 .block-skin-tips-step {height:624px;}
+.block-skin-tips-inner-loading {background: url(../img/loading.gif) no-repeat center;}
 
-.tips-view-page {text-align: center;margin-top:-20px;}
+.tips-view-page {text-align: center;margin-top:-20px;opacity:0;}
 .tips-view-page .block-skin-tips-btns {margin-top:25px;}
 .tips-view-page .btn-back {background: url(../img/step2-btns.jpg); width: 213px;height: 46px;line-height:46px;margin: 0 25px;font-size: 21px;color:white;text-indent: 2em;}
 
 
 /* Animation Used
 ================================================================================================= */
-.block-skin-tips-list li
+.btn:hover {opacity: 0.7;}
+
+.block-skin-tips-list li,.btn
 {-webkit-transition:   all 0.3s ease;-moz-transition:  all 0.3s ease;-o-transition:  all 0.3s ease;-ms-transition:  all 0.3s ease;transition:  all 0.3s ease;}
 

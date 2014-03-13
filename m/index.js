@@ -116,7 +116,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
         fuckIphoneAndIpad = false;
         var s = dataUrl.split(',');
         var bin = atob(s[1]);
-        if( bin && bin.charCodeAt( 49 ) != 1 ){
+        if( bin && bin.charCodeAt( 49 ) == 6 ){
             bin = bin.replace(/(.{49})./ , '$1' + String.fromCharCode(1));
 
             fuckIphoneAndIpad = true;
@@ -705,11 +705,11 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 }
 
                 $tmpCanvas.remove();
-                // $rCanvas.remove();
-                $('#photo-wrap img').appendTo(document.body)
-                    .show();
-                $rCanvas.show().css('background' , 'red')
-                    .appendTo(document.body);
+                $rCanvas.remove();
+                // $('#photo-wrap img').appendTo(document.body)
+                //     .show();
+                // $rCanvas.show().css('background' , 'red')
+                //     .appendTo(document.body);
                 return data;
             }
             // getResult: function(){

@@ -70,7 +70,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 
                 break;
             case 3:
-                dragHelper.getResult();
+                // for debug
+                // dragHelper.getResult();
                 // move view wrap to left, and show mouth
                 // hide mask
                 $('.block-skin-masks').hide();
@@ -705,11 +706,11 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 }
 
                 $tmpCanvas.remove();
-                $rCanvas.remove();
+                // $rCanvas.remove();
                 // $('#photo-wrap img').appendTo(document.body)
                 //     .show();
-                // $rCanvas.show().css('background' , 'red')
-                //     .appendTo(document.body);
+                $rCanvas.show().css('background' , 'red')
+                    .appendTo(document.body);
                 return data;
             }
             // getResult: function(){
@@ -854,6 +855,11 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
     $('.mouths img').click(function(){
         // 1. add pic to left wrap
         dragHelper.renderMouth( $(this) );
+
+        $(this).parent()
+            .addClass('selected')
+            .siblings('.selected')
+            .removeClass('selected');
     });
 
     LP.use('hammer' , function(){

@@ -70,6 +70,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 
                 break;
             case 3:
+                dragHelper.getResult();
                 // move view wrap to left, and show mouth
                 // hide mask
                 $('.block-skin-masks').hide();
@@ -244,7 +245,6 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
             // reset 
             transforms = [];
             dragHelper.setTransform( $('.imgwrap-opts') , "inherit" );
-            console.clear();
             
             imgWidth = img.width || $(img).width();
             imgHeight =  img.height || $(img).height();
@@ -262,7 +262,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 imgWidth = imgWidth / imgHeight * optWrapHeight;
                 imgHeight = optWrapHeight;
             }
-
+            
             if( !raphael ){
                 raphael = Raphael( img.parentNode , optWrapWidth, optWrapHeight);
                 imgRaphael = raphael.image( img.src , 0 , 0 , imgWidth, imgHeight);
@@ -293,8 +293,6 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 height  : imgHeight
             })
             .transform('');
-
-
             // set the position of the imgwrap-opts
             $('.imgwrap-opts').css( {
                 width: imgWidth,
@@ -645,7 +643,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 // pngy: Mouth_y,
                 // pngr: Mouth_rotation
                 var $svg = $('svg');
-                var scale = 800 / 324;
+                var scale = 800 / 500;
                 var $tmpCanvas = $('<canvas>').attr({
                     width: $svg.width() * scale,
                     height: $svg.height() * scale
@@ -689,7 +687,9 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 }
 
                 $tmpCanvas.remove();
-                $rCanvas.remove();
+                // $rCanvas.remove();
+                $rCanvas.show().css('background' , 'red')
+                    .appendTo(document.body);
                 return data;
             }
             // getResult: function(){
@@ -754,6 +754,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
         }
     })();
 
+    window.dragHelper = dragHelper;
 
     dragHelper
         .bind( $('.middle-center') , function( ev , status ){

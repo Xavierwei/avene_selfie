@@ -94,15 +94,15 @@
                           <span data-a="scroll-left" class="icon icon-sleft"></span>
                           <span data-a="scroll-right" class="icon icon-sright"></span>
                           <ul class="mouths clearfix">
-                            <li><img src="../img/mouth/m1.png"></li>
-                            <li><img src="../img/mouth/m2.png"></li>
-                            <li><img src="../img/mouth/m3.png"></li>
-                            <li><img src="../img/mouth/m4.png"></li>
-                            <li><img src="../img/mouth/m5.png"></li>
-                            <li><img src="../img/mouth/m6.png"></li>
-                            <li><img src="../img/mouth/m7.png"></li>
-                            <li><img src="../img/mouth/m8.png"></li>
-                            <li><img src="../img/mouth/m9.png"></li>
+                            <li><img src="../image/mouth1.png"></li>
+                            <li><img src="../image/mouth2.png"></li>
+                            <li><img src="../image/mouth3.png"></li>
+                            <li><img src="../image/mouth4.png"></li>
+                            <li><img src="../image/mouth5.png"></li>
+                            <li><img src="../image/mouth6.png"></li>
+                            <li><img src="../image/mouth7.png"></li>
+                            <li><img src="../image/mouth8.png"></li>
+                            <li><img src="../image/mouth9.png"></li>
                           </ul>
                         </div>
 
@@ -120,27 +120,57 @@
                           <button class="btn-next" data-a="preview"> <i class="icon icon-right"></i> 预&nbsp;&nbsp;览</button>
                         </div>
                       </div>
-                      <div class="block-skin-tips-bottom">
-                        <div class="block-skin-tips-bottom-header">
-                          <img src="./img/tips1.png">
-                        </div>
-                        <div class="block-skin-tips-bottom-content">
-                          <ul class="block-skin-tips-list clear">
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                            <li><img src="./img/test.jpg"><p>L345</p></li>
-                          </ul>
-                        </div>
-                      </div>
+
+                        <div class="block-skin-tips-preview"></div>
+                        <div class="block-skin-tips-share"></div>
+
+                      <!--<div class="block-skin-tips-bottom">-->
+                        <!--<div class="block-skin-tips-bottom-header">-->
+                          <!--<img src="./img/tips1.png">-->
+                        <!--</div>-->
+                        <!--<div class="block-skin-tips-bottom-content">-->
+                          <!--<ul class="block-skin-tips-list clear">-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                            <!--<li><img src="./img/test.jpg"><p>L345</p></li>-->
+                          <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
                     </div>
                     <!-- step1 end-->
                   </div>
+
+            <div class="loading"></div>
 <!-- skin tips end -->
+            <script type="text/tpl" id="preview-template">
+                <div class="preview-player">
+                    <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="../{{thumbnail}}" preload="none" width="500" height="500" data-setup="{}">
+                        <source src="../{{video}}" type='video/mp4' />
+                    </video>
+                </div>
+                <div class="block-skin-tips-btns preview-btns" style="display: block;">
+                    <button class="btn-back" data-a="gostep" data-d="step=4"><i class="icon icon-back"></i>返&nbsp;&nbsp;回</button>
+                    <button class="btn-next" data-a="publish" data-d="id={{nid}}"><i class="icon icon-right"></i>完&nbsp;&nbsp;成</button>
+                </div>
+            </script>
+
+            <script type="text/tpl" id="share-template">
+                <div class="preview-img">
+                    <img src="../{{thumbnail}}" width="500" height="500" />
+                </div>
+                <div class="share-sina"><label>分享到：</label>
+                    <a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=test&pic=http://avene/{{thumbnail}}" class="sharelink"></a>
+                </div>
+                <div class="block-skin-tips-btns share-btns" style="display: block;">
+                    <button class="btn-back" data-a="gostep" data-d="step=4"><i class="icon icon-back"></i>返&nbsp;&nbsp;回</button>
+                    <button class="btn-next" data-a="restart"><i class="icon icon-right"></i>再玩一次</button>
+                </div>
+            </script>
 
 
           </div>
@@ -155,7 +185,8 @@
   
 </div>
 
-  
+
+<script type="text/javascript" src="../js/exif.js"></script>
 <script type="text/javascript" src="../js/sea/sea-debug.js" data-config="../config-m.js?_2014#"></script>
 <script type="text/javascript" src="../js/sea/plugin-shim.js"></script>
 <script type="text/javascript" src="../js/lp.core.js"></script>

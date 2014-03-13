@@ -76,6 +76,9 @@ seajs.config({
       src: "../plugin/jquery.hammer.js"
       ,deps: ['jquery']
     }
+      ,binaryajax:{
+          src: "../plugin/binaryajax.js"
+      }
   }
   , alias: {
     api: '../api-m.js?_201402#'

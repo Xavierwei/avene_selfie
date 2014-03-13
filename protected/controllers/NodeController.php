@@ -150,9 +150,9 @@ class NodeController extends Controller
 		$is_screenshot=Drtool::screenshot($save_path,$save_name,250,250);
 		if($is_screenshot!="screenshot")
 			StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
-		// $is_screenshot=Drtool::screenshot($save_path,$save_name,800,800);
-		// if($is_screenshot!="screenshot")
-		// 	StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
+		$is_screenshot=Drtool::screenshot($save_path,$save_name,800,800);
+		if($is_screenshot!="screenshot")
+		 	StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
 
 
 	   	$item = new Node;

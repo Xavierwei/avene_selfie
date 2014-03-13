@@ -19,7 +19,8 @@
     <js2flash callback="js2flashUploadComplete"/>
     <js2flash callback="js2reset"/>
     <onStartPaizhao action='onStartPaizhao();'/>
-    <onGetImg action='onPaizhao();'/>
+    <onLoaded action='onLoaded();'/>
+    <onPaizhao action='onPaizhao();'/>
     <onGetImg action='onGetImg();'/>
     <onReset action='onReset();'/>
 

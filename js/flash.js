@@ -80,14 +80,27 @@ function onStartPaizhao(){
     jQuery('.block-skin-tips').removeClass('tips-onstep1');
 }
 function onGetImg(){
+    jQuery('.block-skin-tips-bottom').fadeOut();
+    jQuery('.btn-rule').fadeOut();
+    jQuery('.block-skin-tips').removeClass('tips-onstep1');
 }
+
+function onLoaded() {
+    jQuery('.block-skin-tips-flash').css({opacity:0});
+    setTimeout(function(){
+        jQuery('.block-skin-tips-inner-wrap').removeClass('block-skin-tips-inner-loading');
+        jQuery('.block-skin-tips-flash').animate({opacity:1});
+    }, 1000);
+}
+
 function onReset(){
     jQuery('.btn-rule').fadeIn();
     jQuery('.block-skin-tips').fadeClass('tips-onstep1');
+    jQuery('.block-skin-tips-bottom').fadeOut();
 }
 
 function onPaizhao(){
-    jQuery('.tip-image').fadeIn();
+//    jQuery('.tip-image').fadeIn();
     jQuery('.block-skin-tips-bottom').fadeOut();
     jQuery('.btn-rule').fadeOut();
     jQuery('.block-skin-tips').removeClass('tips-onstep1');

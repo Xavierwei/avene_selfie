@@ -1893,6 +1893,7 @@
 </div>
 
 </header>
+<img id="imgLoad" src="" style="display:none;" />
 
 <div id="main">
     <div id="content" class="column" role="main">
@@ -1901,7 +1902,7 @@
 
         <!-- skin tips start -->
         <div class="block-skin-tips tips-onstep1">
-            <div class="block-skin-tips-inner-wrap">
+            <div class="block-skin-tips-inner-wrap block-skin-tips-inner-loading">
                 <div class="block-skin-tips-step">
 	                <div class="tip-top-title"><img src="./img/chun.png" /> <span>给自己的护肤小 Tips</span></div>
                     <div class="tips-view-page">
@@ -1918,19 +1919,27 @@
         </div>
 
         <div class="block-skin-tips-bottom">
-            <div class="block-skin-tips-bottom-header">
-                <img src="./img/tips1.png">
+            <div class="block-skin-tips-bottom-inner">
+                <div class="block-skin-tips-bottom-header">
+                    <img src="./img/tips1.png">
+                </div>
+                <div class="block-skin-tips-bottom-content">
+                    <div class="block-skin-tips-list clear">
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="load_more_loading"></div>
+                    <div class="load_more btn" data-a="load_more">加载更多</div>
+                </div>
+                <div class="clear"></div>
             </div>
-            <div class="block-skin-tips-bottom-content">
-                <ul class="block-skin-tips-list clear">
-                </ul>
-            </div>
+            <div class="block-skin-tips-bottom-footer"></div>
         </div>
 
 
         <div class="skin-overlay" data-a="close-pop"></div>
         <div class="skin-pop" id="skin-pop-rule">
-            <div class="skin-pop-close" data-a="close-pop"></div>
+            <div class="skin-pop-close btn" data-a="close-pop"></div>
             <div class="skin-pop-conent">
                 <h4>活动介绍</h4>
                 <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -1953,7 +1962,7 @@
                 </object>
                 {{else}}
                 <video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{thumbnail}}" preload="none" width="325" height="325" data-setup="{}">
-                    <source src="./{{video}}" type='video/mp4' />
+                    <source src="../{{video}}" type='video/mp4' />
                 </video>
                 {{/if}}
             </div>
@@ -1978,7 +1987,7 @@
         </script>
 
         <script type="text/tpl" id="node-item-template">
-            <li class="photo_item" data-a="showPopVideo" data-d="video={{video}}&poster={{poster}}"><img src="./{{thumbnail}}"></li>
+            <a class="photo_item" href="view.html?id={{nid}}" data-d="video={{video}}&poster={{poster}}"><img src="./{{thumbnail}}"></a>
         </script>
 
         <script type="text/tpl" id="video-popup-template">
@@ -1986,19 +1995,19 @@
 	        <object id="player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="360" height="360">
 		        <param name="allowScriptAccess" value="always"/>
 		        <param name="movie" value="./flash/player.swf"/>
-		        <param name="flashVars" value="source=../{{video}}&skinMode=show&autoplay=false&fengmian=./{{poster}}"/>
+		        <param name="flashVars" value="source=../{{video}}&skinMode=show&autoplay=false&fengmian=./{{thumbnail}}"/>
 		        <param name="quality" value="high"/>
 		        <param name="allowFullScreen" value="true"/>
-		        <embed name="player" src="./flash/player.swf" flashVars="source=../{{video}}&fengmian=./{{poster}}" quality="high" allowFullScreen="true" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="360" height="360" allowScriptAccess="always"></embed>
+		        <embed name="player" src="./flash/player.swf" flashVars="source=../{{video}}&fengmian=./{{thumbnail}}" quality="high" allowFullScreen="true" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="360" height="360" allowScriptAccess="always"></embed>
 	        </object>
 	        {{else}}
-	        <video id="inner-pop-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{poster}}" preload="none" width="360" height="360" data-setup="{}">
+	        <video id="inner-pop-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{thumbnail}}" preload="none" width="360" height="360" data-setup="{}">
 		        <source src="./{{video}}" type='video/mp4' />
 	        </video>
 	        {{/if}}
 
 	        <div class="block-skin-tips-btns share-btns" style="display: block;">
-		        <a class="btn-back" href="index_flash.html">返回首页</a>
+		        <a class="btn-back" href="./">返回首页</a>
 	        </div>
 
         </script>

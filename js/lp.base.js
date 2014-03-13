@@ -748,7 +748,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             uploadComplete();
             result.data.flash = isFlash;
 			result.data.timestamp = new Date().getTime();
-            result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_250_250');
+            result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
             $('.block-skin-tips-step').data('result',result.data);
 			LP.compile( 'preview-template' , result.data , function( html ){
 				$('.block-skin-tips-preview').html(html);

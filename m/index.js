@@ -67,6 +67,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     $(this).css('overflow' , 'visible');
                     $wrap.find('.imgwrap-opts').show();
                 });
+
+				$('.block-skin-tips-bottom').fadeOut();
                 
                 break;
             case 3:
@@ -74,6 +76,9 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 // dragHelper.getResult();
                 // move view wrap to left, and show mouth
                 // hide mask
+				$('.block-skin-tips-share').fadeOut();
+				$('.block-skin-tips-preview').fadeOut();
+				$('.block-skin-tips-opt').fadeIn();
                 $('.block-skin-masks').hide();
                 // hide opts
                 $wrap.find('.imgwrap-opts').hide();
@@ -95,7 +100,10 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     .hide();
                 $('.block-skin-tips-top').html("<span>选 择 你 的 嘴 形</span>");
                 break;
-            case 4:
+			case 4:
+				$('.block-skin-tips-share').fadeOut();
+				$('.block-skin-tips-preview').fadeOut();
+				$('.block-skin-tips-opt').fadeIn();
                 $('.mouths-wrap').hide();
                 $('.mouth-opts .mouth-opts-close').trigger('click');
                 $('.step3-btns').hide()
@@ -108,6 +116,13 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     $wrap.find('.imgwrap-opts').show();
                 });
                 break;
+			case 5:
+				$('.block-skin-tips-opt').fadeOut();
+				$('.block-skin-tips-preview').delay(500).fadeIn();
+				break;
+			case 6:
+				$('.block-skin-tips-preview').fadeOut();
+				$('.block-skin-tips-share').delay(500).fadeIn();
         }
 
     }
@@ -709,8 +724,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 // $rCanvas.remove();
                 // $('#photo-wrap img').appendTo(document.body)
                 //     .show();
-                $rCanvas.show().css('background' , 'red')
-                    .appendTo(document.body);
+//                $rCanvas.show().css('background' , 'red')
+//                    .appendTo(document.body);
                 return data;
             }
             // getResult: function(){
@@ -917,12 +932,175 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
 	LP.action('preview', function(){
 		var data = dragHelper.getResult();
+		if(!data.pngnum) return;
+		$('.loading').fadeIn();
 		api.ajax('preview' , data , function( result ){
-			//console.log(result);
-			gotoStep(5);
-			//uploadComplete();
+			$('.loading').fadeOut();
+			if(typeof result.success.message != undefined && result.success.message == 'success') {
+				result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
+				$('.block-skin-tips-step').data('result',result.data);
+				LP.compile( 'preview-template' , result.data , function( html ){
+					$('.block-skin-tips-preview').html(html);
+				});
+				gotoStep(5);
+			}
 		});
 	});
+
+	LP.action('publish', function(data){
+		api.ajax('publish' , {id:data.id} , function( result ){
+			var data = $('.block-skin-tips-step').data('result');
+			LP.compile( 'share-template' , data , function( html ){
+				$('.block-skin-tips-share').html(html);
+				gotoStep(6);
+				$('.tip-image').delay(500).fadeIn();
+			});
+		});
+	});
+
+	LP.action('restart', function(data){
+		window.location.reload();
+	});
+
+
+	var nodeActions = {
+		prependNode: function( $dom , nodes ){
+			var aHtml = [];
+			var lastDate = null;
+			nodes = nodes || [];
+
+			// save nodes to cache
+			var cache = $dom.data('nodes') || [];
+			var lastPid = cache[0].pid;
+			var lastNode = getObjectIndex(nodes, 'pid', lastPid);
+			var newNodes = nodes.splice(0,lastNode);
+			var count = cache.length - newNodes.length;
+			cache = cache.splice(0, count);
+			for(var i = 0; i < newNodes.length; i++ ) {
+				var $items = $dom.find('.photo_item');
+				$items.eq($items.length-1).remove();
+			}
+			$dom.data('nodes' , newNodes.concat( cache ) );
+			$.each( newNodes , function( index , node ){
+				node.thumb = node.image.replace('.jpg','_thumb.jpg');
+				node.sharecontent = encodeURI(node.content).replace(new RegExp('#',"gm"),'%23')
+				if(node.content.length > 100) {
+					node.shortcontent = node.content.substring(0,100)+'...';
+				}
+				LP.compile( 'node-item-template' ,
+					node ,
+					function( html ){
+						aHtml.push( html );
+						if( index == newNodes.length - 1 ){
+							// render html
+							$dom.prepend(aHtml.join(''));
+							$dom.find('.photo_item:not(.reversal)').css({'opacity':0});
+							//nodeActions.setItemWidth( $dom );
+							nodeActions.setItemReversal( $dom );
+						}
+					});
+			} );
+		},
+
+		inserNode: function( $dom , nodes ){
+			var aHtml = [];
+			var lastDate = null;
+			nodes = nodes || [];
+
+			// save nodes to cache
+			var cache = $dom.data('nodes') || [];
+			$dom.data('nodes' , cache.concat( nodes ) );
+
+			$.each( nodes , function( index , node ){
+				node.poster = node.thumbnail.replace('thumbnail', 'thumbnail');
+				node.thumbnail = node.thumbnail.replace('thumbnail', 'thumbnail_250_250');
+				LP.compile( 'node-item-template' ,
+					node ,
+					function( html ){
+						aHtml.push( html );
+						if( index == nodes.length - 1 ){
+							// render html
+							$dom.append(aHtml.join(''));
+							$dom.find('.photo_item:not(.reversal)').css({'opacity':0});
+							//nodeActions.setItemWidth( $dom );
+							nodeActions.setItemReversal( $dom );
+						}
+					} );
+
+			} );
+		},
+		// start pic reversal animation
+		setItemReversal: function( $dom ){
+			// fix all the items , set position: relative
+			$dom.children()
+				.css('position' , 'relative');
+			// get first time item , which is not opend
+			// wait for it's items prepared ( load images )
+			// run the animate
+
+			// if has time items, it means it needs to reversal from last node-item element
+			// which is not be resersaled
+			var $nodes = $dom.find('.photo_item:not(.reversal)');
+
+			var startAnimate = function( $node ){
+				$node.css({opacity:0}).addClass('reversal').animate({opacity:1}, 1000);
+				setTimeout(function(){
+					nodeActions.setItemReversal( $dom );
+				} , 100);
+			}
+			// if esist node , which is not reversaled , do the animation
+			if( $nodes.length ){
+				startAnimate( $nodes.eq(0) );
+			}
+		}
+	}
+
+	var $loading = $('.load_more_loading');
+	LP.action('load_more', function(){
+		$loading.fadeIn();
+		var pageParam = $('.block-skin-tips-list').data('param');
+		pageParam.pages ++;
+		$('.block-skin-tips-list').data('param',pageParam);
+		api.ajax('list', pageParam, function( result ){
+			$loading.fadeOut();
+			nodeActions.inserNode( $('.block-skin-tips-list') , result.data );
+		});
+	});
+
+	var init = function(){
+		var pageParam = {pages:1};
+		$('.block-skin-tips-list').data('param',pageParam);
+		api.ajax('list' , function( result ){
+			nodeActions.inserNode( $('.block-skin-tips-list') , result.data );
+		});
+	}
+
+	init();
+
+
+	var viewpage = function(){
+		var id = getQueryString('id');
+		if(!id) return;
+		api.ajax('view', {id:id} , function( result ){
+			result.data.timestamp = new Date().getTime();
+			result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
+			$('#imgLoad').attr('src', './'+result.data.thumbnail);
+			LP.compile( 'video-popup-template' , result.data , function( html ){
+				$('.tips-view-page').append(html);
+			});
+		});
+
+
+	}
+
+	viewpage();
+
+
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
+	}
 
 
 

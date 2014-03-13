@@ -1976,7 +1976,7 @@
 				{{/if}}
 			</div>
 			<div class="block-skin-tips-btns preview-btns" style="display: block;">
-				<button class="btn-back" data-a="gostep" data-d="step=4">返&nbsp;&nbsp;回</button>
+				<button class="btn-back" data-a="gostep" data-d="step=3">返&nbsp;&nbsp;回</button>
 				<button class="btn-next" data-a="publish" data-d="id={{nid}}">完&nbsp;&nbsp;成</button>
 			</div>
 		</script>
@@ -1990,7 +1990,7 @@
 				<a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=test&pic=http://avene/{{thumbnail}}" class="sharelink"></a>
 			</div>
 			<div class="block-skin-tips-btns share-btns" style="display: block;">
-				<button class="btn-back" data-a="gostep" data-d="step=4">返&nbsp;&nbsp;回</button>
+				<button class="btn-back" data-a="gostep" data-d="step=3">返&nbsp;&nbsp;回</button>
 				<button class="btn-next" data-a="restart">再玩一次</button>
 			</div>
 		</script>

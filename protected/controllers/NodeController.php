@@ -89,7 +89,7 @@ class NodeController extends Controller
 	public function actionCreate()
 	{
 		// $_POST['tr']=50;
-		// $_POST['tx']=80;
+		// $_POST['tx']=480;
 
 		Drtool::mkpath(); 										//创建日期文件夹
 		$save_name=Drtool::randomNew();							//创建文件名 用于视频文件名与缩略图文件名
@@ -154,18 +154,18 @@ class NodeController extends Controller
 
 		$photoType='jpg';//上面已经将用户上传照片处理为jpg格式。这里设置为jpg格式
 		//转换视频	
-		$is_convert=Drtool::photoToMp4($save_path,$save_name,$photoType,$_POST['pngnum'],$_POST['pngx'],$_POST['pngy'],$_POST['pngr'],$_POST['pngw'],$_POST['pngh']);
+		//$is_convert=Drtool::photoToMp4($save_path,$save_name,$photoType,$_POST['pngnum'],$_POST['pngx'],$_POST['pngy'],$_POST['pngr'],$_POST['pngw'],$_POST['pngh']);
 		//var_dump(exec("ffmpeg -threads 4 -y  -loop 1 -i '/home/drogjh/桌面/selfie_mouth/2.jpg' -i  '/var/www/avene-yii/png/mouth1/0/mouth1_0_%4d.png'  -i  '/var/www/avene-yii/wav/m1.wav' -filter_complex '[1:v]scale=200:200[a];[0:v][a]overlay=240:300[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t 6.20   '/home/drogjh/桌面/selfie_mouth/out1.mp4'"));
-		if($is_convert!="converted")
-		 	StatusSend::_sendResponse(200, StatusSend::error('end', $is_convert) ); //ffmpeg转换错误代码
+		//if($is_convert!="converted")
+		// 	StatusSend::_sendResponse(200, StatusSend::error('end', $is_convert) ); //ffmpeg转换错误代码
 
 		//截取缩略图 250*250 800*800
-		$is_screenshot=Drtool::screenshot($save_path,$save_name,250,250);
-		if($is_screenshot!="screenshot")
-			StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
-		$is_screenshot=Drtool::screenshot($save_path,$save_name,800,800);
-		if($is_screenshot!="screenshot")
-		 	StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
+		//$is_screenshot=Drtool::screenshot($save_path,$save_name,250,250);
+		//if($is_screenshot!="screenshot")
+		//	StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
+		//$is_screenshot=Drtool::screenshot($save_path,$save_name,800,800);
+		//if($is_screenshot!="screenshot")
+		// 	StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
 
 
 	   	$item = new Node;
@@ -256,10 +256,10 @@ class NodeController extends Controller
 		//$data = $image->render('png');
 		$image->save('./uploads/2014/3/12/2.jpg');
 		*/
-		// $img = imagecreatetruecolor(100,100);    //创建真彩图像资源
-		// $color = imagecolorAllocate($img,255,255,200);   //分配一个灰色
-		// imagefill($img,0,0,$color) ;                 // 从左上角开始填充灰色
-		// header('content-type:image/jpeg');   //jpg格式
-		// imagejpeg($img);                              //显示灰色的方块
+		$img = imagecreatetruecolor(100,100);    //创建真彩图像资源
+		$color = imagecolorAllocate($img,255,255,200);   //分配一个灰色
+		imagefill($img,0,0,$color) ;                 // 从左上角开始填充灰色
+		header('content-type:image/jpeg');   //jpg格式
+		imagejpeg($img);                              //显示灰色的方块
 	}
 }

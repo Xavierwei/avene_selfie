@@ -244,60 +244,98 @@ class Drtool {
           $im = self::imageCreateFromBMP( $srcFile ); //调用上面bmp转jpg的独立方法
           break; 
       }
+    
       
-      $white=@imagecolorallocate($im,255,255,255); //补白
-      $exif = @exif_read_data($srcFile); //获取exif信息
-      if (!empty($exif['Orientation'])) 
-      {
-        switch ($exif['Orientation']) 
-        {
-          case 3:
-            $im = imagerotate($im, 180, $white);
-            break;
-          case 6:
-            $im = imagerotate($im, -90, $white);
-            break;
-          case 8:
-            $im = imagerotate($im, 90, $white);
-            break;
-        }
-      }
+      // $exif = @exif_read_data($srcFile); //获取exif信息
+      // if (!empty($exif['Orientation'])) 
+      // {
+      //   switch ($exif['Orientation']) 
+      //   {
+      //     case 3:
+      //       $im = imagerotate($im, 180, 0);
+      //       break;
+      //     case 6:
+      //       $im = imagerotate($im, -90, 0);
+      //       break;
+      //     case 8:
+      //       $im = imagerotate($im, 90, 0);
+      //       break;
+      //   }
+      // }
 
 
-      $im= imagerotate($im, -$srctr, $white); //旋转图像 补白
 
+      //原始图片宽高
       $srcW=@ImageSX($im); //原始宽度
       $srcH=@ImageSY($im); //原始高度
 
-      $midW=$srcW*1.00/$srcts;  //缩小宽度  
-      $midH=$srcH*1.00/$srcts;  //缩小高度
+      //裁剪区域的宽高,最终保存成图片的宽和高，和源要等比例，否则会变形
+      $midW=round($srcW / $srcts);  //缩小宽度  
+      $midH=round($srcH / $srcts);  //缩小高度
 
+      //将裁剪区域复制到新图片上，并根据源和目标的宽高进行缩放或者拉升
+      $new_image = @imagecreatetruecolor($midW, $midH);
+      @imagecopyresampled($new_image, $im, 0, 0, $srcx, $srcy, $midW, $midH, $midW, $midH);
+
+      //旋转图像 补白
+      $white=@imagecolorallocate($new_image,255,255,255); //旋转图像 
+      $new_image= imagerotate($new_image, -$srctr, $white); //补白
+
+
+      //添加白边
+      $final_image = imagecreatetruecolor($dstW, $dstH);
+      $color = imagecolorallocate($final_image, 255, 255, 255);
+      imagefill($final_image, 0, 0, $color);
+      $x = round(($dstW - $midW) / 2);
+      $y = round(($dstH - $midH) / 2);
+      imagecopy($final_image, $new_image, $x, $y, 0, 0, $midW, $midH);
+
+
+      // $srcW=@ImageSX($im); //原始宽度
+      // $srcH=@ImageSY($im); //原始高度
+
+      // $midW=round($srcW/ $srcts);  //缩小宽度  
+      // $midH=round($srcH / $srcts);  //缩小高度
+
+      // // 为剪切图像创建背景画板
+      // $mid=@imagecreatetruecolor($midW,$midH); 
+      // @imagecopyresampled($mid, $im, 0, 0, $srcx, $srcy, $midW, $midH, $midW, $midH);
+
+
+      // $im= imagerotate($im, -$srctr, $white); //旋转图像 补白
+
+      // $srcRW=@ImageSX($im); //旋转宽度
+      // $srcRH=@ImageSY($im); //旋转高度
       
       
-      // 为剪切图像创建背景画板
-      $mid=@imagecreatetruecolor($midW,$midH); 
-      //背景色白色
-      $white2=@imagecolorallocate($mid,255,255,255);
-      //填充背景色
-      @imagefill($mid,0,0,$white2); 
+      // // 为剪切图像创建背景画板
+      // $mid=@imagecreatetruecolor($midW,$midH); 
+      // //背景色白色
+      // $white2=@imagecolorallocate($mid,255,255,255);
+      // //填充背景色
+      // @imagefill($mid,0,0,$white2); 
+      // @imagecolortransparent($mid,$white2);
 
-      //拷贝剪切图像到背景画板，并按比例裁剪
-      @ImageCopyResampled($mid,$im,0,0,-$srcx,-$srcy,$midW,$midH,$srcW,$srcH); 
+      // //拷贝剪切图像到背景画板，并按比例裁剪
+      // //@ImageCopyResampled($mid,$im,0,0,$srcx,$srcy,$srcW,$srcH);
+      // @ImageCopyResampled($mid,$im,0,0,$srcx,$srcy,$midW,$midH,$srcRW,$srcRH); 
 
-      // 为剪切图像创建背景画板
-      $ni=@imagecreatetruecolor($dstW,$dstH); 
-      //背景色 白色
-      $white3=@imagecolorallocate($ni, 255, 255, 255);
-      //填充背景色
-      @imagefill($in,-$srcx,-$srcy,$white3); 
-      // @imagefilledrectangle($ni, 0, 0, $dstW, $dstH, $white);
+      // //为剪切图像创建背景画板
+      // $ni=@imagecreatetruecolor($dstW,$dstH); 
+      // //背景色 白色
+      // $white3=@imagecolorallocate($ni,255,255,255);
+      // //填充背景色
+      // @imagefill($ni,0,0,$white3); 
+      // @imagecolortransparent($ni,$white3);
+      // // @imagefilledrectangle($ni, 0, 0, $dstW, $dstH, $white);
 
-      //拷贝剪切图像到背景画板，并按比例裁剪
-      @ImageCopyResampled($ni,$mid,0,0,0,0,$dstW,$dstH,$midW,$midH); 
-      @ImageJpeg($ni,$dstFile,$quality); 
+      // //拷贝剪切图像到背景画板，并按比例裁剪
+      // @ImageCopyResampled($ni,$mid,0,0,0,0,$dstW,$dstH,$midW,$midH); 
+      @ImageJpeg($final_image,$dstFile,$quality); 
       @imagedestroy($im); 
-      @imagedestroy($mid); 
-      @imagedestroy($ni); 
+      @imagedestroy($new_image); 
+      @imagedestroy($final_image); 
+
 
       return file_exists($dstFile);
     } 

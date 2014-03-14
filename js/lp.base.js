@@ -936,7 +936,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
         });
 
         setTimeout(function(){
-           if($('.block-skin-tips-flash').css('opacity') == 0){
+           if($('.block-skin-tips-flash').css('opacity') == 0 && !$('.block-skin-tips-preview').is(':visible')){
                $('.block-skin-tips-flash').animate({opacity:1});
            }
 

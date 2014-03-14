@@ -1,3 +1,9 @@
+<?php
+if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android|bb)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+	header("Location: m",true,303);
+	die();
+}
+?>
 <!DOCTYPE html>
 <!--[if IEMobile 7]>
 <html class="iem7" lang="zh-hans" dir="ltr"><![endif]-->
@@ -1976,7 +1982,7 @@
 				{{/if}}
 			</div>
 			<div class="block-skin-tips-btns preview-btns" style="display: block;">
-				<button class="btn-back" data-a="gostep" data-d="step=3">返&nbsp;&nbsp;回</button>
+				<button class="btn-back" data-a="gostep" data-d="step=4">返&nbsp;&nbsp;回</button>
 				<button class="btn-next" data-a="publish" data-d="id={{nid}}">完&nbsp;&nbsp;成</button>
 			</div>
 		</script>
@@ -1987,10 +1993,10 @@
 				<img src="{{thumbnail}}" width="390" height="390" />
 			</div>
 			<div class="share-sina"><label>分享到：</label>
-				<a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=test&pic=http://avene/{{thumbnail}}" class="sharelink"></a>
+				<a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=http://url/view?id={{nid}}&pic=http://avene/{{thumbnail}}" class="sharelink"></a>
 			</div>
 			<div class="block-skin-tips-btns share-btns" style="display: block;">
-				<button class="btn-back" data-a="gostep" data-d="step=3">返&nbsp;&nbsp;回</button>
+				<button class="btn-back" data-a="gostep" data-d="step=4">返&nbsp;&nbsp;回</button>
 				<button class="btn-next" data-a="restart">再玩一次</button>
 			</div>
 		</script>

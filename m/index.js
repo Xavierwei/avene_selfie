@@ -960,7 +960,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
 	LP.action('preview', function(){
 		var data = dragHelper.getResult();
-        console.log(data);
+        alert(data.photo);
 		if(!data.pngnum) return;
 		$('.loading').fadeIn();
 		api.ajax('preview' , data , function( result ){

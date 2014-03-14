@@ -29,7 +29,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 	<meta content="雅漾活泉" about="/eta-origin" property="dc:title"/>
 	<meta about="/" property="sioc:num_replies" content="0" datatype="xsd:integer"/>
 	<meta name="description" content="雅漾照片墙,晒出你的健康美,赶紧来赢取雅漾惊喜大奖吧！"/>
-	<title>雅漾照片墙晒片赢大奖_雅漾照片分享_雅漾AVENE官方网站</title>
+	<title>给自己的护肤小贴士_雅漾AVENE官方网站</title>
 
 	<meta name="MobileOptimized" content="width">
 	<meta name="HandheldFriendly" content="true">
@@ -1931,6 +1931,13 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 
 		<div class="tip-image">
 			<img src="./img/tip_image.jpg" />
+
+			<div class="tip_text1">
+				是的，我的脸好垮！因为我连续加班半个月了，整天呆在空调房里，面对电脑屏幕，一天工作下来，脸的尺寸也比早上起床时变大了半号！我没有看错，我的脸确实是被疲劳击垮了。
+			</div>
+			<div class="tip_text2">
+				加班之前清洁面部，选用一支含有天然成分的保湿面霜。在手掌中温热，然后用双手把垮掉的“加班肌”乔回来，通过轻轻的按摩，会让肌肤瞬间得到舒缓，轻松拥有水润肌肤。和“加班肌肤”说拜拜啦!
+			</div>
 		</div>
 
 		<div class="block-skin-tips-bottom">

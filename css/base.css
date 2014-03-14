@@ -170,7 +170,9 @@ display: none;
 .share-sina label {background:url(../img/share_sina_label.png) no-repeat;float:left;width:83px;height:16px;margin-top:10px;text-indent:-9999em;}
 .share-sina .sharelink {background:url(../img/share_sina_icon.png) no-repeat;float:left;width:41px;height:41px;}
 
-.tip-image {display:none;text-align: center;padding:0 0 20px 0;}
+.tip-image {display:none;text-align: center;padding:0 0 20px 0; position:relative;font-family: 'Microsoft YaHei', 'SimHei';text-align: left;line-height: 180%;}
+.tip_text1 {position:absolute;width:490px;font-size:14px;color:#f58774;left:237px;top:130px;}
+.tip_text2 {position:absolute;width:365px;font-size:14px;color:#808080;left:148px;top:384px;}
 
 .block-skin-tips-step {background: url(../img/top_bg.png) no-repeat top;height:724px;}
 .block-skin-tips {position: relative;}
@@ -179,8 +181,8 @@ display: none;
 .tip-top-title {height:123px;line-height: 123px;text-align:center;color:#fff;font-weight:bold;font-size:26px;margin-bottom:50px;}
 .tip-top-title img {vertical-align:middle;}
 
-.tips-onstep1 .block-skin-tips-inner-wrap {height:624px;}
-.tips-onstep1 .block-skin-tips-step {height:624px;}
+.tips-onstep1 .block-skin-tips-inner-wrap {height:734px;}
+.tips-onstep1 .block-skin-tips-step {height:734px;}
 .block-skin-tips-inner-loading {background: url(../img/loading.gif) no-repeat center;}
 
 .tips-view-page {text-align: center;margin-top:-20px;opacity:0;}

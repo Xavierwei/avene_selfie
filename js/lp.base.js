@@ -814,10 +814,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     });
 
     LP.action('restart', function(data){
-        gotoStep(4);
-        flashReset();
-        $('.block-skin-tips').addClass('tips-onstep1');
-        $('.block-skin-tips-bottom').fadeIn();
+        window.location.reload();
     });
 
 

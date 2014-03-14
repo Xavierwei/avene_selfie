@@ -225,10 +225,10 @@ class Drtool {
       fclose ( $f1 ); 
       return $res ; 
     } 
-    public static function imageToJPG($srcFile,$dstFile,$srcx,$srcy,$srcts,$srctr,$towidth=800,$toheight=800) 
+    public static function imageToJPG($srcFile,$dstFile,$srcx,$srcy,$srcts,$srctr,$dstW=800,$dstH=800) 
     { 
       $quality=100; 
-      $data = @GetImageSize($srcFile); 
+      $data = @GetImageSize($srcFile); //载入原始图片
       switch ($data['2']) 
       { 
         case 1: 
@@ -268,30 +268,34 @@ class Drtool {
       if(!empty($srctr))
         $im= imagerotate($im, $srctr, 0); //旋转图像
 
-      // $dstX=$srcW=@ImageSX($im); 
-      // $dstY=$srcH=@ImageSY($im); 
       if(!empty($srcts))
       {
-        $srcW=@ImageSX($im)*$srcts; //缩放宽度
-        $srcH=@ImageSX($im)*$srcts; //缩放高度
+        $midW=@ImageSX($im)/$srcts;  //截取宽度
+        $midH=@ImageSX($im)/$srcts;  //截取高度
       }
       else
       {
-        $srcW=@ImageSX($im);  //原始宽度
-        $srcH=@ImageSX($im);  //原始高度
+        $midW=@ImageSX($im)/$srcts;  //原始宽度
+        $midH=@ImageSX($im)/$srcts;  //原始高度
       }
 
 
-      $dstW=$towidth; 
-      $dstH=$toheight; 
 
-      $ni=@imageCreateTrueColor($dstW,$dstH); 
+      // 为剪切图像创建背景画板
+      $mid_img =  @imagecreatetruecolor($midW, $midH);
+      //拷贝剪切的图像数据到画板，生成剪切图像
+      @imagecopy($mid_img, $im, 0, 0, 540, 390, $midW, $midH);
+      // 为裁剪图像创建背景画板
+      $new_img =  @imagecreatetruecolor($dstW, $dstH);
+      //拷贝剪切图像到背景画板，并按比例裁剪
+      @imagecopyresampled($new_img, $mid_img, 0, 0, 0, 0, $dstW, $dstH, $midW, $midH);
+      /* 按格式保存为图片 */
 
-      @ImageCopyResampled($ni,$im,0,0,$srcx,$srcy,$dstW,$dstH,$srcW,$srcH); 
-      @ImageJpeg($ni,$dstFile,$quality); 
+      @ImageJpeg($new_img,$dstFile,$quality); 
       @imagedestroy($im); 
-      @imagedestroy($ni); 
+      @imagedestroy($new_img); 
 
+      
       return file_exists($dstFile);
     } 
 

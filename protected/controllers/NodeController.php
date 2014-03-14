@@ -94,10 +94,10 @@ class NodeController extends Controller
 		// $_POST['pngy']="300";
 		// $_POST['pngr']="90";
 
-		// $_POST['tx']="180";
-		// $_POST['ty']="40";
+		// $_POST['tx']="390";
+		// $_POST['ty']="400";
 		// $_POST['ts']="2";
-		// $_POST['tr']="70";
+		// $_POST['tr']="90";
 
 		Drtool::mkpath(); 										//创建日期文件夹
 		$save_name=Drtool::randomNew();							//创建文件名 用于视频文件名与缩略图文件名
@@ -264,6 +264,27 @@ class NodeController extends Controller
 		//$data = $image->render('png');
 		$image->save('./uploads/2014/3/12/2.jpg');
 		*/
-		var_dump(@exif_read_data('./uploads/2014/3/14/003ac6876607fdbf5a17156462962a6098527caf.jpg'));
+		
+		$mid_width=900;
+		$mid_height=900;
+		$new_height=800;
+		$new_width=800;
+
+
+		$src_img = @imagecreatefromjpeg('./uploads/2014/3/14/iphone.jpg');
+		/* 获取源图片的宽度和高度 */
+        $src_width = @imagesx($src_img);
+        $src_height =  @imagesy($src_img);
+
+		// 为剪切图像创建背景画板
+        $mid_img =  @imagecreatetruecolor($mid_width, $mid_height);
+        //拷贝剪切的图像数据到画板，生成剪切图像
+         @imagecopy($mid_img, $src_img, 0, 0, 540, 390, $mid_width, $mid_height);
+        // 为裁剪图像创建背景画板
+        $new_img =  @imagecreatetruecolor($new_width, $new_height);
+        //拷贝剪切图像到背景画板，并按比例裁剪
+         @imagecopyresampled($new_img, $mid_img, 0, 0, 0, 0, $new_width, $new_height, $mid_width, $mid_height);
+        /* 按格式保存为图片 */
+		@imagejpeg($new_img, './uploads/2014/3/14/222.jpg', 100);
 	}
 }

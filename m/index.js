@@ -691,7 +691,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 // 1. 使用ts缩放图片
                 // 2. 旋转tr角度
                 // 3. 从 -tx 和 -ty 开始裁剪，宽高为800 * 800
-                return var data = {
+                var data;
+                return data = {
                     photo: $img.attr('src'),
                     // 嘴巴参数
                     pngnum: $('.mouths li.selected').index() + 1,
@@ -707,47 +708,47 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
 
                 
-                var $tmpCanvas = $('<canvas>').attr({
-                    width: $svg.width() * scale,
-                    height: $svg.height() * scale
-                })
-                .insertAfter('svg');
-
-                var ctx = $tmpCanvas[0].getContext('2d');
-                var imgBox = imgRaphael.getBBox();
-                // draw image
-                ctx.save();
-                ctx.translate( ( imgBox.x + imgBox.width / 2 ) * scale , ( imgBox.y + imgBox.height / 2 ) * scale );
-                ctx.scale( transform.s * scale , transform.s * scale );
-                ctx.rotate( transform.r * Math.PI / 180 );
-
-                ctx.drawImage( $('#photo-wrap img')[0] , - imgWidth / 2 , - imgHeight / 2 , imgWidth , imgHeight );
-
-                ctx.restore();
-
-                var wWidth = $wrap.width();
-                var wHeight = $wrap.height();
-                var $rCanvas = $('<canvas>')
-                    .attr({
-                        width: wWidth * scale,
-                        height: wHeight * scale
-                    })
-                    .insertAfter( $tmpCanvas );
-                var rctx = $rCanvas[0].getContext('2d');
-                
-                rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) * scale , Math.abs( svgTop ) * scale , wWidth * scale , wHeight * scale , 0 , 0 , wWidth * scale , wHeight * scale );
-
-
-                // clear
-                var data = {
-                    photo: $rCanvas[0].toDataURL(),
-                    pngnum: $('.mouths li.selected').index() + 1,
-                    pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
-                    pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
-                    pngr : dragHelper.getRaphaelTransform( imgRaphael ).r
-                }
-
-                $tmpCanvas.remove();
+//                var $tmpCanvas = $('<canvas>').attr({
+//                    width: $svg.width() * scale,
+//                    height: $svg.height() * scale
+//                })
+//                .insertAfter('svg');
+//
+//                var ctx = $tmpCanvas[0].getContext('2d');
+//                var imgBox = imgRaphael.getBBox();
+//                // draw image
+//                ctx.save();
+//                ctx.translate( ( imgBox.x + imgBox.width / 2 ) * scale , ( imgBox.y + imgBox.height / 2 ) * scale );
+//                ctx.scale( transform.s * scale , transform.s * scale );
+//                ctx.rotate( transform.r * Math.PI / 180 );
+//
+//                ctx.drawImage( $('#photo-wrap img')[0] , - imgWidth / 2 , - imgHeight / 2 , imgWidth , imgHeight );
+//
+//                ctx.restore();
+//
+//                var wWidth = $wrap.width();
+//                var wHeight = $wrap.height();
+//                var $rCanvas = $('<canvas>')
+//                    .attr({
+//                        width: wWidth * scale,
+//                        height: wHeight * scale
+//                    })
+//                    .insertAfter( $tmpCanvas );
+//                var rctx = $rCanvas[0].getContext('2d');
+//
+//                rctx.drawImage( $tmpCanvas[0] , Math.abs( svgLeft ) * scale , Math.abs( svgTop ) * scale , wWidth * scale , wHeight * scale , 0 , 0 , wWidth * scale , wHeight * scale );
+//
+//
+//                // clear
+//                var data = {
+//                    photo: $rCanvas[0].toDataURL(),
+//                    pngnum: $('.mouths li.selected').index() + 1,
+//                    pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
+//                    pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
+//                    pngr : dragHelper.getRaphaelTransform( imgRaphael ).r
+//                }
+//
+//                $tmpCanvas.remove();
                 // $rCanvas.remove();
                 // $('#photo-wrap img').appendTo(document.body)
                 //     .show();
@@ -959,6 +960,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
 	LP.action('preview', function(){
 		var data = dragHelper.getResult();
+        console.log(data);
 		if(!data.pngnum) return;
 		$('.loading').fadeIn();
 		api.ajax('preview' , data , function( result ){

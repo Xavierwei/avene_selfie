@@ -22,7 +22,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                     .attr('src' , './img/test.jpg');
                     $('.mask-bottom').height( '' );
                     $('.step1-btns').show().next().hide();
-                    $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <span>给自己的护肤小 Tips</span>");   
+                    $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <img src=\"./img/title_tip.png\">");
                     break;
             case 2:
                 var $optWrap = $wrap.find('video,canvas')

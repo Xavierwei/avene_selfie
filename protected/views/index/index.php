@@ -1964,7 +1964,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 		<!-- skin tips end -->
 
 		<script type="text/tpl" id="preview-template">
-			<div class="tip-top-title">预   览</div>
+			<div class="tip-top-title"><img src="./img/title_preview.gif" /></div>
 			<div class="preview-player">
 				{{#if flash}}
 				<object id="player2" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="325" height="325">
@@ -1988,7 +1988,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 		</script>
 
 		<script type="text/tpl" id="share-template">
-			<div class="tip-top-title"><img src="./img/chun.png" /> <span>给自己的护肤小 Tips</span></div>
+			<div class="tip-top-title"><img src="./img/chun.png" /> &nbsp;&nbsp; <img src="./img/title_tip.gif" /></div>
 			<div class="preview-img">
 				<img src="{{thumbnail}}" width="390" height="390" />
 			</div>

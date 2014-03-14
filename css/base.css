@@ -170,7 +170,7 @@ display: none;
 .share-sina label {background:url(../img/share_sina_label.png) no-repeat;float:left;width:83px;height:16px;margin-top:10px;text-indent:-9999em;}
 .share-sina .sharelink {background:url(../img/share_sina_icon.png) no-repeat;float:left;width:41px;height:41px;}
 
-.tip-image {background:#fff;display:none;text-align: center;padding:80px 0 20px 0;}
+.tip-image {display:none;text-align: center;padding:0 0 20px 0;}
 
 .block-skin-tips-step {background: url(../img/top_bg.png) no-repeat top;height:724px;}
 .block-skin-tips {position: relative;}

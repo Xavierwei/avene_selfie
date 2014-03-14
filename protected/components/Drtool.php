@@ -225,44 +225,69 @@ class Drtool {
       fclose ( $f1 ); 
       return $res ; 
     } 
-    public static function imageToJPG($srcFile,$dstFile,$towidth=800,$toheight=800) 
+    public static function imageToJPG($srcFile,$dstFile,$srcx,$srcy,$srcts,$srctr,$towidth=800,$toheight=800) 
     { 
       $quality=100; 
       $data = @GetImageSize($srcFile); 
       switch ($data['2']) 
       { 
+        case 1: 
+          $im = imagecreatefromgif($srcFile); 
+          break; 
+        case 2: 
+          $im = imagecreatefromjpeg($srcFile); 
+          break; 
+        case 3: 
+          $im = imagecreatefrompng($srcFile); 
+          break; 
+        case 6: 
+          $im = self::imageCreateFromBMP( $srcFile ); //调用上面bmp转jpg的独立方法
+          break; 
+      }
+      
 
-      case 1: 
+       $exif = @exif_read_data($srcFile); //获取exif信息
+      if (!empty($exif['Orientation'])) 
+      {
+        switch ($exif['Orientation']) 
+        {
+          case 3:
+            $im = imagerotate($im, 180, 0);
+            break;
+          case 6:
+            $im = imagerotate($im, -90, 0);
+            break;
+          case 8:
+            $im = imagerotate($im, 90, 0);
+            break;
+        }
+      }
 
-      $im = imagecreatefromgif($srcFile); 
-      break; 
-      case 2: 
+      
 
-      $im = imagecreatefromjpeg($srcFile); 
-      break; 
-      case 3: 
-      $im = imagecreatefrompng($srcFile); 
-
-      break; 
-
-      case 6: 
-
-      $im = self::imageCreateFromBMP( $srcFile ); //调用上面bmp转jpg的独立方法
-
-      break; 
-      } 
+      if(!empty($srctr))
+        $im= imagerotate($im, $srctr, 0); //旋转图像
 
       // $dstX=$srcW=@ImageSX($im); 
       // $dstY=$srcH=@ImageSY($im); 
+      if(!empty($srcts))
+      {
+        $srcW=@ImageSX($im)/$srcts; //缩放宽度
+        $srcH=@ImageSX($im)/$srcts; //缩放高度
+      }
+      else
+      {
+        $srcW=@ImageSX($im);  //原始宽度
+        $srcH=@ImageSX($im);  //原始高度
+      }
 
-      $srcW=@ImageSX($im); 
-      $srcH=@ImageSY($im); 
-      $dstX=$towidth; 
-      $dstY=$toheight; 
 
-      $ni=@imageCreateTrueColor($dstX,$dstY); 
+      $dstW=$towidth; 
+      $dstH=$toheight; 
 
-      @ImageCopyResampled($ni,$im,0,0,0,0,$dstX,$dstY,$srcW,$srcH); 
+      $ni=@imageCreateTrueColor($dstW,$dstH); 
+
+      @ImageCopyResampled($ni,$im,0,0,$srcx,$srcy,$dstW,$dstH,$srcW,$srcH); 
       @ImageJpeg($ni,$dstFile,$quality); 
       @imagedestroy($im); 
       @imagedestroy($ni); 

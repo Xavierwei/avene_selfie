@@ -11,7 +11,7 @@ uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg
 对于某个 item 信息调用： GET /node/view/123
 	id：id 数值
 创建一个 item： POST /node/create
-	 photo:base64(图片)；pngnum:（png序列1-9） ；pngx:(png坐标x)；pngy:(png坐标y)；pngr(png旋转角度)；pngw(png宽)；pngh(png高)；
+	 photo:base64(图片)；tx:(x坐标) ；ty:(y坐标) ；tw:(缩放比率) ；tr:(照片旋转角度) ；pngnum:（png序列1-9） ；pngx:(png坐标x)；pngy:(png坐标y)；pngr(png旋转角度)；pngw(png宽)；pngh(png高)；
 更新一个 item： POST /node/update/123
 	id：id 数值
 
@@ -54,6 +54,10 @@ end:1024 缩略图截取不成功，请重新提交
 end:1025 base64上传图片数据出错。请重新上传
 end:1026 ffprobe不存在
 end:1027 用户上传照片转换为jpg格式不成功
+end:1028 未传入用户照片x坐标
+end:1029 未传入用户照片y坐标
+end:1030 未传入用户照片缩放信息
+end:1031 未传入用户照片旋转角度
 
 end:3001 未传入用户名数据
 end:3002 未传入密码数据

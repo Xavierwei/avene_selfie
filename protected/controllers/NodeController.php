@@ -88,6 +88,7 @@ class NodeController extends Controller
 	 */
 	public function actionCreate()
 	{
+
 		Drtool::mkpath(); 										//创建日期文件夹
 		$save_name=Drtool::randomNew();							//创建文件名 用于视频文件名与缩略图文件名
 		$save_photopath="./uploads".'/'.date("Y/n/j") .'/';		//保存图片地址

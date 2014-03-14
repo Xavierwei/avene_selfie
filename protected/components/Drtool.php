@@ -245,40 +245,59 @@ class Drtool {
           break; 
       }
       
-
+      $white=@imagecolorallocate($im,255,255,255); //补白
       $exif = @exif_read_data($srcFile); //获取exif信息
       if (!empty($exif['Orientation'])) 
       {
         switch ($exif['Orientation']) 
         {
           case 3:
-            $im = imagerotate($im, 180, 0);
+            $im = imagerotate($im, 180, $white);
             break;
           case 6:
-            $im = imagerotate($im, -90, 0);
+            $im = imagerotate($im, -90, $white);
             break;
           case 8:
-            $im = imagerotate($im, 90, 0);
+            $im = imagerotate($im, 90, $white);
             break;
         }
       }
 
+
+     // $im= imagerotate($im, -$srctr, $white); //旋转图像 补白
+
+      $srcW=@ImageSX($im); //原始宽度
+      $srcH=@ImageSY($im); //原始高度
+
+      $midW=$srcW*1.00/$srcts;  //缩小宽度  
+      $midH=$srcH*1.00/$srcts;  //缩小高度
+
       
-
-      if(!empty($srctr))
-        $im= imagerotate($im, $srctr, 0); //旋转图像
-
-
-        $srcW=@ImageSX($im); 
-        $srcH=@ImageSY($im); 
-        
-        $ni=@imageCreateTrueColor($dstW,$dstH); 
-        @ImageCopyResampled($ni,$im,0,0,0,0,$dstW,$dstH,$srcW,$srcH); 
-
-        @ImageJpeg($ni,$dstFile,$quality); 
-        @imagedestroy($im); 
-        @imagedestroy($ni); 
       
+      // 为剪切图像创建背景画板
+      $mid=@imagecreatetruecolor($midW,$midH); 
+      //背景色白色
+      $white2=@imagecolorallocate($mid,255,255,255);
+      //填充背景色
+      @imagefill($mid,0,0,$white2); 
+
+      //拷贝剪切图像到背景画板，并按比例裁剪
+      @ImageCopyResampled($mid,$im,0,0,-$srcx,-$srcy,$midW,$midH,$srcW,$srcH); 
+
+      // 为剪切图像创建背景画板
+      $ni=@imagecreatetruecolor($dstW,$dstH); 
+      //背景色 白色
+      $white3=@imagecolorallocate($ni, 255, 255, 255);
+      //填充背景色
+      @imagefill($in,-$srcx,-$srcy,$white3); 
+      // @imagefilledrectangle($ni, 0, 0, $dstW, $dstH, $white);
+
+      //拷贝剪切图像到背景画板，并按比例裁剪
+      @ImageCopyResampled($ni,$mid,0,0,0,0,$dstW,$dstH,$midW,$midH); 
+      @ImageJpeg($ni,$dstFile,$quality); 
+      @imagedestroy($im); 
+      @imagedestroy($mid); 
+      @imagedestroy($ni); 
 
       return file_exists($dstFile);
     } 

@@ -246,22 +246,22 @@ class Drtool {
       }
       
 
-       $exif = @exif_read_data($srcFile); //获取exif信息
-      if (!empty($exif['Orientation'])) 
-      {
-        switch ($exif['Orientation']) 
-        {
-          case 3:
-            $im = imagerotate($im, 180, 0);
-            break;
-          case 6:
-            $im = imagerotate($im, -90, 0);
-            break;
-          case 8:
-            $im = imagerotate($im, 90, 0);
-            break;
-        }
-      }
+      // $exif = @exif_read_data($srcFile); //获取exif信息
+      // if (!empty($exif['Orientation'])) 
+      // {
+      //   switch ($exif['Orientation']) 
+      //   {
+      //     case 3:
+      //       $im = imagerotate($im, 180, 0);
+      //       break;
+      //     case 6:
+      //       $im = imagerotate($im, -90, 0);
+      //       break;
+      //     case 8:
+      //       $im = imagerotate($im, 90, 0);
+      //       break;
+      //   }
+      // }
 
       
 
@@ -272,8 +272,8 @@ class Drtool {
       // $dstY=$srcH=@ImageSY($im); 
       if(!empty($srcts))
       {
-        $srcW=@ImageSX($im)/$srcts; //缩放宽度
-        $srcH=@ImageSX($im)/$srcts; //缩放高度
+        $srcW=@ImageSX($im)*$srcts; //缩放宽度
+        $srcH=@ImageSX($im)*$srcts; //缩放高度
       }
       else
       {

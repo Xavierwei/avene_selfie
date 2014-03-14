@@ -88,6 +88,8 @@ class NodeController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$_POST['tr']=50;
+		$_POST['tx']=80;
 
 		Drtool::mkpath(); 										//创建日期文件夹
 		$save_name=Drtool::randomNew();							//创建文件名 用于视频文件名与缩略图文件名
@@ -133,7 +135,7 @@ class NodeController extends Controller
 		if(!isset($_POST['ty']))
 			$_POST['ty']=0;
 		if(!isset($_POST['ts']))
-			$_POST['ts']=NULL;
+			$_POST['ts']=1;
 		if(!isset($_POST['tr']))
 			$_POST['tr']=0;
 
@@ -254,6 +256,10 @@ class NodeController extends Controller
 		//$data = $image->render('png');
 		$image->save('./uploads/2014/3/12/2.jpg');
 		*/
-		
+		// $img = imagecreatetruecolor(100,100);    //创建真彩图像资源
+		// $color = imagecolorAllocate($img,255,255,200);   //分配一个灰色
+		// imagefill($img,0,0,$color) ;                 // 从左上角开始填充灰色
+		// header('content-type:image/jpeg');   //jpg格式
+		// imagejpeg($img);                              //显示灰色的方块
 	}
 }

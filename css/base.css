@@ -151,7 +151,7 @@ display: none;
 
 .block-skin-tips-inner-loading {background: url(../img/loading.gif) no-repeat center;}
 .block-skin-tips-flash {opacity:0;width:970px;padding-top:7px;position: relative;}
-.block-skin-tips-flash .btn-rule {cursor:pointer;display:none;position:absolute;top:524px;right:257px;background: url(../img/btns.png) no-repeat -307px 0;width:140px;height:60px;border:none;}
+.block-skin-tips-flash .btn-rule {cursor:pointer;display:none;position:absolute;top:623px;right:230px;background: url(../img/btns.png) no-repeat -307px 0;width:140px;height:60px;border:none;}
 
 
 .skin-overlay {display:none;background:rgba(0,0,0,0.1);position: fixed;width:100%;height:100%;left:0;top:0;z-index:900;}
@@ -167,10 +167,10 @@ display: none;
 .preview-btns {margin-top:40px;}
 .preview-img {text-align: center;}
 .share-sina {width:390px;margin:10px auto 0 auto;height:55px;}
-.share-sina label {background:url(../img/share_sina_label.png) no-repeat;float:left;width:83px;height:16px;margin-top:10px;text-indent:-9999em;}
+.share-sina label {background:url(../img/share_sina_label.png) no-repeat;float:left;width:100px;height:16px;margin-top:10px;text-indent:-9999em;}
 .share-sina .sharelink {background:url(../img/share_sina_icon.png) no-repeat;float:left;width:41px;height:41px;}
 
-.tip-image {display:none;text-align: center;padding:0 0 20px 0; position:relative;font-family: 'Microsoft YaHei', 'SimHei';text-align: left;line-height: 180%;}
+.tip-image {display:none;text-align: center;margin-top:20px;padding:0 0 20px 0; position:relative;font-family: 'Microsoft YaHei', 'SimHei';text-align: left;line-height: 180%;}
 .tip_text1 {position:absolute;width:490px;font-size:14px;color:#f58774;left:237px;top:130px;}
 .tip_text2 {position:absolute;width:365px;font-size:14px;color:#808080;left:148px;top:384px;}
 
@@ -178,8 +178,9 @@ display: none;
 .block-skin-tips {position: relative;}
 .block-skin-tips-share,.block-skin-tips-preview {display:none;position: absolute;width:100%;top:0;}
 
-.tip-top-title {height:123px;line-height: 123px;text-align:center;color:#fff;font-weight:bold;font-size:26px;margin-bottom:50px;}
+.tip-top-title {height:123px;line-height: 123px;text-align:center;color:#fff;font-weight:bold;font-size:26px;margin-bottom:0px;}
 .tip-top-title img {vertical-align:middle;}
+.tip-top-title2 {text-align: center;margin:30px 0;}
 
 .tips-onstep1 .block-skin-tips-inner-wrap {height:734px;}
 .tips-onstep1 .block-skin-tips-step {height:734px;}

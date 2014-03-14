@@ -39,8 +39,8 @@
 .block-skin-tips-opt{ position:relative; }
 
 .block-skin-tips-step {width: 580px;margin: 0 auto;}
-.block-skin-tips-imgwrap{background: #ccc; position: relative;margin:0 auto ;width: 500px;height: 500px;}
-.block-skin-tips-imgwrap svg{z-index: 0;}
+.block-skin-tips-imgwrap{background: #ccc url(../../img/test.jpg);background-size:100% 100%; position: relative;margin:0 auto ;width: 500px;height: 500px;}
+.block-skin-tips-imgwrap svg{z-index: 0;display:none;background: #ccc;}
 .block-skin-tips-imgwrap img{position: absolute;top:0;left:0;}
 .block-skin-tips-imgwrap canvas{display: none;position: absolute;top: 0;left: 0;}
 

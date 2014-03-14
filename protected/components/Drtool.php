@@ -270,32 +270,32 @@ class Drtool {
 
       if(!empty($srcts))
       {
-        $midW=@ImageSX($im)/$srcts;  //截取宽度
-        $midH=@ImageSX($im)/$srcts;  //截取高度
+        $midW=@ImageSX($im)*1.0/$srcts;  //截取宽度
+        $midH=@ImageSX($im)*1.0/$srcts;  //截取高度
         // 为剪切图像创建背景画板
         $mid_img =  @imagecreatetruecolor($midW, $midH);
         //拷贝剪切的图像数据到画板，生成剪切图像
-        @imagecopy($mid_img, $im, 0, 0, $scrx , $scry, $midW, $midH);
+        @imagecopy($mid_img, $im, 0, 0, $srcx, $srcy, $midW, $midH);
+        // 为裁剪图像创建背景画板
+        $new_img =  @imagecreatetruecolor($dstW, $dstH);
+        //拷贝剪切图像到背景画板，并按比例裁剪
+        @imagecopyresampled($new_img, $mid_img, 0, 0, 0, 0, $dstW, $dstH, $midW, $midH);
+        /* 按格式保存为图片 */
+        @ImageJpeg($new_img,$dstFile,$quality); 
+        @imagedestroy($im); 
+        @imagedestroy($new_img); 
       }
       else
       {
-        echo "yes";
-        $midW=@ImageSX($im);  //原始宽度
-        $midH=@ImageSX($im);  //原始高度
-        $mid_img=$im;
+        $srcW=@ImageSX($im); 
+        $srcH=@ImageSY($im); 
+        $ni=@imageCreateTrueColor($dstW,$dstH); 
+        @ImageCopyResampled($ni,$im,0,0,0,0,$dstW,$dstH,$srcW,$srcH); 
+        @ImageJpeg($ni,$dstFile,$quality); 
+        @imagedestroy($im); 
+        @imagedestroy($ni); 
       }
 
-      // 为裁剪图像创建背景画板
-      $new_img=@imageCreateTrueColor($dstX,$dstY); 
-      //拷贝剪切图像到背景画板，并按比例裁剪
-      @imagecopyresampled($new_img, $mid_img, 0, 0, 0, 0, $dstW, $dstH, $midW, $midH);
-      
-      /* 按格式保存为图片 */
-      @ImageJpeg($new_img,$dstFile,$quality); 
-      @imagedestroy($im); 
-      @imagedestroy($new_img); 
-
-      
       return file_exists($dstFile);
     } 
 

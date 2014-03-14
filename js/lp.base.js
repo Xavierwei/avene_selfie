@@ -788,10 +788,38 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('publish', function(data){
         api.ajax('publish' , {id:data.id} , function( result ){
             var data = $('.block-skin-tips-step').data('result');
+//            LP.compile( 'share-template' , data , function( html ){
+//                $('.block-skin-tips-share').html(html);
+//
+//                $('.tip-image').fadeIn();
+//            });
+
+
+            $('.block-skin-tips-step').data('result',result.data);
             LP.compile( 'share-template' , data , function( html ){
-                $('.block-skin-tips-share').html(html);
                 gotoStep(6);
+                $('.block-skin-tips-share').html(html);
                 $('.tip-image').fadeIn();
+
+                $('.block-skin-tips-preview').html(html);
+                LP.use('video-js' , function(){
+                    videojs( "inner-video-" + data.timestamp , {}, function(){
+                    });
+                });
+
+                $('#imgLoad').attr('src', data.thumbnail);
+                $('.preview-player').css({opacity:0});
+                $('#imgLoad').ensureLoad(function(){
+                    $('.preview-player').animate({opacity:1});
+                });
+
+                LP.use('video-js' , function(){
+                    if($("inner-pop-video-" + data.timestamp).length) {
+                        videojs( "inner-pop-video-" + data.timestamp , {}, function(){
+                            $('.vjs-big-play-button').fadeIn();
+                        });
+                    }
+                });
             });
         });
     });

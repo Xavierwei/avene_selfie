@@ -17,6 +17,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     .show()
                     .attr('src' , '../img/test.jpg');
 
+                    $('.block-skin-tips-imgwrap svg').hide();
+
                     $('.mask-bottom').height( '' );
                     $('.step1-btns').show().next().hide();
                     $('.block-skin-tips-top').html("<img src=\"./img/chun.png\"> <span>给自己的护肤小 Tips</span>"); 
@@ -44,6 +46,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     .end()
                     .find('.imgwrap-opts')
                     .fadeIn();
+
+                $('.block-skin-tips-imgwrap svg').fadeIn();
                 
                 // change btns
                 $('.step1-btns').hide()
@@ -960,8 +964,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
 	LP.action('preview', function(){
 		var data = dragHelper.getResult();
-        alert(data.photo);
 		if(!data.pngnum) return;
+        data.tr = -data.tr;
 		$('.loading').fadeIn();
 		api.ajax('preview' , data , function( result ){
 			$('.loading').fadeOut();

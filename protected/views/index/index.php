@@ -1971,19 +1971,20 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 		<!-- skin tips end -->
 
 		<script type="text/tpl" id="preview-template">
-			<div class="tip-top-title"><img src="./img/title_preview.gif" /></div>
+			<div class="tip-top-title"><img src="./img/chun.png" /> &nbsp;&nbsp; <img src="./img/title_tip.gif" /></div>
+			<div class="tip-top-title2"><img src="./img/title_step4.png" /></div>
 			<div class="preview-player">
 				{{#if flash}}
-				<object id="player2" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="325" height="325">
+				<object id="player2" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="390" height="390">
 					<param name="allowScriptAccess" value="always"/>
 					<param name="movie" value="./flash/player.swf"/>
 					<param name="flashVars" value="source=../{{video}}&skinMode=show&autoplay=false&fengmian=./{{thumbnail}}"/>
 					<param name="quality" value="high"/>
 					<param name="allowFullScreen" value="true"/>
-					<embed name="player" src="./flash/player.swf" flashVars="source=../{{video}}&fengmian=./{{thumbnail}}" quality="high" allowFullScreen="true" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="325" height="325" allowScriptAccess="always"></embed>
+					<embed name="player" src="./flash/player.swf" flashVars="source=../{{video}}&fengmian=./{{thumbnail}}" quality="high" allowFullScreen="true" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="390" height="390" allowScriptAccess="always"></embed>
 				</object>
 				{{else}}
-				<video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{thumbnail}}" preload="none" width="325" height="325" data-setup="{}">
+				<video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{thumbnail}}" preload="none" width="390" height="390" data-setup="{}">
 					<source src="./{{video}}" type='video/mp4' />
 				</video>
 				{{/if}}
@@ -1996,8 +1997,22 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 
 		<script type="text/tpl" id="share-template">
 			<div class="tip-top-title"><img src="./img/chun.png" /> &nbsp;&nbsp; <img src="./img/title_tip.gif" /></div>
-			<div class="preview-img">
-				<img src="{{thumbnail}}" width="390" height="390" />
+			<div class="tip-top-title2"><img src="./img/title_step5.png" /></div>
+			<div class="preview-player">
+				{{#if flash}}
+				<object id="player2" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="390" height="390">
+					<param name="allowScriptAccess" value="always"/>
+					<param name="movie" value="./flash/player.swf"/>
+					<param name="flashVars" value="source=../{{video}}&skinMode=show&autoplay=false&fengmian=./{{thumbnail}}"/>
+					<param name="quality" value="high"/>
+					<param name="allowFullScreen" value="true"/>
+					<embed name="player" src="./flash/player.swf" flashVars="source=../{{video}}&fengmian=./{{thumbnail}}" quality="high" allowFullScreen="true" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="390" height="390" allowScriptAccess="always"></embed>
+				</object>
+				{{else}}
+				<video id="inner-video-{{timestamp}}" class="video-js vjs-big-play-centered vjs-default-skin" poster="./{{thumbnail}}" preload="none" width="390" height="390" data-setup="{}">
+					<source src="./{{video}}" type='video/mp4' />
+				</video>
+				{{/if}}
 			</div>
 			<div class="share-sina"><label>分享到：</label>
 				<a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=http://url/view?id={{nid}}&pic=http://avene/{{thumbnail}}" class="sharelink"></a>

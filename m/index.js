@@ -704,8 +704,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
                     pngr : dragHelper.getRaphaelTransform( mouthRaphael ).r,
                     // 图片的旋转参数
-                    tx   : imgRaphael.getBBox().x,
-                    ty   : imgRaphael.getBBox().y,
+                    tx   : imgRaphael.getBBox().x * scale,
+                    ty   : imgRaphael.getBBox().y * scale,
                     ts   : $img[0].width / ( parseInt( $img.css('width') ) * transform.s * scale ),
                     tr   : transform.r 
                 }

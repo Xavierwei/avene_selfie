@@ -14,7 +14,7 @@ class Drtool {
           mkdir($dir, 0777, TRUE);
         }
     }
-    
+
     /**
      * 随机函数
      */
@@ -68,8 +68,8 @@ class Drtool {
         if(!(exec("which ffmpeg",$output)))
           if(!(exec("which ffmpeg 2>/dev/null 2>&1",$output)))
             return "1021";              //ffmpeg不存在
-        exec($output[0]." -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '".dirname(Yii::app()->BasePath)."/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '". dirname(Yii::app()->BasePath) . "/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" .$save_path . $save_name .".mp4'");                
-        
+        exec($output[0]." -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '".dirname(Yii::app()->BasePath)."/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '". dirname(Yii::app()->BasePath) . "/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" .$save_path . $save_name .".mp4'");
+
         if(!self::isValidConvert($save_path . $save_name .".mp4'")) //判断视频截图是否截取成功
           return "1023";  //视频转换失效
 
@@ -95,7 +95,7 @@ class Drtool {
     /**
      * 检查转换状态
      */
-    public static function isValidConvert($path) 
+    public static function isValidConvert($path)
     {
       if(!(exec("which ffprobe",$output))) //$output返回数组对象，使用$output[0]获取第一个返回
           if(!(exec("which ffprobe 2>/dev/null 2>&1",$output)))
@@ -134,7 +134,7 @@ class Drtool {
         return $cookie[$name]->value; //对象存在返回cookie数值
     }
     /**
-     * 销毁cookie 
+     * 销毁cookie
      */
     public static function cleanMyCookie($name)
     {
@@ -144,111 +144,111 @@ class Drtool {
 
     /**
      * gif,bmp,png to jpg
-     * imageToJPG('源文件名','目标文件名',目标宽,目标高); 
+     * imageToJPG('源文件名','目标文件名',目标宽,目标高);
      */
-    public static function imageCreateFromBMP($filename) 
-    { 
-      if ( ! $f1 = fopen ( $filename , "rb" )) return FALSE ; 
+    public static function imageCreateFromBMP($filename)
+    {
+      if ( ! $f1 = fopen ( $filename , "rb" )) return FALSE ;
 
-      $FILE = unpack ( "vfile_type/Vfile_size/Vreserved/Vbitmap_offset" , fread ( $f1 , 14 )); 
-      if ( $FILE [ 'file_type' ] != 19778 ) return FALSE ; 
+      $FILE = unpack ( "vfile_type/Vfile_size/Vreserved/Vbitmap_offset" , fread ( $f1 , 14 ));
+      if ( $FILE [ 'file_type' ] != 19778 ) return FALSE ;
 
-      $BMP = unpack ( 'Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' . '/Vcompression/Vsize_bitmap/Vhoriz_resolution' . 
-      '/Vvert_resolution/Vcolors_used/Vcolors_important' , fread ( $f1 , 40 )); 
-      $BMP [ 'colors' ] = pow ( 2 , $BMP [ 'bits_per_pixel' ]); 
-      if ( $BMP [ 'size_bitmap' ] == 0 ) $BMP [ 'size_bitmap' ] = $FILE [ 'file_size' ] - $FILE [ 'bitmap_offset' ]; 
-      $BMP [ 'bytes_per_pixel' ] = $BMP [ 'bits_per_pixel' ] / 8 ; 
-      $BMP [ 'bytes_per_pixel2' ] = ceil ( $BMP [ 'bytes_per_pixel' ]); 
-      $BMP [ 'decal' ] = ( $BMP [ 'width' ] * $BMP [ 'bytes_per_pixel' ] / 4 ); 
-      $BMP [ 'decal' ] -= floor ( $BMP [ 'width' ] * $BMP [ 'bytes_per_pixel' ] / 4 ); 
-      $BMP [ 'decal' ] = 4 - ( 4 * $BMP [ 'decal' ]); 
-      if ( $BMP [ 'decal' ] == 4 ) $BMP [ 'decal' ] = 0 ; 
+      $BMP = unpack ( 'Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' . '/Vcompression/Vsize_bitmap/Vhoriz_resolution' .
+      '/Vvert_resolution/Vcolors_used/Vcolors_important' , fread ( $f1 , 40 ));
+      $BMP [ 'colors' ] = pow ( 2 , $BMP [ 'bits_per_pixel' ]);
+      if ( $BMP [ 'size_bitmap' ] == 0 ) $BMP [ 'size_bitmap' ] = $FILE [ 'file_size' ] - $FILE [ 'bitmap_offset' ];
+      $BMP [ 'bytes_per_pixel' ] = $BMP [ 'bits_per_pixel' ] / 8 ;
+      $BMP [ 'bytes_per_pixel2' ] = ceil ( $BMP [ 'bytes_per_pixel' ]);
+      $BMP [ 'decal' ] = ( $BMP [ 'width' ] * $BMP [ 'bytes_per_pixel' ] / 4 );
+      $BMP [ 'decal' ] -= floor ( $BMP [ 'width' ] * $BMP [ 'bytes_per_pixel' ] / 4 );
+      $BMP [ 'decal' ] = 4 - ( 4 * $BMP [ 'decal' ]);
+      if ( $BMP [ 'decal' ] == 4 ) $BMP [ 'decal' ] = 0 ;
 
-      $PALETTE = array (); 
-      if ( $BMP [ 'colors' ] < 16777216 ) 
-      { 
-      $PALETTE = unpack ( 'V' . $BMP [ 'colors' ] , fread ( $f1 , $BMP [ 'colors' ] * 4 )); 
-      } 
-
-      $IMG = fread ( $f1 , $BMP [ 'size_bitmap' ]); 
-      $VIDE = chr ( 0 ); 
-      $res = imagecreatetruecolor( $BMP [ 'width' ] , $BMP [ 'height' ]); 
-      $P = 0 ; 
-      $Y = $BMP [ 'height' ] - 1 ; 
-      while ( $Y >= 0 ) 
-      { 
-      $X = 0 ; 
-      while ( $X < $BMP [ 'width' ]) 
-      { 
-      if ( $BMP [ 'bits_per_pixel' ] == 24 ) 
-      $COLOR = unpack ( "V" , substr ( $IMG , $P , 3 ) . $VIDE ); 
-      elseif ( $BMP [ 'bits_per_pixel' ] == 16 ) 
-      { 
-      $COLOR = unpack ( "n" , substr ( $IMG , $P , 2 )); 
-      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ]; 
-      } 
-      elseif ( $BMP [ 'bits_per_pixel' ] == 8 ) 
-      { 
-      $COLOR = unpack ( "n" , $VIDE . substr ( $IMG , $P , 1 )); 
-      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ]; 
-      } 
-      elseif ( $BMP [ 'bits_per_pixel' ] == 4 ) 
-      { 
-      $COLOR = unpack ( "n" , $VIDE . substr ( $IMG , floor ( $P ) , 1 )); 
-      if (( $P * 2 ) % 2 == 0 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] >> 4 ) ; else $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x0F ); 
-      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ]; 
-      } 
-      elseif ( $BMP [ 'bits_per_pixel' ] == 1 ) 
-      { 
-      $COLOR = unpack ( "n" , $VIDE . substr ( $IMG , floor ( $P ) , 1 )); 
-      if (( $P * 8 ) % 8 == 0 ) $COLOR [ 1 ] = $COLOR [ 1 ] >> 7 ; 
-      elseif (( $P * 8 ) % 8 == 1 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x40 ) >> 6 ; 
-      elseif (( $P * 8 ) % 8 == 2 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x20 ) >> 5 ; 
-      elseif (( $P * 8 ) % 8 == 3 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x10 ) >> 4 ; 
-      elseif (( $P * 8 ) % 8 == 4 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x8 ) >> 3 ; 
-      elseif (( $P * 8 ) % 8 == 5 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x4 ) >> 2 ; 
-      elseif (( $P * 8 ) % 8 == 6 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x2 ) >> 1 ; 
-      elseif (( $P * 8 ) % 8 == 7 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x1 ); 
-      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ]; 
-      } 
-      else 
-      return FALSE ; 
-      imagesetpixel( $res , $X , $Y , $COLOR [ 1 ]); 
-      $X ++ ; 
-      $P += $BMP [ 'bytes_per_pixel' ]; 
-      } 
-      $Y -- ; 
-      $P += $BMP [ 'decal' ]; 
-      } 
-
-      fclose ( $f1 ); 
-      return $res ; 
-    } 
-    public static function imageToJPG($srcFile,$dstFile,$srcx,$srcy,$srcts,$srctr,$dstW=800,$dstH=800) 
-    { 
-      $quality=100; 
-      $data = @GetImageSize($srcFile); //载入原始图片
-      switch ($data['2']) 
-      { 
-        case 1: 
-          $im = imagecreatefromgif($srcFile); 
-          break; 
-        case 2: 
-          $im = imagecreatefromjpeg($srcFile); 
-          break; 
-        case 3: 
-          $im = imagecreatefrompng($srcFile); 
-          break; 
-        case 6: 
-          $im = self::imageCreateFromBMP( $srcFile ); //调用上面bmp转jpg的独立方法
-          break; 
+      $PALETTE = array ();
+      if ( $BMP [ 'colors' ] < 16777216 )
+      {
+      $PALETTE = unpack ( 'V' . $BMP [ 'colors' ] , fread ( $f1 , $BMP [ 'colors' ] * 4 ));
       }
-    
-      
+
+      $IMG = fread ( $f1 , $BMP [ 'size_bitmap' ]);
+      $VIDE = chr ( 0 );
+      $res = imagecreatetruecolor( $BMP [ 'width' ] , $BMP [ 'height' ]);
+      $P = 0 ;
+      $Y = $BMP [ 'height' ] - 1 ;
+      while ( $Y >= 0 )
+      {
+      $X = 0 ;
+      while ( $X < $BMP [ 'width' ])
+      {
+      if ( $BMP [ 'bits_per_pixel' ] == 24 )
+      $COLOR = unpack ( "V" , substr ( $IMG , $P , 3 ) . $VIDE );
+      elseif ( $BMP [ 'bits_per_pixel' ] == 16 )
+      {
+      $COLOR = unpack ( "n" , substr ( $IMG , $P , 2 ));
+      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ];
+      }
+      elseif ( $BMP [ 'bits_per_pixel' ] == 8 )
+      {
+      $COLOR = unpack ( "n" , $VIDE . substr ( $IMG , $P , 1 ));
+      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ];
+      }
+      elseif ( $BMP [ 'bits_per_pixel' ] == 4 )
+      {
+      $COLOR = unpack ( "n" , $VIDE . substr ( $IMG , floor ( $P ) , 1 ));
+      if (( $P * 2 ) % 2 == 0 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] >> 4 ) ; else $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x0F );
+      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ];
+      }
+      elseif ( $BMP [ 'bits_per_pixel' ] == 1 )
+      {
+      $COLOR = unpack ( "n" , $VIDE . substr ( $IMG , floor ( $P ) , 1 ));
+      if (( $P * 8 ) % 8 == 0 ) $COLOR [ 1 ] = $COLOR [ 1 ] >> 7 ;
+      elseif (( $P * 8 ) % 8 == 1 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x40 ) >> 6 ;
+      elseif (( $P * 8 ) % 8 == 2 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x20 ) >> 5 ;
+      elseif (( $P * 8 ) % 8 == 3 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x10 ) >> 4 ;
+      elseif (( $P * 8 ) % 8 == 4 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x8 ) >> 3 ;
+      elseif (( $P * 8 ) % 8 == 5 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x4 ) >> 2 ;
+      elseif (( $P * 8 ) % 8 == 6 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x2 ) >> 1 ;
+      elseif (( $P * 8 ) % 8 == 7 ) $COLOR [ 1 ] = ( $COLOR [ 1 ] & 0x1 );
+      $COLOR [ 1 ] = $PALETTE [ $COLOR [ 1 ] + 1 ];
+      }
+      else
+      return FALSE ;
+      imagesetpixel( $res , $X , $Y , $COLOR [ 1 ]);
+      $X ++ ;
+      $P += $BMP [ 'bytes_per_pixel' ];
+      }
+      $Y -- ;
+      $P += $BMP [ 'decal' ];
+      }
+
+      fclose ( $f1 );
+      return $res ;
+    }
+    public static function imageToJPG($srcFile,$dstFile,$srcx,$srcy,$srcts,$srctr,$dstW=800,$dstH=800)
+    {
+      $quality=100;
+      $data = @GetImageSize($srcFile); //载入原始图片
+      switch ($data['2'])
+      {
+        case 1:
+          $im = imagecreatefromgif($srcFile);
+          break;
+        case 2:
+          $im = imagecreatefromjpeg($srcFile);
+          break;
+        case 3:
+          $im = imagecreatefrompng($srcFile);
+          break;
+        case 6:
+          $im = self::imageCreateFromBMP( $srcFile ); //调用上面bmp转jpg的独立方法
+          break;
+      }
+
+
       // $exif = @exif_read_data($srcFile); //获取exif信息
-      // if (!empty($exif['Orientation'])) 
+      // if (!empty($exif['Orientation']))
       // {
-      //   switch ($exif['Orientation']) 
+      //   switch ($exif['Orientation'])
       //   {
       //     case 3:
       //       $im = imagerotate($im, 180, 0);
@@ -275,15 +275,15 @@ class Drtool {
         {
             $tmp_image_width = $dstW;
             $tmp_image_height = round($tmp_image_width * $src_height / $src_width);
-        } 
-        else 
+        }
+        else
         {
             $tmp_image_height = $dstH;
             $tmp_image_width = round($tmp_image_height * $src_width / $src_height);
         }
 
         //旋转图像 补白
-        $white=@imagecolorallocate($im,255,255,255); //旋转图像 
+        $white=@imagecolorallocate($im,255,255,255); //旋转图像
         $im= @imagerotate($im, -$srctr, $white); //补白
 
         $tmpImage = @imagecreatetruecolor($tmp_image_width, $tmp_image_height);
@@ -298,7 +298,7 @@ class Drtool {
         $x = round(($dstW - $tmp_image_width) / 2);
         $y = round(($dstH - $tmp_image_height) / 2);
         @imagecopy($final_image, $tmpImage, $x, $y, 0, 0, $tmp_image_width, $tmp_image_height);
-        
+
       }
       else //对应手机版本
       {
@@ -307,37 +307,43 @@ class Drtool {
         $srcH=@ImageSY($im); //原始高度
 
         //裁剪区域的宽高,最终保存成图片的宽和高，和源要等比例，否则会变形
-        $midW=round($srcW / $srcts);  //缩小宽度  
+        $midW=round($srcW / $srcts);  //缩小宽度
         $midH=round($srcH / $srcts);  //缩小高度
 
         //将裁剪区域复制到新图片上，并根据源和目标的宽高进行缩放或者拉升
         $new_image = @imagecreatetruecolor($midW, $midH);
-        @imagecopyresampled($new_image, $im, 0, 0, $srcx, $srcy, $midW, $midH, $midW, $midH);
+        @imagecopyresampled($new_image, $im, 0, 0, 0, 0, $midW, $midH, $srcW, $srcH);
 
-        //旋转图像 补白
-        $white=@imagecolorallocate($new_image,255,255,255); //旋转图像 
-        $new_image= @imagerotate($new_image, -$srctr, $white); //补白
+//        //旋转图像 补白
+		  $white=@imagecolorallocate($new_image,255,255,255); //旋转图像
+		  $new_image= @imagerotate($new_image, $srctr, $white); //补白
 
 
-        //添加白边
-        $final_image = @imagecreatetruecolor($dstW, $dstH);
-        $color = @imagecolorallocate($final_image, 255, 255, 255);
-        @imagefill($final_image, 0, 0, $color);
-        $x = round(($dstW - $midW) / 2);
-        $y = round(($dstH - $midH) / 2);
-        @imagecopy($final_image, $new_image, $x, $y, 0, 0, $midW, $midH);
+		  $srcW=@ImageSX($new_image); //原始宽度
+		  $srcH=@ImageSY($new_image); //原始高度
+		  $final_image = @imagecreatetruecolor(800, 800);
+		  @imagecopyresampled($final_image, $new_image, $srcx, $srcy, 0, 0, $srcW, $srcH, $srcW, $srcH);
+//
+//
+//        //添加白边
+//        $final_image = @imagecreatetruecolor($dstW, $dstH);
+//        $color = @imagecolorallocate($final_image, 255, 255, 255);
+//        @imagefill($final_image, 0, 0, $color);
+//        $x = round(($dstW - $midW) / 2);
+//        $y = round(($dstH - $midH) / 2);
+//        @imagecopy($final_image, $new_image, $x, $y, 0, 0, $midW, $midH);
       }
-      
+
 
 
       // $srcW=@ImageSX($im); //原始宽度
       // $srcH=@ImageSY($im); //原始高度
 
-      // $midW=round($srcW/ $srcts);  //缩小宽度  
+      // $midW=round($srcW/ $srcts);  //缩小宽度
       // $midH=round($srcH / $srcts);  //缩小高度
 
       // // 为剪切图像创建背景画板
-      // $mid=@imagecreatetruecolor($midW,$midH); 
+      // $mid=@imagecreatetruecolor($midW,$midH);
       // @imagecopyresampled($mid, $im, 0, 0, $srcx, $srcy, $midW, $midH, $midW, $midH);
 
 
@@ -345,39 +351,39 @@ class Drtool {
 
       // $srcRW=@ImageSX($im); //旋转宽度
       // $srcRH=@ImageSY($im); //旋转高度
-      
-      
+
+
       // // 为剪切图像创建背景画板
-      // $mid=@imagecreatetruecolor($midW,$midH); 
+      // $mid=@imagecreatetruecolor($midW,$midH);
       // //背景色白色
       // $white2=@imagecolorallocate($mid,255,255,255);
       // //填充背景色
-      // @imagefill($mid,0,0,$white2); 
+      // @imagefill($mid,0,0,$white2);
       // @imagecolortransparent($mid,$white2);
 
       // //拷贝剪切图像到背景画板，并按比例裁剪
       // //@ImageCopyResampled($mid,$im,0,0,$srcx,$srcy,$srcW,$srcH);
-      // @ImageCopyResampled($mid,$im,0,0,$srcx,$srcy,$midW,$midH,$srcRW,$srcRH); 
+      // @ImageCopyResampled($mid,$im,0,0,$srcx,$srcy,$midW,$midH,$srcRW,$srcRH);
 
       // //为剪切图像创建背景画板
-      // $ni=@imagecreatetruecolor($dstW,$dstH); 
+      // $ni=@imagecreatetruecolor($dstW,$dstH);
       // //背景色 白色
       // $white3=@imagecolorallocate($ni,255,255,255);
       // //填充背景色
-      // @imagefill($ni,0,0,$white3); 
+      // @imagefill($ni,0,0,$white3);
       // @imagecolortransparent($ni,$white3);
       // // @imagefilledrectangle($ni, 0, 0, $dstW, $dstH, $white);
 
       // //拷贝剪切图像到背景画板，并按比例裁剪
-      // @ImageCopyResampled($ni,$mid,0,0,0,0,$dstW,$dstH,$midW,$midH); 
-      @ImageJpeg($final_image,$dstFile,$quality); 
-      @imagedestroy($im); 
-      @imagedestroy($new_image); 
-      @imagedestroy($final_image); 
+      // @ImageCopyResampled($ni,$mid,0,0,0,0,$dstW,$dstH,$midW,$midH);
+      @ImageJpeg($final_image,$dstFile,$quality);
+      @imagedestroy($im);
+      @imagedestroy($new_image);
+      @imagedestroy($final_image);
 
 
       return file_exists($dstFile);
-    } 
+    }
 
 }
 

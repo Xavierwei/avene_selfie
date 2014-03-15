@@ -263,32 +263,71 @@ class Drtool {
       //   }
       // }
 
+      if($srcx==0 && $srcy ==0 && $srcts==1 ) //只进行缩放。不截取区域 ，对应桌面版
+      {
+        //源图对象
+        $src_width = @imagesx($im);
+        $src_height = @imagesy($im);
+        //生成等比例的缩略图
+        $tmp_image_width = 0;
+        $tmp_image_height = 0;
+        if ($src_width / $src_height >= $dstW / $dstH)
+        {
+            $tmp_image_width = $dstW;
+            $tmp_image_height = round($tmp_image_width * $src_height / $src_width);
+        } 
+        else 
+        {
+            $tmp_image_height = $dstH;
+            $tmp_image_width = round($tmp_image_height * $src_width / $src_height);
+        }
+
+        //旋转图像 补白
+        $white=@imagecolorallocate($im,255,255,255); //旋转图像 
+        $im= @imagerotate($im, -$srctr, $white); //补白
+
+        $tmpImage = @imagecreatetruecolor($tmp_image_width, $tmp_image_height);
+        @imagecopyresampled($tmpImage, $im, 0, 0, 0, 0, $tmp_image_width, $tmp_image_height, $src_width, $src_height);
 
 
-      //原始图片宽高
-      $srcW=@ImageSX($im); //原始宽度
-      $srcH=@ImageSY($im); //原始高度
 
-      //裁剪区域的宽高,最终保存成图片的宽和高，和源要等比例，否则会变形
-      $midW=round($srcW / $srcts);  //缩小宽度  
-      $midH=round($srcH / $srcts);  //缩小高度
+        //添加白边
+        $final_image = @imagecreatetruecolor($dstW, $dstH);
+        $color = @imagecolorallocate($final_image, 255, 255, 255);
+        @imagefill($final_image, 0, 0, $color);
+        $x = round(($dstW - $tmp_image_width) / 2);
+        $y = round(($dstH - $tmp_image_height) / 2);
+        @imagecopy($final_image, $tmpImage, $x, $y, 0, 0, $tmp_image_width, $tmp_image_height);
+        
+      }
+      else //对应手机版本
+      {
+        //原始图片宽高
+        $srcW=@ImageSX($im); //原始宽度
+        $srcH=@ImageSY($im); //原始高度
 
-      //将裁剪区域复制到新图片上，并根据源和目标的宽高进行缩放或者拉升
-      $new_image = @imagecreatetruecolor($midW, $midH);
-      @imagecopyresampled($new_image, $im, 0, 0, $srcx, $srcy, $midW, $midH, $midW, $midH);
+        //裁剪区域的宽高,最终保存成图片的宽和高，和源要等比例，否则会变形
+        $midW=round($srcW / $srcts);  //缩小宽度  
+        $midH=round($srcH / $srcts);  //缩小高度
 
-      //旋转图像 补白
-      $white=@imagecolorallocate($new_image,255,255,255); //旋转图像 
-      $new_image= imagerotate($new_image, -$srctr, $white); //补白
+        //将裁剪区域复制到新图片上，并根据源和目标的宽高进行缩放或者拉升
+        $new_image = @imagecreatetruecolor($midW, $midH);
+        @imagecopyresampled($new_image, $im, 0, 0, $srcx, $srcy, $midW, $midH, $midW, $midH);
+
+        //旋转图像 补白
+        $white=@imagecolorallocate($new_image,255,255,255); //旋转图像 
+        $new_image= @imagerotate($new_image, -$srctr, $white); //补白
 
 
-      //添加白边
-      $final_image = imagecreatetruecolor($dstW, $dstH);
-      $color = imagecolorallocate($final_image, 255, 255, 255);
-      imagefill($final_image, 0, 0, $color);
-      $x = round(($dstW - $midW) / 2);
-      $y = round(($dstH - $midH) / 2);
-      imagecopy($final_image, $new_image, $x, $y, 0, 0, $midW, $midH);
+        //添加白边
+        $final_image = @imagecreatetruecolor($dstW, $dstH);
+        $color = @imagecolorallocate($final_image, 255, 255, 255);
+        @imagefill($final_image, 0, 0, $color);
+        $x = round(($dstW - $midW) / 2);
+        $y = round(($dstH - $midH) / 2);
+        @imagecopy($final_image, $new_image, $x, $y, 0, 0, $midW, $midH);
+      }
+      
 
 
       // $srcW=@ImageSX($im); //原始宽度

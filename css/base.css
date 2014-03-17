@@ -186,7 +186,7 @@ display: none;
 .tips-onstep1 .block-skin-tips-step {height:734px;}
 .block-skin-tips-inner-loading {background: url(../img/loading.gif) no-repeat center;}
 
-.tips-view-page {text-align: center;margin-top:-20px;opacity:0;}
+.tips-view-page {text-align: center;margin-top:50px;opacity:0;}
 .tips-view-page .block-skin-tips-btns {margin-top:25px;}
 .tips-view-page .btn-back {background: url(../img/step2-btns.jpg); width: 213px;height: 46px;line-height:46px;margin: 0 25px;font-size: 21px;color:white;text-indent: 2em;}
 

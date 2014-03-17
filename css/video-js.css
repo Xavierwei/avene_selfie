@@ -367,20 +367,23 @@ easily in the skin designer. http://designer.videojs.com/
 --------------------------------------------------------------------------------
 */
 .vjs-loading-spinner {
-  display: none!important;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 4em;
-  line-height: 1;
-  width: 20px;
-  height: 20px;
-  margin-left: -10px;
-  margin-top: -10px;
-  opacity: 0.75;
+    background: #000 url(../img/loading_video.gif) center no-repeat;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    filter:alpha(opacity=40);
+    -webkit-animation:none;
+    -moz-animation:none;
+    -o-animation:none;
+    animation:none;
+    margin:0;
   /* animation */
 }
-
+.vjs-default-skin .vjs-loading-spinner:before {content:''}
+.vjs-default-skin .vjs-loading-spinner:after {content:''}
 @-moz-keyframes spin {
   0% {
     -moz-transform: rotate(0deg);
@@ -604,6 +607,7 @@ body.vjs-full-window {
 }
 /* Poster Styles */
 .vjs-poster {
+    display: none!important;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;

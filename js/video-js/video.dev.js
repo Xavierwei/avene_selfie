@@ -4778,10 +4778,10 @@ vjs.PosterImage = vjs.Button.extend({
     vjs.Button.call(this, player, options);
 
     if (!player.poster() || !player.controls()) {
-      this.hide();
+      //this.hide();
     }
 
-    player.on('play', vjs.bind(this, this.hide));
+    //player.on('play', vjs.bind(this, this.hide));
   }
 });
 
@@ -4867,8 +4867,8 @@ vjs.BigPlayButton = vjs.Button.extend();
 vjs.BigPlayButton.prototype.createEl = function(){
   return vjs.Button.prototype.createEl.call(this, 'div', {
     className: 'vjs-big-play-button',
-    innerHTML: '<span aria-hidden="true"></span>',
-    'aria-label': 'play video'
+    innerHTML: '<span></span>'
+    //'aria-label': 'play video'
   });
 };
 

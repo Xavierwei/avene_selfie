@@ -122,7 +122,7 @@ background: url(../../img/opts-left-right-bg.png) repeat-y 27px top;}
 
 .block-skin-tips-step .mouths-wrap{
 	
-	height: 90px;
+	height: 114px;
 	padding: 0 60px;
 	margin: 0 -20px;
 	margin-top: 30px;
@@ -132,7 +132,7 @@ background: url(../../img/opts-left-right-bg.png) repeat-y 27px top;}
 }
 .block-skin-tips-step .mouths-wrap .icon{
 	position: absolute;
-	top: 0;
+	top: 12px;
 	left: 0px;
 }
 .block-skin-tips-step .mouths-wrap .icon.icon-sright{
@@ -145,7 +145,7 @@ background: url(../../img/opts-left-right-bg.png) repeat-y 27px top;}
 }
 .block-skin-tips-step .mouths li{
 	width: 125px;
-	height: 90px;
+	height: 125px;
 	line-height: 90px;
 	text-align: center;
 	font-size: 0;
@@ -173,11 +173,12 @@ background: url(../../img/opts-left-right-bg.png) repeat-y 27px top;}
 	left: -12px;
 }
 .mouth-opts .mouth-opts-drag{
-	background-position: right top;
+    width:50px;height:50px;
+	background-position: -25px 13px;
 	top: auto;
 	left: auto;
-	bottom: -12px;
-	right: -12px;
+	bottom: -23px;
+	right: -19px;
 }
 
 .block-skin-tips-flash {width:970px;position: relative;}

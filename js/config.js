@@ -58,7 +58,7 @@ seajs.config({
       , exports: "Raphael"
     }
     ,"video-js":{
-      src: "../video-js/video.js"
+      src: "../video-js/video.dev.js"
     }
     ,"flash-detect":{
       src: "../plugin/flash_detect_min.js"

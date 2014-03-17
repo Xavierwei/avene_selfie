@@ -766,9 +766,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 LP.use('video-js' , function(){
                     if($("inner-pop-video-" + result.data.timestamp).length) {
                         videojs( "inner-pop-video-" + result.data.timestamp , {}, function(){
-                            $('.vjs-big-play-button').fadeIn();
+                            $('.vjs-big-play-button').show();
                         });
                     }
+
                 });
 			});
 
@@ -816,9 +817,10 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 LP.use('video-js' , function(){
                     if($("inner-pop-video-" + data.timestamp).length) {
                         videojs( "inner-pop-video-" + data.timestamp , {}, function(){
-                            $('.vjs-big-play-button').fadeIn();
+                            $('.vjs-big-play-button').show();
                         });
                     }
+
                 });
             });
         });
@@ -834,9 +836,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             LP.use('video-js' , function(){
                 if($("inner-pop-video-" + data.timestamp).length) {
                     videojs( "inner-pop-video-" + data.timestamp , {}, function(){
-
+                        $('.vjs-big-play-button').show();
                     });
                 }
+
+                setTimeout(function(){
+                    $('.vjs-big-play-button').show();
+                },2000);
             });
         });
     });
@@ -984,11 +990,12 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
                 $('.tips-view-page').css({opacity:0});
                 $('#imgLoad').ensureLoad(function(){
                     $('.tips-view-page').animate({opacity:1});
+                    $('.vjs-big-play-button').show();
                 });
 				LP.use('video-js' , function(){
 					if($("inner-pop-video-" + result.data.timestamp).length) {
 						videojs( "inner-pop-video-" + result.data.timestamp , {}, function(){
-                            $('.vjs-big-play-button').fadeIn();
+                            $('.vjs-big-play-button').show();
 						});
 					}
 				});

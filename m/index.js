@@ -56,7 +56,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 // change bottom mask height
                 $('.mask-bottom').height( 60 );
 
-                $('.block-skin-tips-top').html("<span>缩 放 + 裁 剪</span>");
+                $('.block-skin-tips-top').html("<span>第二步: 编辑照片 - 缩放 + 剪裁</span>");
 
                 // hide other from step 3
                 // =====================================
@@ -102,7 +102,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 $('.step3-btns').show()
                     .prev()
                     .hide();
-                $('.block-skin-tips-top').html("<span>选 择 你 的 嘴 形</span>");
+                $('.block-skin-tips-top').html("<span>第二步: 换上你喜欢的嘴形</span>");
                 break;
 			case 4:
 				$('.block-skin-tips-share').fadeOut();
@@ -700,8 +700,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     photo: $img.attr('src'),
                     // 嘴巴参数
                     pngnum: $('.mouths li.selected').index() + 1,
-                    pngx : mouthRaphael.getBBox().x - Math.abs( svgLeft ),
-                    pngy : mouthRaphael.getBBox().y - Math.abs( svgTop ),
+                    pngx : (mouthRaphael.getBBox().x - Math.abs( svgLeft )) * scale,
+                    pngy : (mouthRaphael.getBBox().y - Math.abs( svgTop )) * scale,
                     pngr : dragHelper.getRaphaelTransform( mouthRaphael ).r,
                     // 图片的旋转参数
                     tx   : imgRaphael.getBBox().x * scale,

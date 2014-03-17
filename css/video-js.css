@@ -349,6 +349,7 @@ easily in the skin designer. http://designer.videojs.com/
   display: none;
 }
 .vjs-big-play-button {
+    background: none!important;
     cursor:pointer;
     opacity:0.9;
 }
@@ -533,7 +534,7 @@ positioning, use another containing element. Otherwise you risk messing up
 control positioning and full window mode. **
 */
 .video-js {
-  background-color: #000;
+  background: none!important;
   position: relative;
   padding: 0;
   /* Start with 10px for base font size so other dimensions can be em based and

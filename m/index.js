@@ -289,7 +289,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
             // set right image size
             var optWrapWidth = $wrap.width();
             var optWrapHeight = $wrap.height();
-            if( imgWidth / imgHeight > optWrapWidth / optWrapHeight && imgWidth > optWrapWidth ){
+            if( imgWidth / imgHeight >= optWrapWidth / optWrapHeight && imgWidth >= optWrapWidth ){
                 imgHeight = ~~(imgHeight / imgWidth * optWrapWidth);
                 imgWidth = optWrapWidth;
             } else if( imgWidth / imgHeight < optWrapWidth / optWrapHeight && imgHeight > optWrapHeight ){
@@ -706,7 +706,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     // 图片的旋转参数
                     tx   : imgRaphael.getBBox().x * scale,
                     ty   : imgRaphael.getBBox().y * scale,
-                    ts   : $img[0].width / parseInt( $img.css('width') ) * transform.s * scale ,
+                    ts   : $img[0].width / ( parseInt( $img.css('width') ) * transform.s * scale ),
                     tr   : transform.r 
                 }
 

@@ -81,6 +81,9 @@ class Drtool {
      */
     public static function screenshot($save_path,$save_name,$width=250,$height=250)
     {
+      if(!file_exists($save_path.$save_name.".mp4"))
+       return '1023'; //视频文件不存在
+
         if(!(exec("which ffmpeg",$output)))
           if(!(exec("which ffmpeg 2>/dev/null 2>&1",$output)))
             return "1021";              //ffmpeg不存在
@@ -89,6 +92,7 @@ class Drtool {
 
         if(!self::isValidConvert($save_path.$save_name."thumbnail_".$width."_".$height.".jpg")) //判断视频截图是否截取成功
           return "1024";  //截取不成功
+
 
         return "screenshot";
     }

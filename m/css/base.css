@@ -66,7 +66,11 @@
 .block-skin-tips-list a{float: left;margin: 0 8px 17px;}
 .block-skin-tips-list a img{display: block;}
 
-.tip-image {background:#fff;display:none;text-align: center;padding:80px 0 20px 0;}
+.tip-wrap {display: none;background:url(../img/tip_img_bg.gif) repeat-x;font-size:28px;text-align: center;line-height:150%;padding:80px 0 20px 0;}
+.tip_tit {margin:20px 0}
+.tip_product {margin:20px 0 0;}
+.tip_text1 {color:#f58774;}
+.tip_header2 {border:1px solid #9e9e9e;border-left:none;border-right:none;margin:20px 20px;padding:10px 0;}
 
 button.load_more{border:0;font-size:30px;display:block;width: 500px; margin: 0 auto; border:0;background: url(../img/btn-bg.jpg); height: 90px;cursor: pointer;color:#808080; background: none; border: 1px solid #f58774;}
 .btn-back{border:0;font-size:30px;display:block;width: 500px; margin: 20px auto 0 auto; border:0;background: url(../img/btn-bg.jpg);line-height: 90px; height: 90px;text-decoration:none;cursor: pointer;color:#808080; background: none; border: 1px solid #f58774;}

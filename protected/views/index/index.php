@@ -1929,16 +1929,11 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 			</div>
 		</div>
 
-		<div class="tip-image">
-			<img src="./img/tip_image.jpg" />
 
-			<div class="tip_text1">
-				是的，我的脸好垮！因为我连续加班半个月了，整天呆在空调房里，面对电脑屏幕，一天工作下来，脸的尺寸也比早上起床时变大了半号！我没有看错，我的脸确实是被疲劳击垮了。
-			</div>
-			<div class="tip_text2">
-				加班之前清洁面部，选用一支含有天然成分的保湿面霜。在手掌中温热，然后用双手把垮掉的“加班肌”乔回来，通过轻轻的按摩，会让肌肤瞬间得到舒缓，轻松拥有水润肌肤。和“加班肌肤”说拜拜啦!
-			</div>
+		<div class="tip-wrap">
+
 		</div>
+
 
 		<div class="block-skin-tips-bottom">
 			<div class="block-skin-tips-bottom-inner">
@@ -2015,7 +2010,7 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 				{{/if}}
 			</div>
 			<div class="share-sina"><label>分享到：</label>
-				<a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=http://url/view?id={{nid}}&pic=http://avene/{{thumbnail}}" class="sharelink"></a>
+				<a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=%e9%9d%a2%e5%af%b9%e8%82%8c%e8%82%a4%e9%97%ae%e9%a2%98%ef%bc%8c%23%e6%b2%a1%e6%9c%89%e4%ba%ba%e6%af%94%e4%bd%a0%e6%9b%b4%e6%87%82%e4%bd%a0%23%ef%bc%8c%e6%9c%80%e6%9c%89%e6%95%88%e7%9a%84%e6%8a%a4%e8%82%a4%e5%bb%ba%e8%ae%ae%e6%9d%a5%e8%87%aa%e4%bd%a0%e8%87%aa%e5%b7%b1%ef%bc%81%e6%88%91%e5%88%9a%e5%88%9a%e5%88%b6%e4%bd%9c%e4%ba%86%e4%b8%80%e4%bb%bd%e6%8a%a4%e8%82%a4%e8%b4%b4%e5%a3%ab%ef%bc%8c%e4%b8%8e%40%e9%9b%85%e6%bc%be%e4%b8%80%e8%b5%b7%ef%bc%8c%e7%bb%99%e8%87%aa%e5%b7%b1%e7%9a%84%e8%82%8c%e8%82%a4%e6%9b%b4%e5%a4%9a%e5%91%b5%e6%8a%a4%e3%80%82%e5%be%88%e6%9c%89%e8%b6%a3%e5%96%94%ef%bc%8c%e4%bd%a0%e4%b9%9f%e6%9d%a5%e8%af%95%e8%af%95%e5%90%a7%7e+&url=http://url/view?id={{nid}}&pic=http://avene/{{thumbnail}}" class="sharelink"></a>
 			</div>
 			<div class="block-skin-tips-btns share-btns" style="display: block;">
 				<button class="btn-back" data-a="gostep" data-d="step=4">返&nbsp;&nbsp;回</button>
@@ -2047,8 +2042,23 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 					{{/if}}
 				</div>
 			</div>
+		</script>
 
-
+		<script type="text/tpl" id="tips-template">
+			<div class="tip-image">
+				<div class="tip_tit">
+					{{copy.tit}}
+				</div>
+				<div class="tip_text1">
+					{{copy.text1}}
+				</div>
+				<div class="tip_text2">
+					{{copy.text2}}
+				</div>
+				<div class="tip_product tip_product{{pngnum}}">
+					<img src="./img/product{{pngnum}}.png" />
+				</div>
+			</div>
 		</script>
 
 

@@ -1,5 +1,6 @@
 <?php
 class Drtool {
+
     /**
      * 创建文件夹
      */
@@ -68,6 +69,7 @@ class Drtool {
         if(!(exec("which ffmpeg",$output)))
           if(!(exec("which ffmpeg 2>/dev/null 2>&1",$output)))
             return "1021";              //ffmpeg不存在
+        if()
         exec($output[0]." -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '".dirname(Yii::app()->BasePath)."/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '". dirname(Yii::app()->BasePath) . "/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" .$save_path . $save_name .".mp4'");
 
         if(!self::isValidConvert($save_path . $save_name .".mp4'")) //判断视频截图是否截取成功
@@ -294,7 +296,6 @@ class Drtool {
         @imagecopyresampled($tmpImage, $im, 0, 0, 0, 0, $tmp_image_width, $tmp_image_height, $src_width, $src_height);
 
 
-
         //添加白边
         $final_image = @imagecreatetruecolor($dstW, $dstH);
         $color = @imagecolorallocate($final_image, 255, 255, 255);
@@ -327,59 +328,10 @@ class Drtool {
 		  $srcH=@ImageSY($new_image); //原始高度
 		  $final_image = @imagecreatetruecolor(800, 800);
 		  @imagecopyresampled($final_image, $new_image, $srcx, $srcy, 0, 0, $srcW, $srcH, $srcW, $srcH);
-//
-//
-//        //添加白边
-//        $final_image = @imagecreatetruecolor($dstW, $dstH);
-//        $color = @imagecolorallocate($final_image, 255, 255, 255);
-//        @imagefill($final_image, 0, 0, $color);
-//        $x = round(($dstW - $midW) / 2);
-//        $y = round(($dstH - $midH) / 2);
-//        @imagecopy($final_image, $new_image, $x, $y, 0, 0, $midW, $midH);
+
       }
 
 
-
-      // $srcW=@ImageSX($im); //原始宽度
-      // $srcH=@ImageSY($im); //原始高度
-
-      // $midW=round($srcW/ $srcts);  //缩小宽度
-      // $midH=round($srcH / $srcts);  //缩小高度
-
-      // // 为剪切图像创建背景画板
-      // $mid=@imagecreatetruecolor($midW,$midH);
-      // @imagecopyresampled($mid, $im, 0, 0, $srcx, $srcy, $midW, $midH, $midW, $midH);
-
-
-      // $im= imagerotate($im, -$srctr, $white); //旋转图像 补白
-
-      // $srcRW=@ImageSX($im); //旋转宽度
-      // $srcRH=@ImageSY($im); //旋转高度
-
-
-      // // 为剪切图像创建背景画板
-      // $mid=@imagecreatetruecolor($midW,$midH);
-      // //背景色白色
-      // $white2=@imagecolorallocate($mid,255,255,255);
-      // //填充背景色
-      // @imagefill($mid,0,0,$white2);
-      // @imagecolortransparent($mid,$white2);
-
-      // //拷贝剪切图像到背景画板，并按比例裁剪
-      // //@ImageCopyResampled($mid,$im,0,0,$srcx,$srcy,$srcW,$srcH);
-      // @ImageCopyResampled($mid,$im,0,0,$srcx,$srcy,$midW,$midH,$srcRW,$srcRH);
-
-      // //为剪切图像创建背景画板
-      // $ni=@imagecreatetruecolor($dstW,$dstH);
-      // //背景色 白色
-      // $white3=@imagecolorallocate($ni,255,255,255);
-      // //填充背景色
-      // @imagefill($ni,0,0,$white3);
-      // @imagecolortransparent($ni,$white3);
-      // // @imagefilledrectangle($ni, 0, 0, $dstW, $dstH, $white);
-
-      // //拷贝剪切图像到背景画板，并按比例裁剪
-      // @ImageCopyResampled($ni,$mid,0,0,0,0,$dstW,$dstH,$midW,$midH);
       @ImageJpeg($final_image,$dstFile,$quality);
       @imagedestroy($im);
       @imagedestroy($new_image);
@@ -389,5 +341,35 @@ class Drtool {
       return file_exists($dstFile);
     }
 
+
+    // 检查 ffmpeg 进程个数
+    public static function ffmpeg_process_count()
+    {
+        $command = "ps -ef | grep -v grep | grep ffmpeg | wc -l";
+
+        $descriptorspec = array(
+            0 => array("pipe", "r"),
+            1 => array("pipe", "w"),
+            2 => array("file", dirname(Yii::app()->BasePath)."/uploads/log.log", "w"),
+        );
+
+        $process = proc_open($command, $descriptorspec, $pipes);
+        $can_be_convert = FALSE;
+        if (is_resource($process)) {
+            fclose($pipes[0]);
+
+            $content = stream_get_contents($pipes[1]);
+            fclose($pipes[1]);
+
+            $ret_value = proc_close($process);
+
+            return intval(trim($content));
+        }
+
+        else {
+            // 打开进程失败
+            return FALSE;
+        }
+    }
 }
 

@@ -2,7 +2,11 @@
 
 class NodeController extends Controller
 {
-	private $allowPhotoMime = array( 					//设定允许图片类型
+    //ffmpeg最大同时运行进程数
+    const ALLOW_MAX_FFMPEG_COUNT = 1;
+
+
+    private $allowPhotoMime = array( 					//设定允许图片类型
 								"image/gif"		=>"gif", 
 								"image/png"		=>"png", 
 								"image/jpeg"	=>"jpg", 
@@ -248,20 +252,13 @@ class NodeController extends Controller
 	}
 	*/
 
-	public function actionTest()
+    //返回ffmpeg 当前运行进程数
+    public function actionFfmpegNum()
 	{
-		//echo dirname(Yii::app()->BasePath);
-		//print_r(exec("/usr/bin/ffprobe"));
-		
-		//Yii::app()->easyImage->thumbOf('./uploads/2014/3/12/2ed23df831a4d5fcb8603183f74a506c5c7c0300.jpg', array('type' => 'png'));
-		/*$image = new EasyImage('./uploads/2014/3/12/1.png');
-		//$data = $image->render('png');
-		$image->save('./uploads/2014/3/12/2.jpg');
-		*/
-		$img = imagecreatetruecolor(100,100);    //创建真彩图像资源
-		$color = imagecolorAllocate($img,255,255,200);   //分配一个灰色
-		imagefill($img,0,0,$color) ;                 // 从左上角开始填充灰色
-		header('content-type:image/jpeg');   //jpg格式
-		imagejpeg($img);                              //显示灰色的方块
+        $ffmpegNum=Drtool::ffmpeg_process_count(); //获取当前进程数
+        if($ffmpegNum<=self::ALLOW_MAX_FFMPEG_COUNT)
+            StatusSend::_sendResponse(200, StatusSend::success('success',2007,$ffmpegNum)); //小于允许最大ffmpeg进程数没，返回正确
+        else
+            StatusSend::_sendResponse(200, StatusSend::error('end', 1032,$ffmpegNum)); //修改数据库错误，
 	}
 }

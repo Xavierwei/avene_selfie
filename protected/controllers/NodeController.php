@@ -147,10 +147,8 @@ class NodeController extends Controller
 
 		//判断当前ffmpeg进程数。决定是否允许上传
 		$ffmpegNum=Drtool::ffmpeg_process_count(); //获取当前进程数
-        if($ffmpegNum<=self::ALLOW_MAX_FFMPEG_COUNT)
-            StatusSend::_sendResponse(200, StatusSend::success('success',2007,$ffmpegNum)); //小于允许最大ffmpeg进程数没，返回正确
-        else
-            StatusSend::_sendResponse(200, StatusSend::error('end', 1032,$ffmpegNum)); //修改数据库错误，
+        if($ffmpegNum>=self::ALLOW_MAX_FFMPEG_COUNT)
+            StatusSend::_sendResponse(200, StatusSend::error('end', 1032,$ffmpegNum)); //当前进程数大于所能同时运行最大数
 
 		//获取图片类型后缀名
 		$photoType=$this->allowPhotoMime[Drtool::photoType($this->allowPhotoMime,$_POST['photo'])];

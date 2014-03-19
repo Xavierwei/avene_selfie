@@ -5,6 +5,7 @@ uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail_800_800.jpg
 uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail_250_250.jpg
 uploads/2014/3/9/5e2feed0a69e04e999066dccb57480a044551c30thumbnail.jpg
 
+
 调用方式：
 对于所有 item 列表调用： GET /node/list
 	默认 显示前八条
@@ -73,5 +74,5 @@ success:2004 创建视频成功
 
 success:2005 登陆成功
 success:2006 注销成功
-success:2007 ffmpeg进程数小于允许进程数
+
 

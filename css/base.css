@@ -155,10 +155,15 @@ display: none;
 
 
 .skin-overlay {display:none;background:rgba(0,0,0,0.1);position: fixed;width:100%;height:100%;left:0;top:0;z-index:900;}
-.skin-pop {display:none;position: fixed;width:700px;height:250px;top:50%;left:50%;margin-left:-350px;margin-top:-125px;z-index:901;}
+.skin-pop {display:none;position: fixed;width:700px;height:597px;top:50%;left:50%;margin-left:-350px;margin-top:-287px;z-index:901;}
 .skin-pop-close {float:right;background:url(../img/pop-close.gif) no-repeat;width:32px;height:32px;}
-.skin-pop-conent {clear:both;background:#fff;word-wrap: break-word; word-break: break-all;color:#f69382;padding:20px;line-height:150%;font-size:14px;}
-.skin-pop-conent h4 {margin:0;text-align: center;color:#f69382;font-size:20px;}
+.skin-pop-conent {clear:both;background:#fff;word-wrap: break-word; word-break: break-all;padding:30px;line-height:200%;font-size:14px;color:#7d7d7d;}
+.skin-pop-conent p {margin:6px 0;}
+.skin-pop-conent h4 {margin:0 0 10px 0;text-align: center;color:#f69382;font-size:20px;}
+.skin-pop-conent label {color:#f69382;}
+.skin-pop-conent .p {margin:0 0 10px 0;}
+.skin-pop-conent li {background: url(../img/bullet.gif) no-repeat 0 12px;padding:0 0 0 10px;}
+
 
 #skin-pop-video {z-index:999;width:520px;height:520px;margin:-260px 0 0 -260px;}
 #skin-pop-video .skin-pop-conent {padding:10px;width:500px;}

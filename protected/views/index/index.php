@@ -1959,8 +1959,26 @@ if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|andro
 			<div class="skin-pop-close" data-a="close-pop"></div>
 			<div class="skin-pop-conent">
 				<h4>活动介绍</h4>
-				<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-					xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+				<div class="p">
+					<label>活动时间：</label>2014年x月X日－2014年x月X日
+				</div>
+				<div class="p">
+					<div><label>活动规则：</label></div>
+					<p>1.登陆雅漾官方游戏页面；</p>
+					<p>2.上传或拍摄你的照片；</p>
+					<p>3.选择你喜欢的嘴型并替换；</p>
+					<p>4.点击完成游戏，即可转发你的TIPS至微博，与好友分享。</p>
+				</div>
+				<div class="p">
+					<div><label>注意事项：</label></div>
+					<ul>
+						<li>参加本次活动即视为授权活动主办方与本次活动相关的广告和宣传中无偿使用参与者的名字、肖像和任何其他由其本人提供的个人信息，而无需再另行征求确认，参与者提供的个人信息，活动主办方以及运营方承诺将采取合理的步骤进行保护，除非根据法律或政府的强制性规定，在未得到参与者的许可之前，活动主办方及运营方承诺不将参与者的个人信息提供给无关的第三方。</li>
+						<li>如果发现有参与者在本次活动中使用不正当的手段参加活动，活动主办方有权在不事先通知的前提下取消其参加活动的资格。</li>
+						<li>活动主办方不对因网络传输原因而导致参与者提交的信息错误或延误担任何责任。</li>
+						<li>如遇不可抗力因素，活动主办方有权取消本次活动。</li>
+						<li>此活动最终解释权归品牌方所有。</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<!-- skin tips end -->

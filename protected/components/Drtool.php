@@ -69,7 +69,6 @@ class Drtool {
         if(!(exec("which ffmpeg",$output)))
           if(!(exec("which ffmpeg 2>/dev/null 2>&1",$output)))
             return "1021";              //ffmpeg不存在
-        if()
         exec($output[0]." -threads 4 -y  -loop 1 -i '".$save_path.$save_name.".".$photoType . "' -i  '".dirname(Yii::app()->BasePath)."/png/mouth" . $pngnum . "/" . $pngr . "/mouth" . $pngnum . "_" . $pngr . "_%4d.png'  -i  '". dirname(Yii::app()->BasePath) . "/wav/m" . $pngnum. ".wav' -filter_complex '[1:v]scale=" . $pngw. ":". $pngh . "[a];[0:v][a]overlay=" . $pngx .":" .$pngy ."[video]' -map '[video]' -map 2:a -r 15 -ar 22050 -shortest -vcodec h264 -movflags +faststart -s 800x800 -strict -2 -acodec aac -t ". $pngTime[$pngnum] . " '" .$save_path . $save_name .".mp4'");
 
         if(!self::isValidConvert($save_path . $save_name .".mp4'")) //判断视频截图是否截取成功

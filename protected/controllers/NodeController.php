@@ -178,6 +178,10 @@ class NodeController extends Controller
 		if($is_screenshot!="screenshot")
 		 	StatusSend::_sendResponse(200, StatusSend::error('end', $is_screenshot) ); //ffmpeg转换错误代码
 
+        //合成新图
+        $is_Compose=Drtool::imgCompose($save_path,$save_name,31,120,intval($_POST['pngnum']),600,400);
+        if(!$is_Compose)
+            StatusSend::_sendResponse(200, StatusSend::error('end', 1033) ); //合成图片失败
 
 	   	$item = new Node;
 	   	$item->video=$save_sql_path.$save_name.".mp4";				//视频地址

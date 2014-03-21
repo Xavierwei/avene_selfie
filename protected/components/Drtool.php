@@ -370,5 +370,37 @@ class Drtool {
             return FALSE;
         }
     }
+
+    //合成图片
+    public static function imgCompose($save_path,$save_name,$srcx,$srcy,$pngnum,$dstW=600,$dstH=400)
+    {
+
+        $quality=100;
+        $filename = $save_path.$save_name."thumbnail_800_800.jpg";
+        $newWidth=265;
+        $newHeigth=265;
+        //获取源文件资源句柄。接收参数为图片路径，返回句柄
+        $source = @imagecreatefromjpeg($filename);
+        $srcW=@ImageSX($source); //原始宽度
+        $srcH=@ImageSY($source); //原始高度
+
+        // 创建一个图片。接收参数分别为宽高，返回生成的资源句柄
+        $tmpImage = @imagecreatetruecolor($newWidth, $newHeigth);
+        // 将源文件剪切全部域并缩小放到目标图片上。前两个为资源句柄
+        @imagecopyresampled($tmpImage, $source, 0, 0, 0, 0, $newWidth, $newHeigth, $srcW, $srcH);
+
+        //获取背景图
+        $dstimage=  @imagecreatefromjpeg(dirname(Yii::app()->BasePath)."/png/share/".$pngnum.".jpg");
+
+        //添加水印
+        @imagecopy($dstimage, $tmpImage, $srcx, $srcy, 0, 0, $newWidth, $newHeigth);
+
+
+        @ImageJpeg($dstimage,$save_path.$save_name."_share.jpg",$quality);
+        @imagedestroy($source);
+        @imagedestroy($dstimage);
+
+        return file_exists($save_path.$save_name."_share.jpg");
+    }
 }
 

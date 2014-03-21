@@ -80,6 +80,7 @@ function onStartPaizhao(){
     jQuery('.block-skin-tips').removeClass('tips-onstep1');
 }
 function onGetImg(){
+    jQuery('.block-skin-tips-inner-wrap').removeClass('block-skin-tips-inner-loading');
     jQuery('.block-skin-tips-bottom').fadeOut();
     jQuery('.btn-rule').fadeOut();
     jQuery('.block-skin-tips').removeClass('tips-onstep1');
@@ -101,6 +102,7 @@ function onReset(){
 
 function onPaizhao(){
 //    jQuery('.tip-image').fadeIn();
+    jQuery('.block-skin-tips-inner-wrap').removeClass('block-skin-tips-inner-loading');
     jQuery('.block-skin-tips-bottom').fadeOut();
     jQuery('.btn-rule').fadeOut();
     jQuery('.block-skin-tips').removeClass('tips-onstep1');

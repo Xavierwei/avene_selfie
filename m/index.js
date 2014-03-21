@@ -406,13 +406,13 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                 ev.pageY = ev.originalEvent.touches[0].pageY;
             }
             
-            console.log( ev );
-            console.log( status );
+//            console.log( ev );
+//            console.log( status );
 
             if( !isDragging ){
                 var distance = Math.abs( ev.pageX - status.pageX  ) + Math.abs( ev.pageY - status.pageY );
 
-                console.log( distance );
+//                console.log( distance );
                 if( distance > 15 ){
                     isDragging = true;
                 }
@@ -546,7 +546,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                     dragHelper.bind($opts.find('.mouth-opts-drag').data('raphaelObj' , mouthRaphael) , function( ev , status ){
                         status.last_r = status.last_r || 0;
                         status.last_s = status.last_s || 1;
-                        console.log( ev , status );
+//                        console.log( ev , status );
                         // get the center of the pic
                         var odx = status.pageX - status.center.pageX;
                         var ody = status.pageY - status.center.pageY;
@@ -567,7 +567,7 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
                             cr = cr + 180;
                         }
 
-                        console.log( or , cr , odx , tdx );
+                        //console.log( or , cr , odx , tdx );
 
                         dragHelper.rotate( cr - or - status.last_r , true );
                         status.last_r = cr - or;
@@ -957,10 +957,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 
 
     LP.action('uploadImg', function(data){
-        console.log(data);
 
         api.ajax('preview' , data , function( result ){
-            console.log(result);
         });
 
 
@@ -974,8 +972,8 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
         data.tr = -data.tr;
 		$('.loading').fadeIn();
 		api.ajax('preview' , data , function( result ){
-			$('.loading').fadeOut();
-			if(typeof result.success.message != undefined && result.success.message == 'success') {
+			if(result.success && result.success.message == 'success') {
+                $('.loading').fadeOut();
 				result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
 				$('.block-skin-tips-step').data('result',result.data);
 				LP.compile( 'preview-template' , result.data , function( html ){
@@ -983,6 +981,14 @@ LP.use(['jquery', 'api', 'easing','raphael'] , function( $ , api ){
 				});
 				gotoStep(5);
 			}
+            else if(result.error && result.error.code == 1032) {
+                setTimeout(function(){
+                    LP.triggerAction('preview', data);
+                }, 5000);
+            }
+            else {
+                $('.loading').fadeOut();
+            }
 		});
 	});
 

@@ -745,34 +745,45 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('flashPreview', function(data){
         $('.block-skin-tips-step').data('pngnum',data.pngnum);
         api.ajax('preview' , data , function( result ){
-            gotoStep(5);
-            uploadComplete();
-            result.data.flash = isFlash;
-			result.data.timestamp = new Date().getTime();
-            result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
-            $('.block-skin-tips-step').data('result',result.data);
-			LP.compile( 'preview-template' , result.data , function( html ){
-				$('.block-skin-tips-preview').html(html);
-				LP.use('video-js' , function(){
-					videojs( "inner-video-" + result.data.timestamp , {}, function(){
-					});
-				});
-
-                $('#imgLoad').attr('src', result.data.thumbnail);
-                $('.preview-player').css({opacity:0});
-                $('#imgLoad').ensureLoad(function(){
-                    $('.preview-player').animate({opacity:1});
-                });
-
-                LP.use('video-js' , function(){
-                    if($("inner-pop-video-" + result.data.timestamp).length) {
-                        videojs( "inner-pop-video-" + result.data.timestamp , {}, function(){
-                            $('.vjs-big-play-button').show();
+            if(result.success && result.success.message == 'success') {
+                gotoStep(5);
+                uploadComplete();
+                result.data.flash = isFlash;
+                result.data.timestamp = new Date().getTime();
+                result.data.thumbnail = result.data.thumbnail.replace('thumbnail', 'thumbnail_800_800');
+                $('.block-skin-tips-step').data('result',result.data);
+                LP.compile( 'preview-template' , result.data , function( html ){
+                    $('.block-skin-tips-preview').html(html);
+                    LP.use('video-js' , function(){
+                        videojs( "inner-video-" + result.data.timestamp , {}, function(){
                         });
-                    }
+                    });
 
+                    $('#imgLoad').attr('src', result.data.thumbnail);
+                    $('.preview-player').css({opacity:0});
+                    $('#imgLoad').ensureLoad(function(){
+                        $('.preview-player').animate({opacity:1});
+                    });
+
+                    LP.use('video-js' , function(){
+                        if($("inner-pop-video-" + result.data.timestamp).length) {
+                            videojs( "inner-pop-video-" + result.data.timestamp , {}, function(){
+                                $('.vjs-big-play-button').show();
+                            });
+                        }
+
+                    });
                 });
-			});
+            }
+            else if(result.error && result.error.code == 1032) {
+                setTimeout(function(){
+                    LP.triggerAction('flashPreview', data);
+                }, 5000);
+            }
+            else {
+
+                uploadComplete();
+            }
 
         });
     });
@@ -781,8 +792,13 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
     LP.action('preview', function(){
 		var data = dragHelper.getResult();
         api.ajax('preview' , data , function( result ){
-            //console.log(result);
-            gotoStep(5);
+            if(result.success && result.success.message == 'success') {
+                gotoStep(5);
+            }
+            else {
+                uploadComplete();
+            }
+
             //uploadComplete();
         });
     });

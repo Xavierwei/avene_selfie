@@ -818,6 +818,7 @@ LP.use(['jquery', 'api', 'easing', 'fileupload', 'flash-detect', 'swfupload', 's
             });
 
             $('.block-skin-tips-step').data('result',result.data);
+            data.shareimg = data.thumbnail.replace('thumbnail_800_800.jpg','_share.jpg');
             LP.compile( 'share-template' , data , function( html ){
                 gotoStep(6);
                 $('.block-skin-tips-share').html(html);
